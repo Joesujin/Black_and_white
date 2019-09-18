@@ -30,11 +30,7 @@ public class TileBehaviour : MonoBehaviour
         Events.ChangeColor -= changeColor;
     }
 
-    private void OnMouseDrag()
-    {
-        GetComponent<SpriteRenderer>().color = selectedColor;
-    }
-
+    
     private void OnMouseDown()
     {
         GetComponent<SpriteRenderer>().color = selectedColor;
