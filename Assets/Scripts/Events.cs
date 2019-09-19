@@ -5,5 +5,7 @@ using UnityEngine;
 
 public class Events 
 {
-    public static Action<Color> ChangeColor;    
+    public static Action<Color> ChangeColor;
+
+    public static Action<int> Date;
 }
