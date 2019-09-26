@@ -5,8 +5,9 @@ using UnityEngine;
 public class TileBehaviour : MonoBehaviour
 {
 
-    Color selectedColor;
-
+    public Color selectedColor;
+    public int color_id;
+    //List<Color, Vector3>;
 
     // Start is called before the first frame update
     void Start()
@@ -23,23 +24,31 @@ public class TileBehaviour : MonoBehaviour
     private void OnEnable()
     {
         Events.ChangeColor += changeColor;
+        Events.ColorId += changeColorId;
     }
 
     private void OnDisable()
     {
         Events.ChangeColor -= changeColor;
+        Events.ColorId -= changeColorId;
     }
 
     
     private void OnMouseDown()
     {
         GetComponent<SpriteRenderer>().color = selectedColor;
+        Debug.Log(color_id);
     }
 
-    private void changeColor(Color colorid)
+    private void changeColor(Color color)
     {
         //change the color
-        selectedColor = colorid;
+        selectedColor = color;
 
+    }
+
+    private void changeColorId(int colorid)
+    {
+        color_id = colorid;
     }
 }

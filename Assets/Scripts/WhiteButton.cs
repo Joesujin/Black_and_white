@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WhiteButton : MonoBehaviour
 {
-    int WhitecolorId;
+    public int WhitebuttonId= 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        WhitecolorId = 0;        
+                
     }
 
     // Update is called once per frame
@@ -22,5 +22,6 @@ public class WhiteButton : MonoBehaviour
     {
         //return (colorId);      
         Events.ChangeColor(Color.white);
+        Events.ColorId(WhitebuttonId);
     }
 }

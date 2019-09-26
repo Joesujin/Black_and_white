@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RedButton : MonoBehaviour
 {
+
+    public int RedbuttonId = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +22,6 @@ public class RedButton : MonoBehaviour
     {
         //return (colorId);      
         Events.ChangeColor(Color.red);
+        Events.ColorId(RedbuttonId);
     }
 }

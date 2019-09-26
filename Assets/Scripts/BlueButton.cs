@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlueButton : MonoBehaviour
 {
+
+    public int BluebuttonId = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +22,7 @@ public class BlueButton : MonoBehaviour
     {
         //return (colorId);      
         Events.ChangeColor(Color.blue);
+        Events.ColorId(BluebuttonId);
+
     }
 }
