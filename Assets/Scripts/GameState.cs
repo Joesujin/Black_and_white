@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    int dayCount = 0;
+    public int dayCount = 0;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //StartCoroutine(Daytimer());
+
     }
 
     // Update is called once per frame
@@ -23,8 +24,14 @@ public class GameState : MonoBehaviour
     
     IEnumerator Daytimer()
     {
-        dayCount++;
-        yield return new WaitForSeconds(60);
+
+        while (gameObject)
+        {
+            dayCount++;
+            Debug.Log(dayCount);
+            yield return new WaitForSeconds(2);
+        }
+        
     }
     
 }

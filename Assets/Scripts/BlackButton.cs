@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BlackButton : MonoBehaviour
 {
-    int colorId;
+    public int BlackbuttonId =1;
 
     // Start is called before the first frame update
     void Start()
     {
-        colorId = 0;        
+            
     }
 
     // Update is called once per frame
@@ -22,5 +22,6 @@ public class BlackButton : MonoBehaviour
     {
         //return (colorId);      
         Events.ChangeColor(Color.black);
+        Events.ColorId(BlackbuttonId);
     }
 }

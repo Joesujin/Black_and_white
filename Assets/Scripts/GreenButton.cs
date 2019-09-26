@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GreenButton : MonoBehaviour
 {
+
+    public int GreenbuttonId = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +22,6 @@ public class GreenButton : MonoBehaviour
     {
         //return (colorId);      
         Events.ChangeColor(Color.green);
+        Events.ColorId(GreenbuttonId);
     }
 }
