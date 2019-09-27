@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameState : MonoBehaviour
 {
     public int dayCount = 0;
-
+    int Id;
+    List<Project> projects = new List<Project>();
+    
     
 
     // Start is called before the first frame update
