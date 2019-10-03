@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d76aef7576e06499e2cc18700f9b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedColor: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 0}
   color_id: 0
   ownColor: 0
 --- !u!61 &5860266141769292036
