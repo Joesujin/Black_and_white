@@ -5,7 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class GameState : MonoBehaviour
 {
-    public Dictionary<int, Project> projects = new Dictionary<int, Project>();
+    //public Dictionary<int, Project> projects = new Dictionary<int, Project>();
+    public List< Project> projects = new List<Project>();
     public int dayCount = 0;
     int projectId;
     int currentProject;
@@ -41,11 +42,33 @@ public class GameState : MonoBehaviour
 
     public void NewProject()
     {
+        Debug.Log("BEFORE_projectId " + projectId + " current id " + currentProject);
         Project tempP = new Project(projectId);
         currentProject = projectId;
-        Debug.Log("projectId " + projectId + " current id " + currentProject);
+        Debug.Log("AFTER_projectId " + projectId + " current id " + currentProject);
+        /*
+        for (int i = 0; i< 10; i++)
+        {
+            if (projects.ContainsKey(i))
+            {
+                projectId++;
+                break;
+            }
+            else
+            {*/
+                projects.Add(tempP);
+
+
+        
+            //}
+        //}
+
+        GameObject Button;
+        Button = Instantiate(projectButtonPrefab, new Vector2(2, 2), Quaternion.identity, projectScreen);
+        Button.GetComponent<ProjectButton>().GetbuttonID(currentProject);
+        Events.saveInital(currentProject);
         projectId++;
-        projects.Add(currentProject,tempP);
+
         Events.drawScreen();
     }
 
@@ -62,18 +85,22 @@ public class GameState : MonoBehaviour
 
     public void RecallProject(int _currentProject)
     {
+        currentProject = _currentProject;
         int[] data = projects[_currentProject].ReturnTiledata();
-        Events.recallProject(data);
+        Events.recallProject(data,currentProject);
         Events.RecallDrawscreen();
     }
  
+    
     public void saveProject(int[] projectData)
     {
+        /*
         GameObject Button;
-        projects[currentProject].UpdateTiledata(projectData);
+        
         bool buttonstatus = projects[currentProject].ButtonCreated();
         if (buttonstatus)
         {
+            //currentProject = Button.GetComponent<ProjectButton>().returnButtonID();
             //GameObject Button = Instantiate(projectButtonPrefab, new Vector2(2, 2), Quaternion.identity, projectScreen);
             //Button.GetComponent<ProjectButton>().projectId = currentProject;
         }
@@ -83,7 +110,13 @@ public class GameState : MonoBehaviour
             Button.GetComponent<ProjectButton>().GetbuttonID(currentProject);
         }
         //Button.GetComponent<ProjectButton>().projectId = currentProject;
-        
+        */
+
+        Debug.Log("SaveON");
+        projects[currentProject].UpdateTiledata(projectData);
+
+        Debug.Log("SaveOFF");
+
         //temp++;
     }
     

@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa913058e7925a4a9e0531924498951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GreenbuttonId: 4
+  GreenbuttonId: 5
 --- !u!114 &716634444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04103472daf014e4f80a6204a8b0cc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RedbuttonId: 2
+  RedbuttonId: 3
 --- !u!114 &1175383958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,6 +1411,7 @@ GameObject:
   - component: {fileID: 1432071762}
   - component: {fileID: 1432071761}
   - component: {fileID: 1432071760}
+  - component: {fileID: 1432071763}
   m_Layer: 5
   m_Name: SaveButton
   m_TagString: Untagged
@@ -1483,7 +1484,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1700896602}
         m_MethodName: UpdateColor
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1528,6 +1529,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432071758}
   m_CullTransparentMesh: 0
+--- !u!114 &1432071763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432071758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94fc7eeda631f1849b7543bb9f6987d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectId: 0
 --- !u!1 &1435816483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,7 +1803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d3aa0e5e625e746bbfa16871ce37a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlackbuttonId: 1
+  BlackbuttonId: 2
 --- !u!1 &1553066768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,7 +1855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d842e7d500ae71f4caecf2b54b7b9535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YellowbuttonId: 5
+  YellowbuttonId: 6
 --- !u!114 &1553066771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2032,7 +2046,6 @@ MonoBehaviour:
   projectButtonPrefab: {fileID: 1240267464022672227, guid: cdc0f045633e04644b392b1cdffd11c5,
     type: 3}
   projectScreen: {fileID: 1368757935}
-  temp: 0
 --- !u!4 &1700896601
 Transform:
   m_ObjectHideFlags: 0
@@ -2112,7 +2125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c59637f2282a14fa6aba882395c510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BluebuttonId: 3
+  BluebuttonId: 4
 --- !u!114 &1760982007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2344,4 +2357,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46810a64d7999f46befc4776147d8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WhitebuttonId: 0
+  WhitebuttonId: 1

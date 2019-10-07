@@ -56,9 +56,15 @@ public class TileMap : MonoBehaviour
 
     }
 
-    public void RetriveProject(int[] colorData)
+    public void RetriveProject(int[] colorData , int project_id)
     {
         Tiles.Clear();
+        //int[] Color_data = colorid[project_id];
+        //foreach(int id in colorData)
+        //{
+         //   Color_data = colorData;
+
+        //}
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -66,7 +72,7 @@ public class TileMap : MonoBehaviour
             {
 
                 GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
-                tempTile.GetComponent<TileBehaviour>().ChangeColorWithID(colorID[k]);
+                tempTile.GetComponent<TileBehaviour>().ChangeColorWithID(colorData[k]);
                 tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
                 Tiles.Add(k, tempTile);
                 
@@ -79,25 +85,55 @@ public class TileMap : MonoBehaviour
 
     public void UpdateColor(int _projectId)
     {
+        Debug.Log("COLOEEE");
         int k = 0;
+
+
         //colorid.Clear();
+        /*if(colorid[_projectId] == Colo)
+        {
+            colorid.Remove(_projectId);
+        }*/
+
+
+        //for (int t = 0; t < colorID.Length; t++)
+        //{
+        //    colorID[t] = 0;
+        //}
+
+        /*
+        if (colorid[_projectId] == null)
+        {
+            int[] Color_data = colorid[_projectId];
+            foreach (int id in colorID)
+            {
+                colorID = Color_data;
+
+            }
+        }
+        */
+
         foreach (KeyValuePair<int,GameObject> tile in Tiles)
         {
             //bool colorChange = tile.Value.GetComponent<TileBehaviour>().ColorChanged();
             int colorNum = tile.Value.GetComponent<TileBehaviour>().returnColor();
-            if (colorNum != 0)
-            {
+            //if (colorNum != 0)
+            //{
                 //colorid.Remove(k);
                 //colorid.Add(k, colorNum);
                 //colorID[k] = 0;
                 colorID[k] = colorNum;
-            }
+                
+            //}
             //Debug.Log(colorid + " " + tile.Value.name);
             k++;
         }
-        colorid.Add(_projectId, colorID);
-        
+        Debug.Log("Savepre-EVENT" + _projectId);
 
+        colorid[_projectId] = colorID;
+
+
+        Debug.Log("SaveEVENT");
         Events.saveProject(colorid[_projectId]);
     }
 

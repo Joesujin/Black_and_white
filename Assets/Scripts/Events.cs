@@ -25,7 +25,9 @@ public class Events
 
     public static Action<int> refreshTile;
 
-    public static Action<int[]> recallProject;
+    public static Action<int> saveInital;
+
+    public static Action<int[],int> recallProject;
 
     public static Action<int> ButtonCall;
 }

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Project
 {
     public int projectId;
     public int[] tileData = new int[25];
     GameObject projectButton;
 
-    bool buttonCreated = false;
+    bool buttonCreated = true;
 
 
 

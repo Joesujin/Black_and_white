@@ -59,7 +59,7 @@ public class TileBehaviour : MonoBehaviour
                 this.changeColor(Color.white);
                 break;
             case 2:
-                this.changeColor(Color.black);
+                this.changeColor(Color.cyan);
                 break;
             case 3:
                 this.changeColor(Color.red);
