@@ -1,40 +1,172 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
+
+
+[System.Serializable]
 public class TileMap : MonoBehaviour
 {
+
     public GameObject tile;
-    Vector3 pos = new Vector3(2f,2f,0);
+    Vector3 pos = new Vector3(-2f,-2f,0);
+    //public GameObject gameManager;
 
-    public List<GameObject> Tiles = new List<GameObject>();
 
 
-    // Start is called before the first frame update
-    void Start()
+    public Dictionary<int,GameObject> Tiles = new Dictionary<int, GameObject>();
+    public Dictionary<int, int[]> colorid = new Dictionary<int, int[]>();
+    public int[] colorID = new int[25];
+
+
+
+    private void OnEnable()
     {
-        
+        colorid.Clear();
+        Events.drawScreen += NewProject;
+        Events.Destroytiles += DestroyTiles;
+        Events.recallProject += RetriveProject;
+        Events.saveButton += UpdateColor;
+        Events.preButtonCall += loadColorData;
+    }
 
-        for(int i = 0; i<25;i++)
-        {
-            Tiles.Add(tile);
-        }
+    private void OnApplicationQuit()
+    {
+        Events.drawScreen -= NewProject;
+        Events.Destroytiles -= DestroyTiles;
+        Events.recallProject -= RetriveProject;
+        Events.saveButton -= UpdateColor;
+        Events.preButtonCall -= loadColorData;
+    }
 
-        
-        for(int i =0; i<= 4; i += 1)
+    public void NewProject()
+    {
+        //Tiles.Clear();
+        int k = 0;
+        for (int i = 0; i <= 4; i += 1)
         {
-            for(int j =0; j<= 4; j += 1)
+            for (int j = 0; j <= 4; j += 1)
             {
-                Instantiate(Tiles[i + j], new Vector3(i-pos.x, j-pos.y, 0), Quaternion.identity);
+
+                GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
+                tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
+                Tiles[k] = tempTile;
+                k++;
             }
         }
 
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RetriveProject(int[] colorData , int project_id)
     {
+        //Tiles.Clear();
+        //int[] Color_data = colorid[project_id];
+        //foreach(int id in colorData)
+        //{
+        //   Color_data = colorData;
+
+        //}
+
         
+
+        int k = 0;
+        for (int i = 0; i <= 4; i += 1)
+        {
+            for (int j = 0; j <= 4; j += 1)
+            {
+
+                GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
+                tempTile.GetComponent<TileBehaviour>().ChangeColorWithID(colorData[k]);
+                tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
+                Tiles[k]= tempTile;
+                
+                k++;
+            }
+        }
+        //colorID = colorData;
+
+    }
+
+    
+
+
+    public void UpdateColor(int _projectId)
+    {
+        //Debug.Log("COLOEEE");
+
+        
+        int k = 0;
+        int[] tempData = gameObject.GetComponent<GameState>().projects[_projectId].tileData;
+
+        //colorid.Clear();
+        /*if(colorid[_projectId] == Colo)
+        {
+            colorid.Remove(_projectId);
+        }*/
+
+
+        //for (int t = 0; t < colorID.Length; t++)
+        //{
+        //    colorID[t] = 0;
+        //}
+
+        /*
+        if (colorid[_projectId] == null)
+        {
+            int[] Color_data = colorid[_projectId];
+            foreach (int id in colorID)
+            {
+                colorID = Color_data;
+
+            }
+        }
+        */
+
+        foreach (KeyValuePair<int,GameObject> tile in Tiles)
+        {
+            //bool colorChange = tile.Value.GetComponent<TileBehaviour>().ColorChanged();
+            int colorNum = tile.Value.GetComponent<TileBehaviour>().returnColor();
+            if (tempData[k] != colorNum)
+            {
+                //colorid.Remove(k);
+                //colorid.Add(k, colorNum);
+                //colorID[k] = 0;
+                colorID[k] = colorNum;
+                
+            }
+            //Debug.Log(colorid + " " + tile.Value.name);
+            k++;
+        }
+        //Debug.Log("Savepre-EVENT" + _projectId);
+
+        colorid[_projectId] = colorID;
+
+
+        //Debug.Log("SaveEVENT");
+        Events.saveProject(colorid[_projectId]);
+    }
+
+
+    public void loadColorData(int project_id)
+    {
+        int k = 0;
+        foreach (KeyValuePair<int, GameObject> tile in Tiles)
+        {
+            
+            int colorNum = tile.Value.GetComponent<TileBehaviour>().returnColor();
+            colorID[k] = colorNum;
+            k++;
+        }
+        colorID = colorid[project_id];
+    }
+
+    public void DestroyTiles()
+    {
+        foreach(var tempTile in Tiles)
+        {
+            Destroy(tempTile.Value);
+        }
     }
 }

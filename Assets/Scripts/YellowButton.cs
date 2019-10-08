@@ -5,19 +5,8 @@ using UnityEngine;
 public class YellowButton : MonoBehaviour
 {
 
-    public int YellowbuttonId = 3;
+    public int YellowbuttonId = 6;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void onClick()
     {
