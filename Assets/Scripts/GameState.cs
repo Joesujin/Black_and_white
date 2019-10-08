@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class GameState : MonoBehaviour
@@ -12,6 +13,13 @@ public class GameState : MonoBehaviour
     public GameObject projectButtonPrefab;
     public Transform projectScreen;
 
+    public int Score;
+    public int GameDay = 0;
+    public int daySeconds = 15;
+
+
+    public Text ScoreBoard;
+
 
     void Start()
     {
@@ -19,6 +27,28 @@ public class GameState : MonoBehaviour
         StartCoroutine(Daytimer());
         projects.Clear();
 
+    }
+
+    
+    private void Update()
+    {
+        
+        
+        if(dayCount != GameDay)
+        {
+            Score = 0;
+            foreach(Project project in projects)
+            {
+                bool _isPass = project.CrossCheck();
+                if (_isPass)
+                {
+                    Score++;
+                }
+            }
+            GameDay++;
+        }
+        string score = Score.ToString();
+        ScoreBoard.GetComponent<UnityEngine.UI.Text>().text =  score;
     }
 
     private void OnEnable()
@@ -44,6 +74,8 @@ public class GameState : MonoBehaviour
         Events.saveInital(currentProject);
         projectId++;
         Events.drawScreen();
+
+        gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
     }
 
     public void ProjectScreenCall()
@@ -63,6 +95,8 @@ public class GameState : MonoBehaviour
         int[] data = projects[_currentProject].ReturnTiledata();
         Events.recallProject(data,currentProject);
         Events.RecallDrawscreen();
+
+        gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
     }
  
     
@@ -82,7 +116,7 @@ public class GameState : MonoBehaviour
         while (gameObject)
         {
             dayCount++;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(daySeconds);
         }
         
     }
