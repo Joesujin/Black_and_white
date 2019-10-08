@@ -9,7 +9,6 @@ public class WhiteButton : MonoBehaviour
 
     public void onClick()
     {
-        //return (colorId);      
         Events.ChangeColor(Color.white);
         Events.ColorId(WhitebuttonId);
     }

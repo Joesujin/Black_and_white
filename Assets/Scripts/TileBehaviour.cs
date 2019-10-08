@@ -35,13 +35,11 @@ public class TileBehaviour : MonoBehaviour
     {
         this.GetComponent<SpriteRenderer>().color = selectedColor;
         this.colorChanged = true;
-        //Debug.Log(color_id);
         this.ownColor = color_id;
     }
 
     private void changeColor(Color color)
     {
-        //change the color
         this.selectedColor = color;
 
     }
@@ -83,7 +81,6 @@ public class TileBehaviour : MonoBehaviour
     private void changeColorId(int colorid)
     {
         this.color_id = colorid;
-        //this.ownColor = colorid;
     }
 
     public int returnColor()

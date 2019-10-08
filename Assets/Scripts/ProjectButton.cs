@@ -12,11 +12,8 @@ public class ProjectButton : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("im stiiiiiiiillllll here");
-
         projectButton = this.GetComponent<Button>();
         projectButton.onClick.AddListener(() => ButtonClicked());
-        //projectButton.GetComponent<Text>().text = projectId.ToString();
         this.gameObject.GetComponentInChildren<Text>().text =  projectId.ToString();
     }
 
@@ -24,16 +21,11 @@ public class ProjectButton : MonoBehaviour
     {
         projectId = currentProjectID;
         this.name = "Project "+projectId.ToString();
-        //this.gameObject.GetComponent<Text>().text = "Project " + projectId.ToString();
-        
     }
 
     void ButtonClicked()
     {
-        Debug.Log("eat shit!");
         Events.ButtonCall(this.projectId);
-        //Events.preButtonCall(this.projectId);
-
     }
 
     public int returnButtonID()

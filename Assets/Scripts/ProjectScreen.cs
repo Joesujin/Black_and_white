@@ -15,21 +15,12 @@ public class ProjectScreen : MonoBehaviour
         Events.RecallDrawscreen += visiblity;
     }
 
-    /*
-    private void OnEnable()
-    {
-        Events.drawScreen += visiblity;
-        Events.projectScreen += visiblity;
-    }
 
-    */
     private void OnApplicationQuit()
     {
         Events.drawScreen -= visiblity;
         Events.projectScreen -= visiblity;
         Events.RecallDrawscreen -= visiblity;
-
-
     }
 
 

@@ -12,9 +12,6 @@ public class TileMap : MonoBehaviour
 
     public GameObject tile;
     Vector3 pos = new Vector3(-2f,-2f,0);
-    //public GameObject gameManager;
-
-
 
     public Dictionary<int,GameObject> Tiles = new Dictionary<int, GameObject>();
     public Dictionary<int, int[]> colorid = new Dictionary<int, int[]>();
@@ -43,7 +40,6 @@ public class TileMap : MonoBehaviour
 
     public void NewProject()
     {
-        //Tiles.Clear();
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -61,16 +57,6 @@ public class TileMap : MonoBehaviour
 
     public void RetriveProject(int[] colorData , int project_id)
     {
-        //Tiles.Clear();
-        //int[] Color_data = colorid[project_id];
-        //foreach(int id in colorData)
-        //{
-        //   Color_data = colorData;
-
-        //}
-
-        
-
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -85,8 +71,6 @@ public class TileMap : MonoBehaviour
                 k++;
             }
         }
-        //colorID = colorData;
-
     }
 
     
@@ -94,57 +78,22 @@ public class TileMap : MonoBehaviour
 
     public void UpdateColor(int _projectId)
     {
-        //Debug.Log("COLOEEE");
-
-        
         int k = 0;
         int[] tempData = gameObject.GetComponent<GameState>().projects[_projectId].tileData;
 
-        //colorid.Clear();
-        /*if(colorid[_projectId] == Colo)
-        {
-            colorid.Remove(_projectId);
-        }*/
-
-
-        //for (int t = 0; t < colorID.Length; t++)
-        //{
-        //    colorID[t] = 0;
-        //}
-
-        /*
-        if (colorid[_projectId] == null)
-        {
-            int[] Color_data = colorid[_projectId];
-            foreach (int id in colorID)
-            {
-                colorID = Color_data;
-
-            }
-        }
-        */
+        
 
         foreach (KeyValuePair<int,GameObject> tile in Tiles)
         {
-            //bool colorChange = tile.Value.GetComponent<TileBehaviour>().ColorChanged();
             int colorNum = tile.Value.GetComponent<TileBehaviour>().returnColor();
             if (tempData[k] != colorNum)
             {
-                //colorid.Remove(k);
-                //colorid.Add(k, colorNum);
-                //colorID[k] = 0;
-                colorID[k] = colorNum;
-                
+               colorID[k] = colorNum;
             }
-            //Debug.Log(colorid + " " + tile.Value.name);
             k++;
         }
-        //Debug.Log("Savepre-EVENT" + _projectId);
 
         colorid[_projectId] = colorID;
-
-
-        //Debug.Log("SaveEVENT");
         Events.saveProject(colorid[_projectId]);
     }
 
