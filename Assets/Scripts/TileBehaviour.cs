@@ -17,7 +17,7 @@ public class TileBehaviour : MonoBehaviour
     {
         this.GetComponent<SpriteRenderer>().color = Color.grey;
         ownColor = 0;
-        colorChanged = true;
+        colorChanged = false;
         Events.ChangeColor += changeColor;
         Events.ColorId += changeColorId;
         Events.refreshTile += ChangeColorWithID;
@@ -49,6 +49,7 @@ public class TileBehaviour : MonoBehaviour
     public void ChangeColorWithID(int _colorId)
     {
         int Colorid = _colorId;
+        this.ownColor = _colorId;
 
         switch (Colorid)
         {
@@ -82,6 +83,7 @@ public class TileBehaviour : MonoBehaviour
     private void changeColorId(int colorid)
     {
         this.color_id = colorid;
+        //this.ownColor = colorid;
     }
 
     public int returnColor()

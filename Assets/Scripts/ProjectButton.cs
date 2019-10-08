@@ -32,6 +32,8 @@ public class ProjectButton : MonoBehaviour
     {
         Debug.Log("eat shit!");
         Events.ButtonCall(this.projectId);
+        //Events.preButtonCall(this.projectId);
+
     }
 
     public int returnButtonID()

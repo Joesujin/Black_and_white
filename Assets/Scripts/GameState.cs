@@ -31,6 +31,7 @@ public class GameState : MonoBehaviour
         Events.saveProject += saveProject;
         Events.ButtonCall += RecallProject;
 
+
     }
 
     private void OnDisable()
@@ -38,14 +39,16 @@ public class GameState : MonoBehaviour
         Events.saveProject -= saveProject;
         Events.ButtonCall += RecallProject;
 
+
+
     }
 
     public void NewProject()
     {
-        Debug.Log("BEFORE_projectId " + projectId + " current id " + currentProject);
+       // Debug.Log("BEFORE_projectId " + projectId + " current id " + currentProject);
         Project tempP = new Project(projectId);
         currentProject = projectId;
-        Debug.Log("AFTER_projectId " + projectId + " current id " + currentProject);
+        //Debug.Log("AFTER_projectId " + projectId + " current id " + currentProject);
         /*
         for (int i = 0; i< 10; i++)
         {
@@ -112,12 +115,17 @@ public class GameState : MonoBehaviour
         //Button.GetComponent<ProjectButton>().projectId = currentProject;
         */
 
-        Debug.Log("SaveON");
+        //Debug.Log("SaveON");
         projects[currentProject].UpdateTiledata(projectData);
 
-        Debug.Log("SaveOFF");
+       // Debug.Log("SaveOFF");
 
         //temp++;
+    }
+
+    public int[] returnTileData(int Id)
+    {
+        return (projects[Id].tileData);
     }
     
     IEnumerator Daytimer()

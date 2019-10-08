@@ -12,6 +12,7 @@ public class TileMap : MonoBehaviour
 
     public GameObject tile;
     Vector3 pos = new Vector3(-2f,-2f,0);
+    //public GameObject gameManager;
 
 
 
@@ -28,6 +29,7 @@ public class TileMap : MonoBehaviour
         Events.Destroytiles += DestroyTiles;
         Events.recallProject += RetriveProject;
         Events.saveButton += UpdateColor;
+        Events.preButtonCall += loadColorData;
     }
 
     private void OnApplicationQuit()
@@ -36,11 +38,12 @@ public class TileMap : MonoBehaviour
         Events.Destroytiles -= DestroyTiles;
         Events.recallProject -= RetriveProject;
         Events.saveButton -= UpdateColor;
+        Events.preButtonCall -= loadColorData;
     }
 
     public void NewProject()
     {
-        Tiles.Clear();
+        //Tiles.Clear();
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -49,7 +52,7 @@ public class TileMap : MonoBehaviour
 
                 GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
                 tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
-                Tiles.Add(k, tempTile);
+                Tiles[k] = tempTile;
                 k++;
             }
         }
@@ -58,13 +61,16 @@ public class TileMap : MonoBehaviour
 
     public void RetriveProject(int[] colorData , int project_id)
     {
-        Tiles.Clear();
+        //Tiles.Clear();
         //int[] Color_data = colorid[project_id];
         //foreach(int id in colorData)
         //{
-         //   Color_data = colorData;
+        //   Color_data = colorData;
 
         //}
+
+        
+
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -74,20 +80,25 @@ public class TileMap : MonoBehaviour
                 GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
                 tempTile.GetComponent<TileBehaviour>().ChangeColorWithID(colorData[k]);
                 tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
-                Tiles.Add(k, tempTile);
+                Tiles[k]= tempTile;
                 
                 k++;
             }
         }
+        //colorID = colorData;
 
     }
+
+    
 
 
     public void UpdateColor(int _projectId)
     {
-        Debug.Log("COLOEEE");
-        int k = 0;
+        //Debug.Log("COLOEEE");
 
+        
+        int k = 0;
+        int[] tempData = gameObject.GetComponent<GameState>().projects[_projectId].tileData;
 
         //colorid.Clear();
         /*if(colorid[_projectId] == Colo)
@@ -117,26 +128,39 @@ public class TileMap : MonoBehaviour
         {
             //bool colorChange = tile.Value.GetComponent<TileBehaviour>().ColorChanged();
             int colorNum = tile.Value.GetComponent<TileBehaviour>().returnColor();
-            //if (colorNum != 0)
-            //{
+            if (tempData[k] != colorNum)
+            {
                 //colorid.Remove(k);
                 //colorid.Add(k, colorNum);
                 //colorID[k] = 0;
                 colorID[k] = colorNum;
                 
-            //}
+            }
             //Debug.Log(colorid + " " + tile.Value.name);
             k++;
         }
-        Debug.Log("Savepre-EVENT" + _projectId);
+        //Debug.Log("Savepre-EVENT" + _projectId);
 
         colorid[_projectId] = colorID;
 
 
-        Debug.Log("SaveEVENT");
+        //Debug.Log("SaveEVENT");
         Events.saveProject(colorid[_projectId]);
     }
 
+
+    public void loadColorData(int project_id)
+    {
+        int k = 0;
+        foreach (KeyValuePair<int, GameObject> tile in Tiles)
+        {
+            
+            int colorNum = tile.Value.GetComponent<TileBehaviour>().returnColor();
+            colorID[k] = colorNum;
+            k++;
+        }
+        colorID = colorid[project_id];
+    }
 
     public void DestroyTiles()
     {

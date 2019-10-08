@@ -16,24 +16,24 @@ public class SaveButtonScript : MonoBehaviour
         Events.ButtonCall += getProjectID;
         Events.saveInital += getProjectID;
         SaveButton = GetComponent<Button>();
-        Debug.Log("im here");
+       // Debug.Log("im here");
         SaveButton.onClick.AddListener(() => callProject());
 
-        Debug.Log("still here");
+       // Debug.Log("still here");
     }
 
     void getProjectID(int _tempid)
     {
-        Debug.Log("under ma ffeeeett");
+        //Debug.Log("under ma ffeeeett");
         this.projectId = _tempid;
     }
 
     void callProject()
     {
-        Debug.Log("MOFOIDDDD " + projectId);
+        //Debug.Log("MOFOIDDDD " + projectId);
 
         Events.saveButton(projectId);
-        Debug.Log("savebutton"+projectId);
+        //Debug.Log("savebutton"+projectId);
         //projectId++;
     }
 

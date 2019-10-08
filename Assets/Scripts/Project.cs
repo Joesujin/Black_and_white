@@ -28,6 +28,10 @@ public class Project
             {
                 tileData[i] = colorData[i];
             }
+            else
+            {
+                tileData[i] = tileData[i];
+            }
             
         }
 
