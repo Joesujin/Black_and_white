@@ -48,7 +48,7 @@ public class GameState : MonoBehaviour
             GameDay++;
         }
         string score = Score.ToString();
-        ScoreBoard.GetComponent<UnityEngine.UI.Text>().text =  score;
+        ScoreBoard.text =  "Day - " + GameDay.ToString() + "     Score - "  + score.ToString();
     }
 
     private void OnEnable()

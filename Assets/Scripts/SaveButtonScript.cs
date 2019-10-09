@@ -17,6 +17,11 @@ public class SaveButtonScript : MonoBehaviour
         SaveButton.onClick.AddListener(() => callProject());
     }
 
+    private void OnApplicationQuit()
+    {
+        Events.ButtonCall -= getProjectID;
+        Events.saveInital -= getProjectID;
+    }
     void getProjectID(int _tempid)
     {
         this.projectId = _tempid;

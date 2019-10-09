@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class Project
 {
     public int projectId;
     public int[] tileData = new int[25];
     GameObject projectButton;
+
+    
+    
 
     bool buttonCreated = true;
 
@@ -32,7 +36,7 @@ public class Project
 
     public bool CrossCheck()
     {
-        Debug.Log("CrossCheckin...");
+        //Debug.Log("CrossCheckin...");
         for (int k = 0; k < QuestionData.Length; k++)
         {
             if(QuestionData[k] == tileData[k])

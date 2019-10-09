@@ -31,6 +31,7 @@ public class TileBehaviour : MonoBehaviour
     }
 
     
+    
     private void OnMouseDown()
     {
         this.GetComponent<SpriteRenderer>().color = selectedColor;
