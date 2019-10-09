@@ -31,6 +31,7 @@ public class TileBehaviour : MonoBehaviour
     }
 
     
+    
     private void OnMouseDown()
     {
         this.GetComponent<SpriteRenderer>().color = selectedColor;
@@ -58,7 +59,7 @@ public class TileBehaviour : MonoBehaviour
                 this.changeColor(Color.white);
                 break;
             case 2:
-                this.changeColor(Color.cyan);
+                this.changeColor(Color.black);
                 break;
             case 3:
                 this.changeColor(Color.red);

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Events 
 {
+    /*A CLASS FOR ALL THE E*/
+
+
     public static Action<Color> ChangeColor;
 
     public static Action<int> ColorId;

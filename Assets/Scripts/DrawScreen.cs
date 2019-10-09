@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DrawScreen : MonoBehaviour
 {
+    /*THIS ENABLES AND DISABLES DRAWING CANVAS*/
+
     public bool visible;
 
     private void Start()
