@@ -36,5 +36,11 @@ public class Events
 
     public static Action<int> preButtonCall;
 
-    
+    public static Action CheckProjectStatus;
+
+    public static Action noticeScreen;
+
+    public static Action resumeDayCounter;
+
+    public static Action<string> ChangeNotice;
 }

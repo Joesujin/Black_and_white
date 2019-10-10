@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class TileBehaviour : MonoBehaviour
 {
+    /*
+    public GameObject WhiteButton = GameObject.FindGameObjectWithTag("WhiteButton");
+    public GameObject BlackButton = GameObject.FindGameObjectWithTag("BlackButton");
+    public GameObject RedButton = GameObject.FindGameObjectWithTag("RedButton");
+    public GameObject BlueButton = GameObject.FindGameObjectWithTag("BlueButton");
+    public GameObject GreenButton = GameObject.FindGameObjectWithTag("GreenButton");
+    public GameObject YellowButton = GameObject.FindGameObjectWithTag("YellowButton");
+    */
 
     public Color selectedColor;
     public int color_id;
@@ -38,11 +47,21 @@ public class TileBehaviour : MonoBehaviour
         this.colorChanged = true;
         this.ownColor = color_id;
     }
+    
+    private void OnMouseEnter()
+    {
+        if(Input.GetMouseButton(0) == true)
+        {
+            this.GetComponent<SpriteRenderer>().color = selectedColor;
+            this.colorChanged = true;
+            this.ownColor = color_id;
+        }
+    }
+    
 
     private void changeColor(Color color)
     {
         this.selectedColor = color;
-
     }
 
     public void ChangeColorWithID(int _colorId)

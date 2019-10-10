@@ -134,6 +134,28 @@ public class TileMap : MonoBehaviour
         colorID = colorid[project_id];
     }
 
+    public void clearTileColors(int project_id)
+    {
+        foreach (var tempTile in Tiles)
+        {
+            Destroy(tempTile.Value);
+        }
+        int k = 0;
+        for (int i = 0; i <= 4; i += 1)
+        {
+            for (int j = 0; j <= 4; j += 1)
+            {
+
+                GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
+                tempTile.GetComponent<TileBehaviour>().ChangeColorWithID(0);
+                tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
+                Tiles[k] = tempTile;
+
+                k++;
+            }
+        }
+    }
+
     public void DestroyTiles()
     {
         foreach(var tempTile in Tiles)

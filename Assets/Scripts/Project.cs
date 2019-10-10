@@ -15,7 +15,7 @@ public class Project
 
     bool buttonCreated = true;
 
-    bool isPass = false;
+    public bool isPass = false;
 
     public int[] QuestionData = new int[25];
 
@@ -30,7 +30,7 @@ public class Project
     {
         for(int k =0; k<QuestionData.Length; k++)
         {
-            QuestionData[k] = Random.Range(1,3 );
+            QuestionData[k] = Random.Range(1,3);
         }
     }
 
@@ -90,6 +90,11 @@ public class Project
             
         }
 
+
+    }
+
+    public void swapData()
+    {
 
     }
 

@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - WhiteButton
+  - BlackButton
+  - RedButton
+  - BlueButton
+  - GreenButton
+  - YellowButton
   layers:
   - Default
   - TransparentFX

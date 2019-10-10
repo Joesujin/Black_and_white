@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class GameState : MonoBehaviour
 {
+    public List<Notices> notices = new List<Notices>();
     public List< Project> projects = new List<Project>();
     public int dayCount = 0;
     int projectId;
@@ -16,6 +17,7 @@ public class GameState : MonoBehaviour
     public int Score;
     public int GameDay = 0;
     public int daySeconds = 15;
+    public int noticeDay = 5;
 
 
     public Text ScoreBoard;
@@ -32,9 +34,9 @@ public class GameState : MonoBehaviour
     
     private void Update()
     {
+
         
-        
-        if(dayCount != GameDay)
+        if (dayCount != GameDay)
         {
             Score = 0;
             foreach(Project project in projects)
@@ -48,19 +50,52 @@ public class GameState : MonoBehaviour
             GameDay++;
         }
         string score = Score.ToString();
-        ScoreBoard.text =  "Day - " + GameDay.ToString() + "     Score - "  + score.ToString();
+        ScoreBoard.text =  "Day - " + GameDay.ToString() + "\nScore - "  + score.ToString();
+        
+        if(GameDay == noticeDay)
+        {
+            StopCoroutine(Daytimer());
+
+            Notices notices1 = new Notices(1, 2);
+            notices.Add(notices1);
+            //notices1.ChangecolorLooks();
+            notices1.ChangecolorMeaning();
+            noticeDay += Random.Range(5,10);
+            int temp = noticeDay + GameDay;
+
+
+            Events.ChangeNotice(notices1.NoticeMessage);
+            Events.noticeScreen();
+
+            Debug.Log("next notice day is on " + temp.ToString());
+
+            //StartCoroutine(Daytimer());
+        }
+        //noticeDay = 0;
+    }
+
+    public void CheckProjectCorrectness()
+    {
+        Events.CheckProjectStatus();
+    }
+
+    public void resumeDayTimer()
+    {
+        StartCoroutine(Daytimer());
     }
 
     private void OnEnable()
     {
         Events.saveProject += saveProject;
         Events.ButtonCall += RecallProject;
+        Events.resumeDayCounter += resumeDayTimer;
     }
 
     private void OnDisable()
     {
         Events.saveProject -= saveProject;
-        Events.ButtonCall += RecallProject;
+        Events.ButtonCall -= RecallProject;
+        Events.resumeDayCounter -= resumeDayTimer;
     }
 
     public void NewProject()
@@ -80,6 +115,8 @@ public class GameState : MonoBehaviour
 
     public void ProjectScreenCall()
     {
+        //Events.CheckProjectStatus();
+
         Events.projectScreen();
         Events.Destroytiles();
     }
