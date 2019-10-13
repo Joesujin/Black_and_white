@@ -28,6 +28,10 @@ public class ProjectScreen : MonoBehaviour
     {
         visible = !visible;
         gameObject.SetActive(visible);
+        if (visible)
+        {
+            Events.CheckProjectStatus();
+        }
 
     }
 }

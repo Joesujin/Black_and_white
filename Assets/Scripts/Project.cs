@@ -9,30 +9,32 @@ public class Project
     public int projectId;
     public int[] tileData = new int[25];
     GameObject projectButton;
-
+    
     
     
 
     bool buttonCreated = true;
 
-    bool isPass = false;
+    public bool isPass = false;
 
     public int[] QuestionData = new int[25];
 
           
-    public Project(int _projectId)
+    public Project(int _projectId, int QuestionDifficulty)
     {
         this.projectId = _projectId;
-        CreateQuestion();
+        CreateQuestion(QuestionDifficulty);
     }
 
-    public void CreateQuestion()
+    public void CreateQuestion(int randomRangeincrease)
     {
         for(int k =0; k<QuestionData.Length; k++)
         {
-            QuestionData[k] = Random.Range(1,3 );
+            QuestionData[k] = Random.Range(1, randomRangeincrease);
         }
     }
+
+
 
     public bool CrossCheck()
     {
@@ -91,6 +93,21 @@ public class Project
         }
 
 
+    }
+
+    public void swapData(int color1, int color2)
+    {
+        for (int i = 0; i < tileData.Length; i++)
+        {
+            if(tileData[i] == color1)
+            {
+                tileData[i] = 0;
+            }
+            else 
+            {
+                tileData[i] = 0;
+            }
+        }
     }
 
 }

@@ -131,7 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98afe22064d6c39499c07dffe63e43b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gamemanager: {fileID: 0}
   projectName: Project 0
+  projectId: 0
+  projectStatus: 0
+  Correct: {r: 0, g: 0, b: 0, a: 0}
+  inCorrect: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &5659391615234746504
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +201,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 127
+    m_Font: {fileID: 12800000, guid: 64c6e9fac4c7c2044b9ea71b6a2fe882, type: 3}
+    m_FontSize: 107
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
