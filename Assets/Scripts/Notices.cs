@@ -8,6 +8,7 @@ public class Notices
     public GameObject color_1;
     public GameObject color_2;
 
+
     public string Color1Name;
     public string Color2Name;
 
@@ -84,7 +85,7 @@ public class Notices
         color_1.GetComponent<WhiteButton>().ChangeColorName(NameC2);
         color_2.GetComponent<WhiteButton>().ChangeColorName(NameC1);
 
-        NoticeMessage = NameC1.ToString() + " will mean as " +NameC2.ToString()+" and vise versa";
+        NoticeMessage = NameC1.ToString() + " will mean as " +NameC2.ToString()+" and vice versa";
         Debug.Log(NoticeMessage);
 
     }

@@ -42,6 +42,6 @@ public class NoticeScreen : MonoBehaviour
     {
         visible = !visible;
         gameObject.SetActive(visible);
-        Events.resumeDayCounter();
+        //Events.resumeDayCounter();
     }
 }

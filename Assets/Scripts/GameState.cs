@@ -13,13 +13,18 @@ public class GameState : MonoBehaviour
     int currentProject;
     public GameObject projectButtonPrefab;
     public Transform projectScreen;
+    public GameObject drawscreen;
+    public GameObject Clockhand;
 
     public int Score;
     public int GameDay = 0;
     public int daySeconds = 15;
     public int noticeDay = 5;
+    public int difficulty=3;
+    public int Projectcap = 5;
+    public int realdifficulty;
 
-
+    bool isonDrawscreen;
     public Text ScoreBoard;
 
 
@@ -35,6 +40,16 @@ public class GameState : MonoBehaviour
     private void Update()
     {
 
+        Clockhand.transform.eulerAngles = new Vector3(0, 0, -Time.realtimeSinceStartup*12);
+       
+        if (drawscreen.activeInHierarchy)
+        {
+            isonDrawscreen = true;
+        }
+        else
+        {
+            isonDrawscreen = false;
+        }
         
         if (dayCount != GameDay)
         {
@@ -52,24 +67,9 @@ public class GameState : MonoBehaviour
         string score = Score.ToString();
         ScoreBoard.text =  "Day - " + GameDay.ToString() + "\nScore - "  + score.ToString();
         
-        if(GameDay == noticeDay)
+        if(GameDay >= noticeDay)
         {
-            StopCoroutine(Daytimer());
-
-            Notices notices1 = new Notices(1, 2);
-            notices.Add(notices1);
-            //notices1.ChangecolorLooks();
-            notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(5,10);
-            int temp = noticeDay + GameDay;
-
-
-            Events.ChangeNotice(notices1.NoticeMessage);
-            Events.noticeScreen();
-
-            Debug.Log("next notice day is on " + temp.ToString());
-
-            //StartCoroutine(Daytimer());
+            StartCoroutine(NoticeDay());
         }
         //noticeDay = 0;
     }
@@ -98,9 +98,20 @@ public class GameState : MonoBehaviour
         Events.resumeDayCounter -= resumeDayTimer;
     }
 
+
     public void NewProject()
     {
-        Project tempP = new Project(projectId);
+        
+        realdifficulty = Mathf.Clamp(realdifficulty, 3, 7);
+
+        if (projects.Count > Projectcap)
+        {
+            realdifficulty++;
+            Projectcap += 3;
+        }
+
+
+        Project tempP = new Project(projectId,realdifficulty);
         currentProject = projectId;
         projects.Add(tempP);
         GameObject Button;
@@ -126,6 +137,15 @@ public class GameState : MonoBehaviour
         Events.Destroytiles();
     }
 
+    public void EvilPlan()
+    {
+        int[] listOfColors;
+
+
+
+    }
+
+
     public void RecallProject(int _currentProject)
     {
         currentProject = _currentProject;
@@ -149,14 +169,62 @@ public class GameState : MonoBehaviour
     
     IEnumerator Daytimer()
     {
-
+        //dayCount = 0;
         while (gameObject)
         {
             dayCount++;
+            if(GameDay%5 == 0)
+            {
+                difficulty++;
+            }
+            Debug.Log(dayCount);
             yield return new WaitForSeconds(daySeconds);
         }
         
     }
+
+    IEnumerator NoticeDay()
+    {
+        if (isonDrawscreen)
+        {
+            //StopCoroutine(Daytimer());
+
+            int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
+            int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
+
+            if(color1 == color2)
+            {
+                int tempNum = Random.Range(2, 3);
+                color2 = color2 +Mathf.Clamp(tempNum, 1, 7);
+            }
+
+            Notices notices1 = new Notices(color1, color2);
+
+            foreach(var project in projects)
+            {
+                project.swapData(color1, color2);
+            }
+            notices.Add(notices1);
+            //notices1.ChangecolorLooks();
+            notices1.ChangecolorMeaning();
+            noticeDay += Random.Range(5, 10);
+            int temp = noticeDay + GameDay;
+
+            string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
+
+            Events.ChangeNotice(tempString);
+            Events.noticeScreen();
+
+            //Debug.Log("next notice day is on " + noticeDay.ToString());
+
+            //StartCoroutine(Daytimer());
+            yield return new WaitForSeconds(daySeconds + 1f);
+        }
+        
+        
+    }
+
+    
     
     
 }
