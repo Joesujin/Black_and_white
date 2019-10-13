@@ -137,13 +137,7 @@ public class GameState : MonoBehaviour
         Events.Destroytiles();
     }
 
-    public void EvilPlan()
-    {
-        int[] listOfColors;
 
-
-
-    }
 
 
     public void RecallProject(int _currentProject)
@@ -204,8 +198,10 @@ public class GameState : MonoBehaviour
             {
                 project.swapData(color1, color2);
             }
+
+            //gameObject.GetComponent<TileBehaviour>().swapColors(color1, color2);
             notices.Add(notices1);
-            //notices1.ChangecolorLooks();
+            notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
             noticeDay += Random.Range(5, 10);
             int temp = noticeDay + GameDay;

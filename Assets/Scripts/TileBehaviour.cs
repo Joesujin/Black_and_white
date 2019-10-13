@@ -14,16 +14,71 @@ public class TileBehaviour : MonoBehaviour
     public GameObject YellowButton = GameObject.FindGameObjectWithTag("YellowButton");
     */
 
+    public Dictionary<int, Color> defaultColors = new Dictionary<int, Color>();
+    public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
+    
     public Color selectedColor;
     public int color_id;
     public int ownColor;
 
     bool colorChanged;
 
-
+    public GameObject gameManager;
 
     private void OnEnable()
     {
+        gameManager = GameObject.Find("GameManager");
+
+        defaultColors.Add(0, Color.gray);
+        defaultColors.Add(1, Color.white);
+        defaultColors.Add(2, Color.black);
+        defaultColors.Add(3, Color.red);
+        defaultColors.Add(4, Color.blue);
+        defaultColors.Add(5, Color.green);
+        defaultColors.Add(6, Color.yellow);
+
+        foreach (int key in defaultColors.Keys)
+        {
+            inGameColors.Add(key, defaultColors[key]);
+        }
+
+        List<Notices> noticesCopy = gameManager.GetComponent<GameState>().notices;
+
+        if(noticesCopy != null)
+        {
+            int k = 0;
+            foreach (Notices notices in noticesCopy)
+            {
+                int tempc1 = noticesCopy[k].col1Id;
+                int tempc2 = noticesCopy[k].col2Id;
+
+                Color TempCol = inGameColors[tempc1];
+                inGameColors[tempc1] = inGameColors[tempc2];
+                inGameColors[tempc2] = TempCol;
+                /*
+                if(inGameColors[tempc1] == defaultColors[tempc1] && inGameColors[tempc2] == defaultColors[tempc2])
+                {
+                    inGameColors[tempc1] = defaultColors[tempc2];
+                    inGameColors[tempc2] = defaultColors[tempc1];
+
+                }
+                else
+                {
+                    inGameColors[tempc1] = inGameColors[tempc2];
+                    inGameColors[tempc2] = inGameColors[tempc1];
+
+                }
+                */
+
+
+
+
+                k++;
+            }
+        }
+        
+
+
         this.GetComponent<SpriteRenderer>().color = Color.grey;
         ownColor = 0;
         colorChanged = false;
@@ -47,7 +102,8 @@ public class TileBehaviour : MonoBehaviour
         this.colorChanged = true;
         this.ownColor = color_id;
     }
-    
+
+
     private void OnMouseEnter()
     {
         if(Input.GetMouseButton(0) == true)
@@ -72,25 +128,25 @@ public class TileBehaviour : MonoBehaviour
         switch (Colorid)
         {
             case 0:
-                this.changeColor(Color.grey);
+                this.changeColor(inGameColors[Colorid]);
                 break;
             case 1:
-                this.changeColor(Color.white);
+                this.changeColor(inGameColors[Colorid]);
                 break;
             case 2:
-                this.changeColor(Color.black);
+                this.changeColor(inGameColors[Colorid]);
                 break;
             case 3:
-                this.changeColor(Color.red);
+                this.changeColor(inGameColors[Colorid]);
                 break;
             case 4:
-                this.changeColor(Color.blue);
+                this.changeColor(inGameColors[Colorid]);
                 break;
             case 5:
-                this.changeColor(Color.green);
+                this.changeColor(inGameColors[Colorid]);
                 break;
             case 6:
-                this.changeColor(Color.yellow);
+                this.changeColor(inGameColors[Colorid]);
                 break;
         }
         GetComponent<SpriteRenderer>().color = selectedColor;
@@ -111,5 +167,14 @@ public class TileBehaviour : MonoBehaviour
     public bool ColorChanged()
     {
         return (colorChanged);
+    }
+
+    public void swapColors(int c1, int c2)
+    {
+        Color Col1 = inGameColors[c1];
+        Color Col2 = inGameColors[c2];
+
+        inGameColors[c2] = Col1;
+        inGameColors[c1] = Col2;
     }
 }
