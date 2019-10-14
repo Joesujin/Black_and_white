@@ -176,8 +176,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
+
     m_Font: {fileID: 12800000, guid: a2a53092d19b6fe4ca2bd756ab2ce8d1, type: 3}
     m_FontSize: 40
+
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -969,6 +971,22 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &745543648
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: c550e1f114054854c94217fa29f39ccb, type: 3}
+    m_FontSize: 69
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 75
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Save
+--- !u!222 &935872874
+
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1289,8 +1307,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
+
     m_Font: {fileID: 12800000, guid: 64c6e9fac4c7c2044b9ea71b6a2fe882, type: 3}
     m_FontSize: 114
+
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -2097,8 +2117,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
+
     m_Font: {fileID: 12800000, guid: a2a53092d19b6fe4ca2bd756ab2ce8d1, type: 3}
     m_FontSize: 50
+
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3231,11 +3253,13 @@ MonoBehaviour:
   Clockhand: {fileID: 2006878789}
   Score: 0
   GameDay: 0
-  daySeconds: 15
+
+  daySeconds: 30
   noticeDay: 4
   difficulty: 1
   Projectcap: 5
   realdifficulty: 0
+
   ScoreBoard: {fileID: 1186445770}
 --- !u!114 &1700896601
 MonoBehaviour:

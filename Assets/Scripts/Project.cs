@@ -11,9 +11,12 @@ public class Project
     GameObject projectButton;
     
     
+    
 
     bool buttonCreated = true;
+
     public bool isPass = false;
+
     public int[] QuestionData = new int[25];
 
           
@@ -96,13 +99,13 @@ public class Project
     {
         for (int i = 0; i < tileData.Length; i++)
         {
-            if (tileData[i] == color1)
+            if(tileData[i] == color1)
             {
-                tileData[i] = color2;
+                tileData[i] = 0;
             }
-            else if (tileData[i] == color2)
+            else 
             {
-                tileData[i] = color1;
+                tileData[i] = 0;
             }
         }
     }

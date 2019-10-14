@@ -8,8 +8,6 @@ public class Notices
     public GameObject color_1;
     public GameObject color_2;
 
-    public int col1Id;
-    public int col2Id;
 
     public string Color1Name;
     public string Color2Name;
@@ -25,27 +23,21 @@ public class Notices
                 break;
             case 1:
                 color_1 = GameObject.Find("WhiteButton");
-                col1Id = 1;
                 break;
             case 2:
                 color_1 = GameObject.Find("BlackButton");
-                col1Id = 2;
                 break;
             case 3:
                 color_1 = GameObject.Find("RedButton");
-                col1Id = 3;
                 break;
             case 4:
                 color_1 = GameObject.Find("BlueButton");
-                col1Id = 4;
                 break;
             case 5:
                 color_1 = GameObject.Find("GreenButton");
-                col1Id = 5;
                 break;
             case 6:
                 color_1 = GameObject.Find("YellowButton");
-                col1Id = 6;
                 break;
         }
 
@@ -55,27 +47,21 @@ public class Notices
                 break;
             case 1:
                 color_2 = GameObject.Find("WhiteButton");
-                col2Id = 1;
                 break;
             case 2:
                 color_2 = GameObject.Find("BlackButton");
-                col2Id = 2;
                 break;
             case 3:
                 color_2 = GameObject.Find("RedButton");
-                col2Id = 3;
                 break;
             case 4:
                 color_2 = GameObject.Find("BlueButton");
-                col2Id = 4;
                 break;
             case 5:
                 color_2 = GameObject.Find("GreenButton");
-                col2Id = 5;
                 break;
             case 6:
                 color_2 = GameObject.Find("YellowButton");
-                col2Id = 6;
                 break;
         }
 
