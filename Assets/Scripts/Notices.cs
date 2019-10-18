@@ -102,7 +102,7 @@ public class Notices
         color_1.GetComponent<WhiteButton>().ChangeColorName(NameC2);
         color_2.GetComponent<WhiteButton>().ChangeColorName(NameC1);
 
-        NoticeMessage = NameC1.ToString() + " will mean as " +NameC2.ToString()+" and vice versa";
+        NoticeMessage = NameC1.ToString() + " is " + NameC2.ToString() + " and " + NameC2.ToString() + " is "+NameC1.ToString() ;
         Debug.Log(NoticeMessage);
 
     }

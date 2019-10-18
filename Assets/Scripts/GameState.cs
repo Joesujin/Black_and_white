@@ -26,6 +26,9 @@ public class GameState : MonoBehaviour
 
     bool isonDrawscreen;
     public Text ScoreBoard;
+    public Text NoticeText;
+    string HistoryOfnotices;
+    
 
 
     void Start()
@@ -98,6 +101,10 @@ public class GameState : MonoBehaviour
         Events.resumeDayCounter -= resumeDayTimer;
     }
 
+    public void showNoticeHistory()
+    {
+        Events.NoticeHistory();
+    }
 
     public void NewProject()
     {
@@ -137,12 +144,10 @@ public class GameState : MonoBehaviour
         Events.Destroytiles();
     }
 
-    public void EvilPlan()
+    public void updateNoticeText(string OneNotice)
     {
-        int[] listOfColors;
-
-
-
+        HistoryOfnotices = HistoryOfnotices + "\n" + OneNotice;
+        NoticeText.text = HistoryOfnotices;
     }
 
 
@@ -205,13 +210,14 @@ public class GameState : MonoBehaviour
                 project.swapData(color1, color2);
             }
             notices.Add(notices1);
-            //notices1.ChangecolorLooks();
+            notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
             noticeDay += Random.Range(5, 10);
             int temp = noticeDay + GameDay;
 
             string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
 
+            updateNoticeText(notices1.NoticeMessage);
             Events.ChangeNotice(tempString);
             Events.noticeScreen();
 

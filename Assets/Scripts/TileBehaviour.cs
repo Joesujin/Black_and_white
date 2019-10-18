@@ -47,16 +47,31 @@ public class TileBehaviour : MonoBehaviour
 
         if(NoticesCopy != null)
         {
-            foreach(Notices notices in NoticesCopy)
+            int k = 0;
+            foreach (Notices notices in NoticesCopy)
             {
-                int tempC1 = notices.colorID1;
-                int tempC2 = notices.colorID2;
+                int tempC1 = NoticesCopy[k].colorID1;
+                int tempC2 = NoticesCopy[k].colorID2;
 
+                /*
                 Color TempCol = inGamecolors[tempC1];
                 inGamecolors[tempC1] = inGamecolors[tempC2];
                 inGamecolors[tempC2] = TempCol;
+                */
+                
+              if(inGamecolors[tempC1] == defaultColors[tempC1] && inGamecolors[tempC2] == defaultColors[tempC2])
+              {
+                    inGamecolors[tempC1] = defaultColors[tempC2];
+                    inGamecolors[tempC2] = defaultColors[tempC1];
+              }
+              else
+              {
+                    inGamecolors[tempC1] = inGamecolors[tempC2];
+                    inGamecolors[tempC2] = inGamecolors[tempC1];
+              }
+             
             }
-
+            k++;
         }
 
 
