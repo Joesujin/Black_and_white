@@ -8,6 +8,24 @@ public class GameState : MonoBehaviour
 {
     public List<Notices> notices = new List<Notices>();
     public List< Project> projects = new List<Project>();
+
+    public Dictionary<int, Color> DefaultColors = new Dictionary<int, Color>();
+    public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
+
+    public GameObject WhiteButton;
+    public GameObject BlackButton;
+    public GameObject RedButton;
+    public GameObject BlueButton;
+    public GameObject GreenButton;
+    public GameObject YellowButton;
+
+    public Color White;
+    public Color Black;
+    public Color Red;
+    public Color Blue;
+    public Color Green;
+    public Color Yellow;
+
     public int dayCount = 0;
     int projectId;
     int currentProject;
@@ -33,7 +51,20 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
-        
+        DefaultColors.Add(0, Color.gray);
+        DefaultColors.Add(1, White);
+        DefaultColors.Add(2, Black);
+        DefaultColors.Add(3, Red);
+        DefaultColors.Add(4, Blue);
+        DefaultColors.Add(5, Green);
+        DefaultColors.Add(6, Yellow);
+
+        foreach(int key in DefaultColors.Keys)
+        {
+            inGameColors.Add(key, DefaultColors[key]);
+        }
+
+
         StartCoroutine(Daytimer());
         projects.Clear();
 

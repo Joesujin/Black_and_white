@@ -7,10 +7,14 @@ public class QuestionTileBehavior : MonoBehaviour
     public Color selectedColor;
     public int color_id;
     public int ownColor;
+    public GameObject gameState;
+
 
 
     private void OnEnable()
     {
+        gameState = GameObject.Find("GameManager");
+
         selectedColor = Color.gray;
 
         this.GetComponent<SpriteRenderer>().color = selectedColor;
@@ -25,25 +29,25 @@ public class QuestionTileBehavior : MonoBehaviour
         switch (Colorid)
         {
             case 0:
-                selectedColor = Color.gray;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
             case 1:
-                selectedColor = Color.white;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
             case 2:
-                selectedColor = Color.black;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
             case 3:
-                selectedColor = Color.red;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
             case 4:
-                selectedColor = Color.blue;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
             case 5:
-                selectedColor = Color.green;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
             case 6:
-                selectedColor = Color.yellow;
+                selectedColor = gameState.GetComponent<GameState>().DefaultColors[Colorid];
                 break;
         }
         GetComponent<SpriteRenderer>().color = selectedColor;
