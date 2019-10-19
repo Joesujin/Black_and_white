@@ -101,11 +101,11 @@ public class Project
         {
             if(tileData[i] == color1)
             {
-                tileData[i] = color2;
+                tileData[i] = 0;
             }
             else if(tileData[i] == color2)
             {
-                tileData[i] = color1;
+                tileData[i] = 0;
             }
         }
     }

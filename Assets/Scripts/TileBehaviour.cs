@@ -5,14 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class TileBehaviour : MonoBehaviour
 {
-    /*
-    public GameObject WhiteButton = GameObject.FindGameObjectWithTag("WhiteButton");
-    public GameObject BlackButton = GameObject.FindGameObjectWithTag("BlackButton");
-    public GameObject RedButton = GameObject.FindGameObjectWithTag("RedButton");
-    public GameObject BlueButton = GameObject.FindGameObjectWithTag("BlueButton");
-    public GameObject GreenButton = GameObject.FindGameObjectWithTag("GreenButton");
-    public GameObject YellowButton = GameObject.FindGameObjectWithTag("YellowButton");
-    */
+    
     public GameObject gameState;
 
     public Color selectedColor;

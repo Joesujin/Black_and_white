@@ -77,6 +77,7 @@ public class TileMap : MonoBehaviour
                 k++;
             }
         }
+        colorID = colorData;
     }
 
     public void LoadQuestion(int[] QuestionData)

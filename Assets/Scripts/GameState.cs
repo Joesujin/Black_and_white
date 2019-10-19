@@ -46,7 +46,7 @@ public class GameState : MonoBehaviour
     public Text ScoreBoard;
     public Text NoticeText;
     string HistoryOfnotices;
-    
+    public int tempCOlID;
 
 
     void Start()
@@ -67,7 +67,7 @@ public class GameState : MonoBehaviour
 
         StartCoroutine(Daytimer());
         projects.Clear();
-
+        tempCOlID = 3;
     }
 
     
@@ -104,6 +104,7 @@ public class GameState : MonoBehaviour
         if(GameDay >= noticeDay)
         {
             StartCoroutine(NoticeDay());
+            //tempCOlID++;
         }
         //noticeDay = 0;
     }
@@ -224,9 +225,13 @@ public class GameState : MonoBehaviour
         if (isonDrawscreen)
         {
             //StopCoroutine(Daytimer());
-
+            
             int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
             int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
+            
+
+            // color1 = 1;
+            //int color2 = tempCOlID;
 
             if(color1 == color2)
             {
@@ -243,7 +248,7 @@ public class GameState : MonoBehaviour
             notices.Add(notices1);
             notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(5, 10);
+            noticeDay += Random.Range(3, 5);
             int temp = noticeDay + GameDay;
 
             string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
