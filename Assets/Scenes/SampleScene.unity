@@ -892,7 +892,7 @@ MonoBehaviour:
   DefaultButtonId: 5
   colorName: Green
   ColorbuttonId: 5
-  color: {r: 0, g: 1, b: 0, a: 1}
+  color: {r: 0.27843142, g: 1, b: 0.5428181, a: 1}
 --- !u!114 &716634444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.27843142, g: 1, b: 0.5428181, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1883,6 +1883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible: 0
+  gamemanager: {fileID: 1700896599}
 --- !u!114 &1095678041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2100,7 +2101,7 @@ MonoBehaviour:
   DefaultButtonId: 3
   colorName: Red
   ColorbuttonId: 3
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
 --- !u!114 &1175383958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,7 +2169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3009,9 +3010,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1700896602}
-        m_MethodName: UpdateColor
-        m_Mode: 3
+      - m_Target: {fileID: 1700896600}
+        m_MethodName: ProjectScreenCall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1700896600}
+        m_MethodName: CheckProjectCorrectness
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3426,7 +3438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3464,7 +3476,7 @@ MonoBehaviour:
   DefaultButtonId: 2
   colorName: Black
   ColorbuttonId: 2
-  color: {r: 0, g: 0, b: 0, a: 1}
+  color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
 --- !u!1 &1553066768
 GameObject:
   m_ObjectHideFlags: 0
@@ -3519,7 +3531,7 @@ MonoBehaviour:
   DefaultButtonId: 6
   colorName: Yellow
   ColorbuttonId: 6
-  color: {r: 1, g: 1, b: 0, a: 1}
+  color: {r: 1, g: 0.81336296, b: 0.27843142, a: 1}
 --- !u!114 &1553066771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3587,7 +3599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.81336296, b: 0.27843142, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3786,6 +3798,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notices: []
   projects: []
+  WhiteButton: {fileID: 2098417005}
+  BlackButton: {fileID: 1538788017}
+  RedButton: {fileID: 1175383955}
+  BlueButton: {fileID: 1760982004}
+  GreenButton: {fileID: 716634441}
+  YellowButton: {fileID: 1553066768}
+  White: {r: 1, g: 1, b: 1, a: 1}
+  Black: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
+  Red: {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
+  Blue: {r: 0.27843142, g: 0.62392384, b: 1, a: 1}
+  Green: {r: 0.27843142, g: 1, b: 0.5428181, a: 1}
+  Yellow: {r: 1, g: 0.81336296, b: 0.27843142, a: 1}
   dayCount: 0
   projectButtonPrefab: {fileID: 1240267464022672227, guid: cdc0f045633e04644b392b1cdffd11c5,
     type: 3}
@@ -3801,6 +3825,7 @@ MonoBehaviour:
   realdifficulty: 0
   ScoreBoard: {fileID: 1186445770}
   NoticeText: {fileID: 1680141647}
+  tempCOlID: 0
 --- !u!114 &1700896601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4028,7 +4053,7 @@ MonoBehaviour:
   DefaultButtonId: 4
   colorName: Blue
   ColorbuttonId: 4
-  color: {r: 0, g: 0, b: 1, a: 1}
+  color: {r: 0.27843142, g: 0.62392384, b: 1, a: 1}
 --- !u!114 &1760982007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4096,7 +4121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.27843142, g: 0.62392384, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
