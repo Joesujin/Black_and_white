@@ -103,7 +103,7 @@ public class Project
             {
                 tileData[i] = 0;
             }
-            else 
+            else if(tileData[i] == color2)
             {
                 tileData[i] = 0;
             }

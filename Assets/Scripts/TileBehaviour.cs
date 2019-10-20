@@ -5,14 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class TileBehaviour : MonoBehaviour
 {
-    /*
-    public GameObject WhiteButton = GameObject.FindGameObjectWithTag("WhiteButton");
-    public GameObject BlackButton = GameObject.FindGameObjectWithTag("BlackButton");
-    public GameObject RedButton = GameObject.FindGameObjectWithTag("RedButton");
-    public GameObject BlueButton = GameObject.FindGameObjectWithTag("BlueButton");
-    public GameObject GreenButton = GameObject.FindGameObjectWithTag("GreenButton");
-    public GameObject YellowButton = GameObject.FindGameObjectWithTag("YellowButton");
-    */
+    
+    public GameObject gameState;
 
     public Color selectedColor;
     public int color_id;
@@ -24,6 +18,7 @@ public class TileBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
+        gameState = GameObject.Find("GameManager");
         this.GetComponent<SpriteRenderer>().color = Color.grey;
         ownColor = 0;
         colorChanged = false;
@@ -72,25 +67,25 @@ public class TileBehaviour : MonoBehaviour
         switch (Colorid)
         {
             case 0:
-                this.changeColor(Color.grey);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
             case 1:
-                this.changeColor(Color.white);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
             case 2:
-                this.changeColor(Color.black);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
             case 3:
-                this.changeColor(Color.red);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
             case 4:
-                this.changeColor(Color.blue);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
             case 5:
-                this.changeColor(Color.green);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
             case 6:
-                this.changeColor(Color.yellow);
+                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
                 break;
         }
         GetComponent<SpriteRenderer>().color = selectedColor;

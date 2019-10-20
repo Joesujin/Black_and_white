@@ -8,6 +8,7 @@ public class Notices
     public GameObject color_1;
     public GameObject color_2;
 
+    GameObject gamestate = GameObject.Find("GameManager");
 
     public string Color1Name;
     public string Color2Name;
@@ -22,22 +23,22 @@ public class Notices
             case 0:
                 break;
             case 1:
-                color_1 = GameObject.Find("WhiteButton");
+                color_1 = gamestate.GetComponent<GameState>().WhiteButton;
                 break;
             case 2:
-                color_1 = GameObject.Find("BlackButton");
+                color_1 = gamestate.GetComponent<GameState>().BlackButton;
                 break;
             case 3:
-                color_1 = GameObject.Find("RedButton");
+                color_1 = gamestate.GetComponent<GameState>().RedButton;
                 break;
             case 4:
-                color_1 = GameObject.Find("BlueButton");
+                color_1 = gamestate.GetComponent<GameState>().BlueButton;
                 break;
             case 5:
-                color_1 = GameObject.Find("GreenButton");
+                color_1 = gamestate.GetComponent<GameState>().GreenButton;
                 break;
             case 6:
-                color_1 = GameObject.Find("YellowButton");
+                color_1 = gamestate.GetComponent<GameState>().YellowButton;
                 break;
         }
 
@@ -46,22 +47,22 @@ public class Notices
             case 0:
                 break;
             case 1:
-                color_2 = GameObject.Find("WhiteButton");
+                color_2 = gamestate.GetComponent<GameState>().WhiteButton;
                 break;
             case 2:
-                color_2 = GameObject.Find("BlackButton");
+                color_2 = gamestate.GetComponent<GameState>().BlackButton;
                 break;
             case 3:
-                color_2 = GameObject.Find("RedButton");
+                color_2 = gamestate.GetComponent<GameState>().RedButton;
                 break;
             case 4:
-                color_2 = GameObject.Find("BlueButton");
+                color_2 = gamestate.GetComponent<GameState>().BlueButton;
                 break;
             case 5:
-                color_2 = GameObject.Find("GreenButton");
+                color_2 = gamestate.GetComponent<GameState>().GreenButton;
                 break;
             case 6:
-                color_2 = GameObject.Find("YellowButton");
+                color_2 = gamestate.GetComponent<GameState>().YellowButton;
                 break;
         }
 
@@ -78,6 +79,9 @@ public class Notices
         string NameC1 = color_1.GetComponent<WhiteButton>().colorName;
         string NameC2 = color_2.GetComponent<WhiteButton>().colorName;
 
+        Color tempcol = gamestate.GetComponent<GameState>().inGameColors[tempC1];
+        gamestate.GetComponent<GameState>().inGameColors[tempC1] = gamestate.GetComponent<GameState>().inGameColors[tempC2];
+        gamestate.GetComponent<GameState>().inGameColors[tempC2] = tempcol;
 
         color_1.GetComponent<WhiteButton>().ChangeColorID(tempC2);
         color_2.GetComponent<WhiteButton>().ChangeColorID(tempC1);
@@ -85,7 +89,7 @@ public class Notices
         color_1.GetComponent<WhiteButton>().ChangeColorName(NameC2);
         color_2.GetComponent<WhiteButton>().ChangeColorName(NameC1);
 
-        NoticeMessage = NameC1.ToString() + " will mean as " +NameC2.ToString()+" and vice versa";
+        NoticeMessage = NameC1.ToString() + " is " + NameC2.ToString() + " and " + NameC2.ToString() + " is "+NameC1.ToString() ;
         Debug.Log(NoticeMessage);
 
     }
@@ -97,7 +101,6 @@ public class Notices
 
         color_1.GetComponent<WhiteButton>().ChangeColor(ColorC1);
         color_2.GetComponent<WhiteButton>().ChangeColor(ColorC2);
-
     }
 
 

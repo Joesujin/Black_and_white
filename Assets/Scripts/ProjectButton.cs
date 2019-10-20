@@ -16,6 +16,9 @@ public class ProjectButton : MonoBehaviour
     public Color Correct;
     public Color inCorrect;
 
+    public Sprite CorrectSprite;
+    public Sprite IncorrectSptite;
+    public Sprite NormalSprite;
 
     private void Start()
     {
@@ -68,12 +71,15 @@ public class ProjectButton : MonoBehaviour
         switch (projectStatus)
         {
             case 0:
+                gameObject.GetComponent<Image>().sprite = NormalSprite;
                 break;
             case 1:
-                gameObject.GetComponent<Image>().color = Correct;
+                gameObject.GetComponent<Image>().sprite = CorrectSprite;
+                //gameObject.GetComponent<Image>().color = Correct;
                 break;
             case 2:
-                gameObject.GetComponent<Image>().color = inCorrect;
+                gameObject.GetComponent<Image>().sprite = IncorrectSptite;
+                //gameObject.GetComponent<Image>().color = inCorrect;
                 break;
         }
     }

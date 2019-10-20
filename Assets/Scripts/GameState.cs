@@ -8,6 +8,24 @@ public class GameState : MonoBehaviour
 {
     public List<Notices> notices = new List<Notices>();
     public List< Project> projects = new List<Project>();
+
+    public Dictionary<int, Color> DefaultColors = new Dictionary<int, Color>();
+    public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
+
+    public GameObject WhiteButton;
+    public GameObject BlackButton;
+    public GameObject RedButton;
+    public GameObject BlueButton;
+    public GameObject GreenButton;
+    public GameObject YellowButton;
+
+    public Color White;
+    public Color Black;
+    public Color Red;
+    public Color Blue;
+    public Color Green;
+    public Color Yellow;
+
     public int dayCount = 0;
     int projectId;
     int currentProject;
@@ -26,14 +44,30 @@ public class GameState : MonoBehaviour
 
     bool isonDrawscreen;
     public Text ScoreBoard;
+    public Text NoticeText;
+    string HistoryOfnotices;
+    public int tempCOlID;
 
 
     void Start()
     {
-        
+        DefaultColors.Add(0, Color.gray);
+        DefaultColors.Add(1, White);
+        DefaultColors.Add(2, Black);
+        DefaultColors.Add(3, Red);
+        DefaultColors.Add(4, Blue);
+        DefaultColors.Add(5, Green);
+        DefaultColors.Add(6, Yellow);
+
+        foreach(int key in DefaultColors.Keys)
+        {
+            inGameColors.Add(key, DefaultColors[key]);
+        }
+
+
         StartCoroutine(Daytimer());
         projects.Clear();
-
+        tempCOlID = 3;
     }
 
     
@@ -70,6 +104,7 @@ public class GameState : MonoBehaviour
         if(GameDay >= noticeDay)
         {
             StartCoroutine(NoticeDay());
+            //tempCOlID++;
         }
         //noticeDay = 0;
     }
@@ -98,6 +133,10 @@ public class GameState : MonoBehaviour
         Events.resumeDayCounter -= resumeDayTimer;
     }
 
+    public void showNoticeHistory()
+    {
+        Events.NoticeHistory();
+    }
 
     public void NewProject()
     {
@@ -137,12 +176,10 @@ public class GameState : MonoBehaviour
         Events.Destroytiles();
     }
 
-    public void EvilPlan()
+    public void updateNoticeText(string OneNotice)
     {
-        int[] listOfColors;
-
-
-
+        HistoryOfnotices = HistoryOfnotices + "\n" + OneNotice;
+        NoticeText.text = HistoryOfnotices;
     }
 
 
@@ -188,9 +225,13 @@ public class GameState : MonoBehaviour
         if (isonDrawscreen)
         {
             //StopCoroutine(Daytimer());
-
+            
             int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
             int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
+            
+
+            // color1 = 1;
+            //int color2 = tempCOlID;
 
             if(color1 == color2)
             {
@@ -205,13 +246,14 @@ public class GameState : MonoBehaviour
                 project.swapData(color1, color2);
             }
             notices.Add(notices1);
-            //notices1.ChangecolorLooks();
+            notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(5, 10);
+            noticeDay += Random.Range(3, 5);
             int temp = noticeDay + GameDay;
 
             string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
 
+            updateNoticeText(notices1.NoticeMessage);
             Events.ChangeNotice(tempString);
             Events.noticeScreen();
 

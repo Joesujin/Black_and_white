@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectScreen : MonoBehaviour
 {
     public bool visible;
+    public GameObject gamemanager;
 
     private void Start()
     {
@@ -15,6 +16,13 @@ public class ProjectScreen : MonoBehaviour
         Events.RecallDrawscreen += visiblity;
     }
 
+    private void Update()
+    {
+        if(gamemanager.GetComponent<GameState>().projects.Count != 0)
+        {
+            gamemanager.GetComponent<GameState>().CheckProjectCorrectness();
+        }
+    }
 
     private void OnApplicationQuit()
     {
@@ -32,6 +40,6 @@ public class ProjectScreen : MonoBehaviour
         {
             Events.CheckProjectStatus();
         }
-
+        
     }
 }

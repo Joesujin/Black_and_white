@@ -43,4 +43,6 @@ public class Events
     public static Action resumeDayCounter;
 
     public static Action<string> ChangeNotice;
+
+    public static Action NoticeHistory;
 }
