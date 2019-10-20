@@ -65,7 +65,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 127
+    m_FontSize: 66
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -106,7 +106,7 @@ RectTransform:
   m_GameObject: {fileID: 1240267464022672227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 1240267463491028853}
   m_Father: {fileID: 0}
@@ -115,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 160}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1240267464022672255
 CanvasRenderer:
@@ -143,9 +143,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 93146d6f2cea5c64893cf7eb3d5e60f2, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -219,8 +219,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98afe22064d6c39499c07dffe63e43b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gamemanager: {fileID: 0}
   projectName: 
   projectId: 0
   projectStatus: 0
   Correct: {r: 0.32894266, g: 0.9056604, b: 0.443801, a: 1}
   inCorrect: {r: 1, g: 0.4317289, b: 0.41176474, a: 1}
+  CorrectSprite: {fileID: 21300000, guid: 3b6bd066c05ed664ba21f0e3491ddd67, type: 3}
+  IncorrectSptite: {fileID: 21300000, guid: 5a69ec6e3115c414c95a664a5b7d8675, type: 3}
+  NormalSprite: {fileID: 21300000, guid: 93146d6f2cea5c64893cf7eb3d5e60f2, type: 3}
