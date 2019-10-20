@@ -63,6 +63,7 @@ public class TileMap : MonoBehaviour
 
     public void RetriveProject(int[] colorData , int project_id)
     {
+        //colorID = colorData;
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -77,7 +78,7 @@ public class TileMap : MonoBehaviour
                 k++;
             }
         }
-        colorID = colorData;
+        
     }
 
     public void LoadQuestion(int[] QuestionData)
@@ -105,7 +106,7 @@ public class TileMap : MonoBehaviour
     {
         int k = 0;
         int[] tempData = gameObject.GetComponent<GameState>().projects[_projectId].tileData;
-
+        colorID = tempData;
         
 
         foreach (KeyValuePair<int,GameObject> tile in Tiles)

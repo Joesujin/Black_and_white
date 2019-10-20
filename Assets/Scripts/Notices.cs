@@ -83,11 +83,11 @@ public class Notices
         gamestate.GetComponent<GameState>().inGameColors[tempC1] = gamestate.GetComponent<GameState>().inGameColors[tempC2];
         gamestate.GetComponent<GameState>().inGameColors[tempC2] = tempcol;
 
-        color_1.GetComponent<WhiteButton>().ChangeColorID(tempC2);
-        color_2.GetComponent<WhiteButton>().ChangeColorID(tempC1);
+        //color_1.GetComponent<WhiteButton>().ChangeColorID(tempC2);
+        //color_2.GetComponent<WhiteButton>().ChangeColorID(tempC1);
 
-        color_1.GetComponent<WhiteButton>().ChangeColorName(NameC2);
-        color_2.GetComponent<WhiteButton>().ChangeColorName(NameC1);
+        //color_1.GetComponent<WhiteButton>().ChangeColorName(NameC2);
+        //color_2.GetComponent<WhiteButton>().ChangeColorName(NameC1);
 
         NoticeMessage = NameC1.ToString() + " is " + NameC2.ToString() + " and " + NameC2.ToString() + " is "+NameC1.ToString() ;
         Debug.Log(NoticeMessage);

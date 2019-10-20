@@ -246,7 +246,7 @@ public class GameState : MonoBehaviour
                 project.swapData(color1, color2);
             }
             notices.Add(notices1);
-            notices1.ChangecolorLooks();
+            //notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
             noticeDay += Random.Range(3, 5);
             int temp = noticeDay + GameDay;
