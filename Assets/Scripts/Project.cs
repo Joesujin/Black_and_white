@@ -18,8 +18,10 @@ public class Project
     public bool isPass = false;
 
     public int[] QuestionData = new int[25];
+    public int[] decodedQuestionData = new int[25];
 
-          
+
+
     public Project(int _projectId, int QuestionDifficulty)
     {
         this.projectId = _projectId;
@@ -31,7 +33,9 @@ public class Project
         for(int k =0; k<QuestionData.Length; k++)
         {
             QuestionData[k] = Random.Range(1, randomRangeincrease);
+            decodedQuestionData[k] = QuestionData[k];
         }
+        
     }
 
 
@@ -41,7 +45,7 @@ public class Project
         //Debug.Log("CrossCheckin...");
         for (int k = 0; k < QuestionData.Length; k++)
         {
-            if(QuestionData[k] == tileData[k])
+            if(decodedQuestionData[k] == tileData[k])
             {
                 isPass = true;
             }
@@ -62,6 +66,7 @@ public class Project
             if (tileData[i] != colorData[i])
             {
                 tileData[i] = colorData[i];
+
             }
             else
             {
@@ -69,6 +74,8 @@ public class Project
             }
             
         }
+
+        
 
     }
 
@@ -97,15 +104,16 @@ public class Project
 
     public void swapData(int color1, int color2)
     {
-        for (int i = 0; i < tileData.Length; i++)
+        
+        for (int i = 0; i < decodedQuestionData.Length; i++)
         {
-            if(tileData[i] == color1)
+            if(decodedQuestionData[i] == color1)
             {
-                tileData[i] = 0;
+                decodedQuestionData[i] = color2;
             }
-            else if(tileData[i] == color2)
+            else if(decodedQuestionData[i] == color2)
             {
-                tileData[i] = 0;
+                decodedQuestionData[i] = color1;
             }
         }
     }

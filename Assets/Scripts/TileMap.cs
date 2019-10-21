@@ -51,7 +51,6 @@ public class TileMap : MonoBehaviour
         {
             for (int j = 0; j <= 4; j += 1)
             {
-
                 GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
                 tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
                 Tiles[k] = tempTile;
@@ -63,6 +62,7 @@ public class TileMap : MonoBehaviour
 
     public void RetriveProject(int[] colorData , int project_id)
     {
+        //colorID = colorData;
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -77,12 +77,10 @@ public class TileMap : MonoBehaviour
                 k++;
             }
         }
-        colorID = colorData;
     }
 
     public void LoadQuestion(int[] QuestionData)
     {
-
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -105,7 +103,7 @@ public class TileMap : MonoBehaviour
     {
         int k = 0;
         int[] tempData = gameObject.GetComponent<GameState>().projects[_projectId].tileData;
-
+        colorID = tempData;
         
 
         foreach (KeyValuePair<int,GameObject> tile in Tiles)
@@ -167,6 +165,5 @@ public class TileMap : MonoBehaviour
         {
             Destroy(tempTile.Value);
         }
-
     }
 }
