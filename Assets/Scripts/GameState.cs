@@ -39,7 +39,7 @@ public class GameState : MonoBehaviour
     public int daySeconds = 15;
     public int noticeDay = 5;
     public int difficulty=3;
-    public int Projectcap = 5;
+    public int Projectcap = 4;
     public int realdifficulty;
 
     bool isonDrawscreen;
@@ -63,7 +63,6 @@ public class GameState : MonoBehaviour
         {
             inGameColors.Add(key, DefaultColors[key]);
         }
-
 
         StartCoroutine(Daytimer());
         projects.Clear();
@@ -140,27 +139,44 @@ public class GameState : MonoBehaviour
 
     public void NewProject()
     {
-        
-        realdifficulty = Mathf.Clamp(realdifficulty, 3, 7);
-
-        if (projects.Count > Projectcap)
+        if (projects.Count < 20)
         {
-            realdifficulty++;
-            Projectcap += 3;
+
+            
+
+            realdifficulty = Mathf.Clamp(realdifficulty, 3, 7);
+
+            if (projects.Count > Projectcap)
+            {
+                if(realdifficulty < 7)
+                {
+                    realdifficulty++;
+                }
+                Projectcap += 3;
+            }
+        
+            Project tempP = new Project(projectId,realdifficulty);
+            currentProject = projectId;
+            projects.Add(tempP);
+            GameObject Button;
+            Button = Instantiate(projectButtonPrefab, new Vector2(2, 2), Quaternion.identity, projectScreen);
+            Button.GetComponent<ProjectButton>().GetbuttonID(currentProject);
+            Events.saveInital(currentProject);
+            projectId++;
+            Events.drawScreen();
+            gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
+            if (notices != null)
+            {
+                foreach (Notices notice in notices)
+                {
+                    Debug.Log("swaping data in project = " + projectId.ToString());
+                    int col1 = notice.colorID_1;
+                    int col2 = notice.colorID_2;
+                    projects[currentProject].swapData(col1, col2);
+
+                }
+            }
         }
-
-
-        Project tempP = new Project(projectId,realdifficulty);
-        currentProject = projectId;
-        projects.Add(tempP);
-        GameObject Button;
-        Button = Instantiate(projectButtonPrefab, new Vector2(2, 2), Quaternion.identity, projectScreen);
-        Button.GetComponent<ProjectButton>().GetbuttonID(currentProject);
-        Events.saveInital(currentProject);
-        projectId++;
-        Events.drawScreen();
-
-        gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
     }
 
     public void ProjectScreenCall()
@@ -189,7 +205,6 @@ public class GameState : MonoBehaviour
         int[] data = projects[_currentProject].ReturnTiledata();
         Events.recallProject(data,currentProject);
         Events.RecallDrawscreen();
-
         gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
     }
  
@@ -231,7 +246,7 @@ public class GameState : MonoBehaviour
             
 
             // color1 = 1;
-            //int color2 = tempCOlID;
+            // int color2 = tempCOlID;
 
             if(color1 == color2)
             {
@@ -248,9 +263,8 @@ public class GameState : MonoBehaviour
             notices.Add(notices1);
             //notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(3, 5);
+            noticeDay += Random.Range(5, 10);
             int temp = noticeDay + GameDay;
-
             string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
 
             updateNoticeText(notices1.NoticeMessage);
@@ -258,7 +272,6 @@ public class GameState : MonoBehaviour
             Events.noticeScreen();
 
             //Debug.Log("next notice day is on " + noticeDay.ToString());
-
             //StartCoroutine(Daytimer());
             yield return new WaitForSeconds(daySeconds + 1f);
         }

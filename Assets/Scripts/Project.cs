@@ -104,7 +104,8 @@ public class Project
 
     public void swapData(int color1, int color2)
     {
-        for (int i = 0; i < tileData.Length; i++)
+        
+        for (int i = 0; i < decodedQuestionData.Length; i++)
         {
             if(decodedQuestionData[i] == color1)
             {

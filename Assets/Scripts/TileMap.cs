@@ -51,7 +51,6 @@ public class TileMap : MonoBehaviour
         {
             for (int j = 0; j <= 4; j += 1)
             {
-
                 GameObject tempTile = Instantiate(tile, new Vector3(i + pos.x, j + pos.y, 0), Quaternion.identity);
                 tempTile.name = "Tiles " + j.ToString() + " " + i.ToString();
                 Tiles[k] = tempTile;
@@ -78,12 +77,10 @@ public class TileMap : MonoBehaviour
                 k++;
             }
         }
-        
     }
 
     public void LoadQuestion(int[] QuestionData)
     {
-
         int k = 0;
         for (int i = 0; i <= 4; i += 1)
         {
@@ -168,6 +165,5 @@ public class TileMap : MonoBehaviour
         {
             Destroy(tempTile.Value);
         }
-
     }
 }
