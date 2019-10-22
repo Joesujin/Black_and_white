@@ -45,4 +45,6 @@ public class Events
     public static Action<string> ChangeNotice;
 
     public static Action NoticeHistory;
+
+    public static Action DailyReport;
 }

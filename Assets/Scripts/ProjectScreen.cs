@@ -9,11 +9,12 @@ public class ProjectScreen : MonoBehaviour
 
     private void Start()
     {
-        visible = true;
+        visible = false;
         gameObject.SetActive(visible);
         Events.drawScreen += visiblity;
         Events.projectScreen += visiblity;
         Events.RecallDrawscreen += visiblity;
+        Events.DailyReport += visiblity;
     }
 
     private void Update()
@@ -29,6 +30,8 @@ public class ProjectScreen : MonoBehaviour
         Events.drawScreen -= visiblity;
         Events.projectScreen -= visiblity;
         Events.RecallDrawscreen -= visiblity;
+        Events.DailyReport -= visiblity;
+
     }
 
 

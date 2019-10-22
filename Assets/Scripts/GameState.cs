@@ -65,21 +65,34 @@ public class GameState : MonoBehaviour
         {
             inGameColors.Add(key, DefaultColors[key]);
         }
-        StartCoroutine(Daytimer());
-
+        //StartCoroutine(Daytimer());
+        //Events.DailyReport();
         projects.Clear();
     }
 
     public void StartTheday()
     {
         StartCoroutine(Daytimer());
+        Events.DailyReport();
+        //Events.projectScreen();
+        if (GameDay >= noticeDay)
+        {
+            Events.drawScreen();
+            StartCoroutine(NoticeDay());
+        }
     }
 
-
+    public void EndOfDay()
+    {
+        gameObject.GetComponent<TileMap>().UpdateColor(currentProject);
+        Events.projectScreen();
+        Events.DailyReport();
+        
+    }
     private void Update()
     {
 
-        Clockhand.transform.eulerAngles = new Vector3(0, 0, -Time.realtimeSinceStartup * 12);
+        
         PickedColor.GetComponent<Image>().color = SelectedColor;
         if (drawscreen.activeInHierarchy)
         {
@@ -106,11 +119,7 @@ public class GameState : MonoBehaviour
         string score = Score.ToString();
         ScoreBoard.text = "Day - " + GameDay.ToString() + "\nScore - " + score.ToString();
 
-        if (GameDay >= noticeDay)
-        {
-            StartCoroutine(NoticeDay());
-            //tempCOlID++;
-        }
+        
         //noticeDay = 0;
     }
 
@@ -243,26 +252,21 @@ public class GameState : MonoBehaviour
 
     IEnumerator Daytimer()
     {
-        //dayCount = 0;
-        while (gameObject)
-        {
+
             dayCount++;
-            /*
-            if (GameDay % 5 == 0)
-            {
-                difficulty++;
-            }
-            */
+
             Debug.Log(dayCount);
             yield return new WaitForSeconds(daySeconds);
-        }
+            
+            EndOfDay();
+        
 
     }
 
     IEnumerator NoticeDay()
     {
-        if (isonDrawscreen)
-        {
+        //if (isonDrawscreen)
+        //{
             //StopCoroutine(Daytimer());
 
             //int color1 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
@@ -299,7 +303,7 @@ public class GameState : MonoBehaviour
             //Debug.Log("next notice day is on " + noticeDay.ToString());
             //StartCoroutine(Daytimer());
             yield return new WaitForSeconds(daySeconds + 1f);
-        }
+        //}
 
 
     }
