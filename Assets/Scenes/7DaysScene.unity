@@ -3475,7 +3475,6 @@ MonoBehaviour:
   realdifficulty: 0
   ScoreBoard: {fileID: 1186445770}
   NoticeText: {fileID: 1680141647}
-  tempCOlID: 0
   SelectedColor: {r: 0, g: 0, b: 0, a: 0}
   SelectedColorID: 0
   PickedColor: {fileID: 1143459315}

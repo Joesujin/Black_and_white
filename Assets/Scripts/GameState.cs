@@ -46,7 +46,6 @@ public class GameState : MonoBehaviour
     public Text ScoreBoard;
     public Text NoticeText;
     string HistoryOfnotices;
-    public int tempCOlID;
 
     public Color SelectedColor;
     public int SelectedColorID;
@@ -66,10 +65,14 @@ public class GameState : MonoBehaviour
         {
             inGameColors.Add(key, DefaultColors[key]);
         }
-
         StartCoroutine(Daytimer());
+
         projects.Clear();
-        tempCOlID = 3;
+    }
+
+    public void StartTheday()
+    {
+        StartCoroutine(Daytimer());
     }
 
 
