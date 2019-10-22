@@ -75,16 +75,17 @@ public class GameState : MonoBehaviour
         StartCoroutine(Daytimer());
         Events.DailyReport();
         //Events.projectScreen();
-        if (GameDay >= noticeDay)
-        {
-            Events.drawScreen();
+        //if (GameDay >= noticeDay)
+        //{
+            //Events.drawScreen();
             StartCoroutine(NoticeDay());
-        }
+        //}
     }
 
     public void EndOfDay()
     {
         gameObject.GetComponent<TileMap>().UpdateColor(currentProject);
+
         Events.projectScreen();
         Events.DailyReport();
         

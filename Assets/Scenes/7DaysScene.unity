@@ -3673,7 +3673,7 @@ MonoBehaviour:
   Clockhand: {fileID: 0}
   Score: 0
   GameDay: 0
-  daySeconds: 60
+  daySeconds: 30
   noticeDay: 2
   difficulty: 1
   Projectcap: 5
