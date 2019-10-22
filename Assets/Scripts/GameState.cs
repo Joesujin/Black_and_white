@@ -37,7 +37,7 @@ public class GameState : MonoBehaviour
     public int Score;
     public int GameDay = 0;
     public int daySeconds = 15;
-    public int noticeDay = 5;
+    public int noticeDay = 3;
     public int difficulty = 3;
     public int Projectcap = 4;
     public int realdifficulty;
@@ -244,10 +244,12 @@ public class GameState : MonoBehaviour
         while (gameObject)
         {
             dayCount++;
+            /*
             if (GameDay % 5 == 0)
             {
                 difficulty++;
             }
+            */
             Debug.Log(dayCount);
             yield return new WaitForSeconds(daySeconds);
         }
@@ -260,10 +262,11 @@ public class GameState : MonoBehaviour
         {
             //StopCoroutine(Daytimer());
 
-            int color1 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
-            int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
+            //int color1 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
+            //int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
 
-
+            int color1 = Random.Range(1,  7);
+            int color2 = Random.Range(1,  7);
             // color1 = 1;
             // int color2 = tempCOlID;
 
@@ -282,7 +285,7 @@ public class GameState : MonoBehaviour
             notices.Add(notices1);
             //notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(5, 10);
+            noticeDay += 1;
             int temp = noticeDay + GameDay;
             string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
 
