@@ -22,6 +22,10 @@ public class TileBehaviour : MonoBehaviour
         this.GetComponent<SpriteRenderer>().color = Color.grey;
         ownColor = 0;
         colorChanged = false;
+        selectedColor = gameState.GetComponent<GameState>().SelectedColor;
+        color_id = gameState.GetComponent<GameState>().SelectedColorID;
+
+
         Events.ChangeColor += changeColor;
         Events.ColorId += changeColorId;
         Events.refreshTile += ChangeColorWithID;
@@ -89,7 +93,8 @@ public class TileBehaviour : MonoBehaviour
                 break;
         }
         GetComponent<SpriteRenderer>().color = selectedColor;
-
+        selectedColor = gameState.GetComponent<GameState>().SelectedColor;
+        color_id = gameState.GetComponent<GameState>().SelectedColorID;
 
     }
 

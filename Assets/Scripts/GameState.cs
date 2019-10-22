@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameState : MonoBehaviour
 {
     public List<Notices> notices = new List<Notices>();
-    public List< Project> projects = new List<Project>();
+    public List<Project> projects = new List<Project>();
 
     public Dictionary<int, Color> DefaultColors = new Dictionary<int, Color>();
     public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
@@ -38,7 +38,7 @@ public class GameState : MonoBehaviour
     public int GameDay = 0;
     public int daySeconds = 15;
     public int noticeDay = 5;
-    public int difficulty=3;
+    public int difficulty = 3;
     public int Projectcap = 4;
     public int realdifficulty;
 
@@ -48,6 +48,9 @@ public class GameState : MonoBehaviour
     string HistoryOfnotices;
     public int tempCOlID;
 
+    public Color SelectedColor;
+    public int SelectedColorID;
+    public GameObject PickedColor;
 
     void Start()
     {
@@ -59,7 +62,7 @@ public class GameState : MonoBehaviour
         DefaultColors.Add(5, Green);
         DefaultColors.Add(6, Yellow);
 
-        foreach(int key in DefaultColors.Keys)
+        foreach (int key in DefaultColors.Keys)
         {
             inGameColors.Add(key, DefaultColors[key]);
         }
@@ -69,12 +72,12 @@ public class GameState : MonoBehaviour
         tempCOlID = 3;
     }
 
-    
+
     private void Update()
     {
 
-        Clockhand.transform.eulerAngles = new Vector3(0, 0, -Time.realtimeSinceStartup*12);
-       
+        Clockhand.transform.eulerAngles = new Vector3(0, 0, -Time.realtimeSinceStartup * 12);
+        PickedColor.GetComponent<Image>().color = SelectedColor;
         if (drawscreen.activeInHierarchy)
         {
             isonDrawscreen = true;
@@ -83,11 +86,11 @@ public class GameState : MonoBehaviour
         {
             isonDrawscreen = false;
         }
-        
+
         if (dayCount != GameDay)
         {
             Score = 0;
-            foreach(Project project in projects)
+            foreach (Project project in projects)
             {
                 bool _isPass = project.CrossCheck();
                 if (_isPass)
@@ -98,9 +101,9 @@ public class GameState : MonoBehaviour
             GameDay++;
         }
         string score = Score.ToString();
-        ScoreBoard.text =  "Day - " + GameDay.ToString() + "\nScore - "  + score.ToString();
-        
-        if(GameDay >= noticeDay)
+        ScoreBoard.text = "Day - " + GameDay.ToString() + "\nScore - " + score.ToString();
+
+        if (GameDay >= noticeDay)
         {
             StartCoroutine(NoticeDay());
             //tempCOlID++;
@@ -123,6 +126,8 @@ public class GameState : MonoBehaviour
         Events.saveProject += saveProject;
         Events.ButtonCall += RecallProject;
         Events.resumeDayCounter += resumeDayTimer;
+        Events.ChangeColor += Selectedcolor;
+        Events.ColorId += SelectedcolorID;
     }
 
     private void OnDisable()
@@ -130,6 +135,20 @@ public class GameState : MonoBehaviour
         Events.saveProject -= saveProject;
         Events.ButtonCall -= RecallProject;
         Events.resumeDayCounter -= resumeDayTimer;
+        Events.ChangeColor -= Selectedcolor;
+        Events.ColorId -= SelectedcolorID;
+
+    }
+
+    public void Selectedcolor(Color selectedColor)
+    {
+        SelectedColor = selectedColor;
+        
+    }
+
+    public void SelectedcolorID(int ColorID)
+    {
+        SelectedColorID = ColorID;
     }
 
     public void showNoticeHistory()
@@ -142,20 +161,20 @@ public class GameState : MonoBehaviour
         if (projects.Count < 20)
         {
 
-            
+
 
             realdifficulty = Mathf.Clamp(realdifficulty, 3, 7);
 
             if (projects.Count > Projectcap)
             {
-                if(realdifficulty < 7)
+                if (realdifficulty < 7)
                 {
                     realdifficulty++;
                 }
                 Projectcap += 3;
             }
-        
-            Project tempP = new Project(projectId,realdifficulty);
+
+            Project tempP = new Project(projectId, realdifficulty);
             currentProject = projectId;
             projects.Add(tempP);
             GameObject Button;
@@ -203,12 +222,12 @@ public class GameState : MonoBehaviour
     {
         currentProject = _currentProject;
         int[] data = projects[_currentProject].ReturnTiledata();
-        Events.recallProject(data,currentProject);
+        Events.recallProject(data, currentProject);
         Events.RecallDrawscreen();
         gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
     }
- 
-    
+
+
     public void saveProject(int[] projectData)
     {
         projects[currentProject].UpdateTiledata(projectData);
@@ -218,21 +237,21 @@ public class GameState : MonoBehaviour
     {
         return (projects[Id].tileData);
     }
-    
+
     IEnumerator Daytimer()
     {
         //dayCount = 0;
         while (gameObject)
         {
             dayCount++;
-            if(GameDay%5 == 0)
+            if (GameDay % 5 == 0)
             {
                 difficulty++;
             }
             Debug.Log(dayCount);
             yield return new WaitForSeconds(daySeconds);
         }
-        
+
     }
 
     IEnumerator NoticeDay()
@@ -240,23 +259,23 @@ public class GameState : MonoBehaviour
         if (isonDrawscreen)
         {
             //StopCoroutine(Daytimer());
-            
-            int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
+
+            int color1 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
             int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
-            
+
 
             // color1 = 1;
             // int color2 = tempCOlID;
 
-            if(color1 == color2)
+            if (color1 == color2)
             {
                 int tempNum = Random.Range(2, 3);
-                color2 = color2 +Mathf.Clamp(tempNum, 1, 7);
+                color2 = color2 + Mathf.Clamp(tempNum, 1, 7);
             }
 
             Notices notices1 = new Notices(color1, color2);
 
-            foreach(var project in projects)
+            foreach (var project in projects)
             {
                 project.swapData(color1, color2);
             }
@@ -275,11 +294,11 @@ public class GameState : MonoBehaviour
             //StartCoroutine(Daytimer());
             yield return new WaitForSeconds(daySeconds + 1f);
         }
-        
-        
+
+
     }
 
-    
-    
-    
+
+
+
 }
