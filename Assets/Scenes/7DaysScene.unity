@@ -3468,8 +3468,8 @@ MonoBehaviour:
   Clockhand: {fileID: 2006878789}
   Score: 0
   GameDay: 0
-  daySeconds: 60
-  noticeDay: 4
+  daySeconds: 150
+  noticeDay: 2
   difficulty: 1
   Projectcap: 5
   realdifficulty: 0
