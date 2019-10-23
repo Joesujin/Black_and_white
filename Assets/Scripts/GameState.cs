@@ -32,7 +32,7 @@ public class GameState : MonoBehaviour
     public GameObject projectButtonPrefab;
     public Transform projectScreen;
     public GameObject drawscreen;
-    public GameObject Clockhand;
+
 
     public int Score;
     public int GameDay = 0;
@@ -46,7 +46,7 @@ public class GameState : MonoBehaviour
     public Text ScoreBoard;
     public Text NoticeText;
     string HistoryOfnotices;
-    public int tempCOlID;
+
 
 
     void Start()
@@ -66,14 +66,14 @@ public class GameState : MonoBehaviour
 
         StartCoroutine(Daytimer());
         projects.Clear();
-        tempCOlID = 3;
+
     }
 
     
     private void Update()
     {
 
-        Clockhand.transform.eulerAngles = new Vector3(0, 0, -Time.realtimeSinceStartup*12);
+
        
         if (drawscreen.activeInHierarchy)
         {
@@ -237,8 +237,6 @@ public class GameState : MonoBehaviour
 
     IEnumerator NoticeDay()
     {
-        if (isonDrawscreen)
-        {
             //StopCoroutine(Daytimer());
             
             int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
@@ -274,7 +272,7 @@ public class GameState : MonoBehaviour
             //Debug.Log("next notice day is on " + noticeDay.ToString());
             //StartCoroutine(Daytimer());
             yield return new WaitForSeconds(daySeconds + 1f);
-        }
+
         
         
     }

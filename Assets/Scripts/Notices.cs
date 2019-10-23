@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Notices 
+public class Notices
 {
-    public GameObject color_1;
-    public GameObject color_2;
     public int NoticeID = 0;
     GameObject gamestate = GameObject.Find("GameManager");
 
@@ -15,33 +13,53 @@ public class Notices
     public int colorID_2;
     public string Color1Name;
     public string Color2Name;
+    public Color C1;
+    public Color C2;
 
     public string NoticeMessage;
 
-    public Notices(int _clr1 , int _clr2)
+    public Notices(int _clr1, int _clr2)
     {
-        
+
         switch (_clr1)
         {
             case 0:
                 break;
             case 1:
-                color_1 = gamestate.GetComponent<GameState>().WhiteButton;
+                colorID_1 = _clr1;
+                C1 = gamestate.GetComponent<GameState>().DefaultColors[_clr1];
+                Color1Name = "White";
+
                 break;
             case 2:
-                color_1 = gamestate.GetComponent<GameState>().BlackButton;
+                colorID_1 = _clr1;
+                C1 = gamestate.GetComponent<GameState>().DefaultColors[_clr1];
+                Color1Name = "Black";
+
                 break;
             case 3:
-                color_1 = gamestate.GetComponent<GameState>().RedButton;
+                colorID_1 = _clr1;
+                C1 = gamestate.GetComponent<GameState>().DefaultColors[_clr1];
+                Color1Name = "Red";
+
                 break;
             case 4:
-                color_1 = gamestate.GetComponent<GameState>().BlueButton;
+                colorID_1 = _clr1;
+                C1 = gamestate.GetComponent<GameState>().DefaultColors[_clr1];
+                Color1Name = "Blue";
+
                 break;
             case 5:
-                color_1 = gamestate.GetComponent<GameState>().GreenButton;
+                colorID_1 = _clr1;
+                C1 = gamestate.GetComponent<GameState>().DefaultColors[_clr1];
+                Color1Name = "Green";
+
                 break;
             case 6:
-                color_1 = gamestate.GetComponent<GameState>().YellowButton;
+                colorID_1 = _clr1;
+                C1 = gamestate.GetComponent<GameState>().DefaultColors[_clr1];
+                Color1Name = "Yellow";
+
                 break;
         }
 
@@ -50,56 +68,65 @@ public class Notices
             case 0:
                 break;
             case 1:
-                color_2 = gamestate.GetComponent<GameState>().WhiteButton;
+                colorID_2 = _clr2;
+                C2 = gamestate.GetComponent<GameState>().DefaultColors[_clr2];
+                Color2Name = "White";
                 break;
             case 2:
-                color_2 = gamestate.GetComponent<GameState>().BlackButton;
+                colorID_2 = _clr2;
+                C2 = gamestate.GetComponent<GameState>().DefaultColors[_clr2];
+                Color2Name = "Black";
                 break;
             case 3:
-                color_2 = gamestate.GetComponent<GameState>().RedButton;
+                colorID_2 = _clr2;
+                C2 = gamestate.GetComponent<GameState>().DefaultColors[_clr2];
+                Color2Name = "Red";
+
                 break;
             case 4:
-                color_2 = gamestate.GetComponent<GameState>().BlueButton;
+                colorID_2 = _clr2;
+                C2 = gamestate.GetComponent<GameState>().DefaultColors[_clr2];
+                Color2Name = "Blue";
+
                 break;
             case 5:
-                color_2 = gamestate.GetComponent<GameState>().GreenButton;
+                colorID_2 = _clr2;
+                C2 = gamestate.GetComponent<GameState>().DefaultColors[_clr2];
+                Color2Name = "Green";
+
                 break;
             case 6:
-                color_2 = gamestate.GetComponent<GameState>().YellowButton;
+                colorID_2 = _clr2;
+                C2 = gamestate.GetComponent<GameState>().DefaultColors[_clr2];
+                Color2Name = "Yellow";
+
                 break;
         }
 
         NoticeID++;
-        colorID_1 = color_1.GetComponent<WhiteButton>().ColorbuttonId;
-        colorID_2 = color_2.GetComponent<WhiteButton>().ColorbuttonId;
 
 
     }
 
     public void ChangecolorMeaning()
     {
-        int tempC1 = color_1.GetComponent<WhiteButton>().ColorbuttonId;
-        int tempC2 = color_2.GetComponent<WhiteButton>().ColorbuttonId;
 
+        int tempC1 = this.colorID_1;
+        int tempC2 = this.colorID_2;
 
-        string NameC1 = color_1.GetComponent<WhiteButton>().colorName;
-        string NameC2 = color_2.GetComponent<WhiteButton>().colorName;
+        string NameC1 = this.Color1Name;
+        string NameC2 = this.Color2Name;
 
         Color tempcol = gamestate.GetComponent<GameState>().inGameColors[tempC1];
         gamestate.GetComponent<GameState>().inGameColors[tempC1] = gamestate.GetComponent<GameState>().inGameColors[tempC2];
         gamestate.GetComponent<GameState>().inGameColors[tempC2] = tempcol;
 
-        //color_1.GetComponent<WhiteButton>().ChangeColorID(tempC2);
-        //color_2.GetComponent<WhiteButton>().ChangeColorID(tempC1);
-
-        //color_1.GetComponent<WhiteButton>().ChangeColorName(NameC2);
-        //color_2.GetComponent<WhiteButton>().ChangeColorName(NameC1);
-
-        NoticeMessage = NameC1.ToString() + " is " + NameC2.ToString() + " and " + NameC2.ToString() + " is "+NameC1.ToString() ;
+        NoticeMessage = NameC1 + " is " + NameC2 + " and " + NameC2 + " is " + NameC1;
         Debug.Log(NoticeMessage);
 
     }
 
+    /*
     public void ChangecolorLooks()
     {
         Color ColorC1 = color_1.GetComponent<WhiteButton>().color;
@@ -108,7 +135,7 @@ public class Notices
         color_1.GetComponent<WhiteButton>().ChangeColor(ColorC1);
         color_2.GetComponent<WhiteButton>().ChangeColor(ColorC2);
     }
-
+    */
 
 
 
