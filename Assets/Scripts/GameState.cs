@@ -42,10 +42,13 @@ public class GameState : MonoBehaviour
     public int Projectcap = 4;
     public int realdifficulty;
 
-    bool isonDrawscreen;
+
     public Text ScoreBoard;
     public Text NoticeText;
     string HistoryOfnotices;
+
+    public int CoundownSeconds;
+    public Text CountdownText;
 
 
 
@@ -64,30 +67,31 @@ public class GameState : MonoBehaviour
             inGameColors.Add(key, DefaultColors[key]);
         }
 
-        StartCoroutine(Daytimer());
+
         projects.Clear();
 
     }
 
-    
-    private void Update()
+    public void StartDay()
     {
-
-
-       
-        if (drawscreen.activeInHierarchy)
+        dayCount++;
+        //StartCoroutine(Daytimer());
+        StartCoroutine(CountdownClock());
+        CoundownSeconds = daySeconds;
+        if (GameDay >= noticeDay)
         {
-            isonDrawscreen = true;
+            StartCoroutine(NoticeDay());
         }
-        else
-        {
-            isonDrawscreen = false;
-        }
-        
+    }
+
+    public void EndDay()
+    {
+        StopAllCoroutines();
+        //StopCoroutine(Daytimer());
         if (dayCount != GameDay)
         {
             Score = 0;
-            foreach(Project project in projects)
+            foreach (Project project in projects)
             {
                 bool _isPass = project.CrossCheck();
                 if (_isPass)
@@ -97,15 +101,19 @@ public class GameState : MonoBehaviour
             }
             GameDay++;
         }
+        
+
+    }
+
+    private void Update()
+    {
+        CountdownText.text = CoundownSeconds.ToString(); 
+        
+        
         string score = Score.ToString();
         ScoreBoard.text =  "Day - " + GameDay.ToString() + "\nScore - "  + score.ToString();
         
-        if(GameDay >= noticeDay)
-        {
-            StartCoroutine(NoticeDay());
-            //tempCOlID++;
-        }
-        //noticeDay = 0;
+
     }
 
     public void CheckProjectCorrectness()
@@ -113,23 +121,19 @@ public class GameState : MonoBehaviour
         Events.CheckProjectStatus();
     }
 
-    public void resumeDayTimer()
-    {
-        StartCoroutine(Daytimer());
-    }
 
     private void OnEnable()
     {
         Events.saveProject += saveProject;
         Events.ButtonCall += RecallProject;
-        Events.resumeDayCounter += resumeDayTimer;
+
     }
 
     private void OnDisable()
     {
         Events.saveProject -= saveProject;
         Events.ButtonCall -= RecallProject;
-        Events.resumeDayCounter -= resumeDayTimer;
+
     }
 
     public void showNoticeHistory()
@@ -219,28 +223,28 @@ public class GameState : MonoBehaviour
         return (projects[Id].tileData);
     }
     
-    IEnumerator Daytimer()
+    IEnumerator CountdownClock()
     {
-        //dayCount = 0;
-        while (gameObject)
+        while (true)
         {
-            dayCount++;
-            if(GameDay%5 == 0)
+            CoundownSeconds--;
+            yield return new WaitForSeconds(1);
+            
+            if (CoundownSeconds <=1)
             {
-                difficulty++;
+                EndDay();
             }
-            Debug.Log(dayCount);
-            yield return new WaitForSeconds(daySeconds);
         }
-        
     }
+
+
 
     IEnumerator NoticeDay()
     {
             //StopCoroutine(Daytimer());
             
-            int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
-            int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
+            int color1 = Random.Range(1,7);
+            int color2 = Random.Range(1,7);
             
 
             // color1 = 1;
@@ -259,11 +263,10 @@ public class GameState : MonoBehaviour
                 project.swapData(color1, color2);
             }
             notices.Add(notices1);
-            //notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(5, 10);
-            int temp = noticeDay + GameDay;
-            string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();
+            noticeDay += 1;
+            //int temp = noticeDay + GameDay;
+            string tempString = notices1.NoticeMessage ;
 
             updateNoticeText(notices1.NoticeMessage);
             Events.ChangeNotice(tempString);

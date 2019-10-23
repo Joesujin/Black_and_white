@@ -126,16 +126,7 @@ public class Notices
 
     }
 
-    /*
-    public void ChangecolorLooks()
-    {
-        Color ColorC1 = color_1.GetComponent<WhiteButton>().color;
-        Color ColorC2 = color_2.GetComponent<WhiteButton>().color;
 
-        color_1.GetComponent<WhiteButton>().ChangeColor(ColorC1);
-        color_2.GetComponent<WhiteButton>().ChangeColor(ColorC2);
-    }
-    */
 
 
 
