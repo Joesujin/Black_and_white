@@ -20,15 +20,11 @@ public class Life : MonoBehaviour
     {
         Money = 100;
         WalletMoney = Money;
+        TomoExpense = 100;
     }
 
     private void Update()
     {
-
-            
-
-
-
 
     }
 
@@ -57,7 +53,7 @@ public class Life : MonoBehaviour
         
         Money = Money - TomoExpense;
 
-        TomoExpense = (int)Random.Range(100, Money);
+        //TomoExpense = (int)Random.Range(100, Money);
         temptext = "Wallet = " + WalletMoney.ToString() + 
             "\n" +
             "\nIncome = " + income.ToString() +

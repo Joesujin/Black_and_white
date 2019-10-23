@@ -47,4 +47,6 @@ public class Events
     public static Action NoticeHistory;
 
     public static Action ReportScreen;
+
+    public static Action EndGame;
 }

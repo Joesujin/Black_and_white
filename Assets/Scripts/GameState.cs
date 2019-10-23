@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GameState : MonoBehaviour
@@ -38,7 +39,7 @@ public class GameState : MonoBehaviour
     public int GameDay = 0;
     public int daySeconds = 15;
     public int noticeDay = 5;
-    public int difficulty=3;
+    public int difficulty=0;
     public int Projectcap = 4;
     public int realdifficulty;
     public string DayOfWeek;
@@ -94,6 +95,18 @@ public class GameState : MonoBehaviour
 
     public void EndDay()
     {
+        if(CoundownSeconds > 1)
+        {
+            Debug.Log("EndDay buttonClick");
+            difficulty++;
+        }
+
+        if (drawscreen.activeInHierarchy == true)
+        {
+            Events.saveButton(currentProject);
+            ProjectScreenCall();
+        }
+        UpdateStory(GameDay);
         Events.ReportScreen();
         StopAllCoroutines();
         if (dayCount != GameDay)
@@ -109,12 +122,18 @@ public class GameState : MonoBehaviour
             }
             GameDay++;
         }
-        UpdateStory(GameDay);
         gameObject.GetComponent<Life>().UpdateLifeStats();
+        //GAME END STATE
         if(gameObject.GetComponent<Life>().Money <= 0)
         {
             UpdateStory(7);
+            Events.EndGame();
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("7DaysScene",LoadSceneMode.Single);
     }
 
     private void Update()
@@ -302,6 +321,22 @@ public class GameState : MonoBehaviour
             if (CoundownSeconds <=1)
             {
                 EndDay();
+            }
+
+            if(CoundownSeconds == (daySeconds / 2))
+            {
+                if(difficulty >=3 && projects.Count > 10)
+                {
+                    StartCoroutine(NoticeDay());
+                }
+            }
+
+            if(CoundownSeconds == (daySeconds - (daySeconds / 3)))
+            {
+                if (difficulty >= 5 && projects.Count > 19)
+                {
+                    StartCoroutine(NoticeDay());
+                }
             }
         }
     }
