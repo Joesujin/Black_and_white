@@ -48,7 +48,8 @@ public class GameState : MonoBehaviour
     string HistoryOfnotices;
 
     public int CoundownSeconds;
-    public Text CountdownText;
+    public Text CountdownTextPs;
+    public Text CountdownTextDs;
 
 
 
@@ -74,6 +75,7 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+        Events.ReportScreen();
         dayCount++;
         //StartCoroutine(Daytimer());
         StartCoroutine(CountdownClock());
@@ -86,6 +88,7 @@ public class GameState : MonoBehaviour
 
     public void EndDay()
     {
+        Events.ReportScreen();
         StopAllCoroutines();
         //StopCoroutine(Daytimer());
         if (dayCount != GameDay)
@@ -107,9 +110,10 @@ public class GameState : MonoBehaviour
 
     private void Update()
     {
-        CountdownText.text = CoundownSeconds.ToString(); 
-        
-        
+        CountdownTextPs.text = CoundownSeconds.ToString(); 
+        CountdownTextDs.text = CoundownSeconds.ToString();
+
+
         string score = Score.ToString();
         ScoreBoard.text =  "Day - " + GameDay.ToString() + "\nScore - "  + score.ToString();
         
@@ -241,19 +245,16 @@ public class GameState : MonoBehaviour
 
     IEnumerator NoticeDay()
     {
-            //StopCoroutine(Daytimer());
-            
+
             int color1 = Random.Range(1,7);
             int color2 = Random.Range(1,7);
             
 
-            // color1 = 1;
-            // int color2 = tempCOlID;
 
             if(color1 == color2)
             {
                 int tempNum = Random.Range(2, 3);
-                color2 = color2 +Mathf.Clamp(tempNum, 1, 7);
+                color2 = Mathf.Clamp(color2 + tempNum, 1, 7);
             }
 
             Notices notices1 = new Notices(color1, color2);
@@ -265,7 +266,7 @@ public class GameState : MonoBehaviour
             notices.Add(notices1);
             notices1.ChangecolorMeaning();
             noticeDay += 1;
-            //int temp = noticeDay + GameDay;
+
             string tempString = notices1.NoticeMessage ;
 
             updateNoticeText(notices1.NoticeMessage);
