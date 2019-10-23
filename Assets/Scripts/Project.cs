@@ -9,8 +9,11 @@ public class Project
     public int projectId;
     public int[] tileData = new int[25];
     GameObject projectButton;
-    
-    
+
+
+    public int ProjectWorth;
+    public int penalty;
+    public string ProjectDetails;
     
 
     bool buttonCreated = true;
@@ -26,6 +29,11 @@ public class Project
     {
         this.projectId = _projectId;
         CreateQuestion(QuestionDifficulty);
+
+        this.ProjectWorth = (_projectId * 10) +(QuestionDifficulty*10);
+        this.penalty = ProjectWorth / 2;
+
+        this.ProjectDetails = "Worth = " + this.ProjectWorth.ToString() + "\nPenalty =" + this.penalty.ToString();
     }
 
     public void CreateQuestion(int randomRangeincrease)
@@ -74,9 +82,6 @@ public class Project
             }
             
         }
-
-        
-
     }
 
 

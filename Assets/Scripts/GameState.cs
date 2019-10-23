@@ -41,7 +41,7 @@ public class GameState : MonoBehaviour
     public int difficulty=3;
     public int Projectcap = 4;
     public int realdifficulty;
-
+    public string DayOfWeek;
 
     public Text ScoreBoard;
     public Text NoticeText;
@@ -50,7 +50,12 @@ public class GameState : MonoBehaviour
     public int CoundownSeconds;
     public Text CountdownTextPs;
     public Text CountdownTextDs;
+    public Text StoryText;
+    public Text Projectdetails;
 
+    public Color SelectedColor;
+    public int SelectedColorID;
+    public GameObject pickedColor;
 
 
     void Start()
@@ -68,6 +73,7 @@ public class GameState : MonoBehaviour
             inGameColors.Add(key, DefaultColors[key]);
         }
 
+        UpdateStory(GameDay);
 
         projects.Clear();
 
@@ -75,9 +81,9 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+        gameObject.GetComponent<Life>().UpdateLifeStats();
         Events.ReportScreen();
         dayCount++;
-        //StartCoroutine(Daytimer());
         StartCoroutine(CountdownClock());
         CoundownSeconds = daySeconds;
         if (GameDay >= noticeDay)
@@ -90,7 +96,6 @@ public class GameState : MonoBehaviour
     {
         Events.ReportScreen();
         StopAllCoroutines();
-        //StopCoroutine(Daytimer());
         if (dayCount != GameDay)
         {
             Score = 0;
@@ -104,8 +109,12 @@ public class GameState : MonoBehaviour
             }
             GameDay++;
         }
-        
-
+        UpdateStory(GameDay);
+        gameObject.GetComponent<Life>().UpdateLifeStats();
+        if(gameObject.GetComponent<Life>().Money <= 0)
+        {
+            UpdateStory(7);
+        }
     }
 
     private void Update()
@@ -115,8 +124,9 @@ public class GameState : MonoBehaviour
 
 
         string score = Score.ToString();
-        ScoreBoard.text =  "Day - " + GameDay.ToString() + "\nScore - "  + score.ToString();
-        
+        ScoreBoard.text = DayOfWeek;
+
+        pickedColor.GetComponent<Image>().color = SelectedColor;
 
     }
 
@@ -130,19 +140,72 @@ public class GameState : MonoBehaviour
     {
         Events.saveProject += saveProject;
         Events.ButtonCall += RecallProject;
-
+        Events.ChangeColor += SelectedClrChange;
+        Events.ColorId += SelectedClrIDChange;
     }
 
     private void OnDisable()
     {
         Events.saveProject -= saveProject;
         Events.ButtonCall -= RecallProject;
+        Events.ChangeColor -= SelectedClrChange;
+        Events.ColorId -= SelectedClrIDChange;
+    }
 
+    public void SelectedClrChange(Color clr)
+    {
+        SelectedColor = clr;
+    }
+
+    public void SelectedClrIDChange(int clrID)
+    {
+        SelectedColorID = clrID;
     }
 
     public void showNoticeHistory()
     {
         Events.NoticeHistory();
+    }
+
+    public void UpdateStory(int Day)
+    {
+        switch (Day)
+        {
+            case 0:
+                StoryText.text = "My Name is John i used to work here..." +
+                    "\n now you are gonna..." +
+                    "\n All the best Budd";
+                DayOfWeek = "Monday";
+                break;
+            case 1:
+                StoryText.text = "You know the dril";
+                DayOfWeek = "Tuesday";
+                break;
+            case 2:
+                StoryText.text = "lets work out Some Deal okay???";
+                DayOfWeek = "Wednesday";
+                break;
+            case 3:
+                StoryText.text = "Story line 4";
+                DayOfWeek = "Thursday";
+                break;
+            case 4:
+                StoryText.text = "Story line 5";
+                DayOfWeek = "Friday";
+                break;
+            case 5:
+                StoryText.text = "Story line 6";
+                DayOfWeek = "Saturday";
+                break;
+            case 6:
+                StoryText.text = "Story line 7";
+                DayOfWeek = "Sunday";
+                break;
+            case 7:
+                StoryText.text = "Story line 8";
+                DayOfWeek = "Judgement Day!!!";
+                break;
+        }
     }
 
     public void NewProject()
@@ -171,6 +234,7 @@ public class GameState : MonoBehaviour
             Button.GetComponent<ProjectButton>().GetbuttonID(currentProject);
             Events.saveInital(currentProject);
             projectId++;
+            Projectdetails.text = projects[currentProject].ProjectDetails;
             Events.drawScreen();
             gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
             if (notices != null)
@@ -212,6 +276,7 @@ public class GameState : MonoBehaviour
         currentProject = _currentProject;
         int[] data = projects[_currentProject].ReturnTiledata();
         Events.recallProject(data,currentProject);
+        Projectdetails.text = projects[_currentProject].ProjectDetails;
         Events.RecallDrawscreen();
         gameObject.GetComponent<TileMap>().LoadQuestion(projects[currentProject].QuestionData);
     }

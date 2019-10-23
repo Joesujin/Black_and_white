@@ -8,7 +8,8 @@ public class Life : MonoBehaviour
     public float Money;
     public float WalletMoney;
     public float TomoExpense;
-    public int gameDay;
+    public float income;
+    public float totalPenalty;
 
     public Text LifeText;
     public string temptext;
@@ -23,17 +24,47 @@ public class Life : MonoBehaviour
 
     private void Update()
     {
-        if (gameObject.GetComponent<GameState>().dayCount != gameDay)
-        {
+
             
-            int score = gameObject.GetComponent<GameState>().Score;
-            int addMoney = score * 5;
-            Money = addMoney + Money - TomoExpense;
-            gameDay++;
-            TomoExpense = Random.Range(1, gameDay * 2);
+
+
+
+
+    }
+
+    public void UpdateLifeStats()
+    {
+        WalletMoney = Money;
+
+        income = 0;
+        totalPenalty = 0;
+        List<Project> ActiveProjects = gameObject.GetComponent<GameState>().projects;
+
+        foreach(Project _project in ActiveProjects)
+        {
+            if (_project.isPass)
+            {
+                Money = Money + _project.ProjectWorth;
+                income = income + _project.ProjectWorth;
+            }
+            else if (!_project.isPass)
+            {
+                Money = Money - _project.penalty;
+                totalPenalty = totalPenalty + _project.penalty;
+            }
         }
 
-        temptext = "Money = " + Money.ToString() + "\nTomorrows Expense = " + TomoExpense.ToString();
+        
+        Money = Money - TomoExpense;
+
+        TomoExpense = (int)Random.Range(100, Money);
+        temptext = "Wallet = " + WalletMoney.ToString() + 
+            "\n" +
+            "\nIncome = " + income.ToString() +
+            "\nTotal Penalty = " + totalPenalty.ToString()+
+            "\nExpence = " + TomoExpense.ToString()+
+            "\n" +
+            "\nBalance =" + Money.ToString();
         LifeText.text = temptext;
     }
 }

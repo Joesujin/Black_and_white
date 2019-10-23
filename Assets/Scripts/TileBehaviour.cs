@@ -19,6 +19,9 @@ public class TileBehaviour : MonoBehaviour
     private void OnEnable()
     {
         gameState = GameObject.Find("GameManager");
+        selectedColor = gameState.GetComponent<GameState>().SelectedColor;
+        color_id = gameState.GetComponent<GameState>().SelectedColorID;
+
         this.GetComponent<SpriteRenderer>().color = Color.grey;
         ownColor = 0;
         colorChanged = false;
@@ -89,7 +92,8 @@ public class TileBehaviour : MonoBehaviour
                 break;
         }
         GetComponent<SpriteRenderer>().color = selectedColor;
-
+        selectedColor = gameState.GetComponent<GameState>().SelectedColor;
+        color_id = gameState.GetComponent<GameState>().SelectedColorID;
 
     }
 
