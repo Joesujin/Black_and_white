@@ -20,7 +20,9 @@ public class ReportScreen : MonoBehaviour
         Events.EndGame += DisableStartDayButton;
     }
 
-    private void OnApplicationQuit()
+  
+
+    private void OnDestroy()
     {
         Events.ReportScreen -= visiblity;
         Events.EndGame -= DisableStartDayButton;

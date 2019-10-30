@@ -103,7 +103,7 @@ public class Notices
                 break;
         }
 
-        NoticeID++;
+
 
 
     }
@@ -121,7 +121,7 @@ public class Notices
         gamestate.GetComponent<GameState>().inGameColors[tempC1] = gamestate.GetComponent<GameState>().inGameColors[tempC2];
         gamestate.GetComponent<GameState>().inGameColors[tempC2] = tempcol;
 
-        NoticeMessage = NameC1 + " is " + NameC2 + " and " + NameC2 + " is " + NameC1;
+        NoticeMessage = this.NoticeID.ToString();
         Debug.Log(NoticeMessage);
 
     }

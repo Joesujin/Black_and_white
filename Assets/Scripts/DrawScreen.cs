@@ -18,7 +18,7 @@ public class DrawScreen : MonoBehaviour
         Events.RecallDrawscreen += visiblity;
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
         Events.drawScreen -= visiblity;
         Events.projectScreen -= visiblity;

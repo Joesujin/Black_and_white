@@ -11,6 +11,14 @@ public class TileBehaviour : MonoBehaviour
     public Color selectedColor;
     public int color_id;
     public int ownColor;
+    public Sprite stroke1;
+    public Sprite stroke2;
+    public Sprite stroke3;
+    public Sprite stroke4;
+    public Sprite stroke5;
+    public Sprite stroke6;
+
+    public int spriteSelection;
 
     bool colorChanged;
 
@@ -18,6 +26,7 @@ public class TileBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
         gameState = GameObject.Find("GameManager");
         selectedColor = gameState.GetComponent<GameState>().SelectedColor;
         color_id = gameState.GetComponent<GameState>().SelectedColorID;
@@ -39,20 +48,32 @@ public class TileBehaviour : MonoBehaviour
 
     
     
+    
     private void OnMouseDown()
     {
+        iTween.ScaleFrom(gameObject, iTween.Hash("scale", new Vector3(0.7f,0.7f,0),
+            "speed", 20f,
+            "easetype", iTween.EaseType.easeInOutQuint));
+        SpriteChanger();
         this.GetComponent<SpriteRenderer>().color = selectedColor;
         this.colorChanged = true;
         this.ownColor = color_id;
+        //iTween.ScaleTo(gameObject, new Vector3(1f, 1f, 0), 0.3f);
     }
     
     private void OnMouseEnter()
     {
         if(Input.GetMouseButton(0) == true)
         {
+            //iTween.ScaleFrom(gameObject, iTween.Hash("scale", new Vector3(0.7f, 0.7f, 0),
+             //   "speed", 20f,
+               // "easetype", iTween.EaseType.easeInOutQuint));
+            SpriteChanger();
             this.GetComponent<SpriteRenderer>().color = selectedColor;
             this.colorChanged = true;
             this.ownColor = color_id;
+            //iTween.ScaleTo(gameObject, new Vector3(1f, 1f, 0), 0.3f);
+
         }
     }
     
@@ -94,6 +115,7 @@ public class TileBehaviour : MonoBehaviour
         GetComponent<SpriteRenderer>().color = selectedColor;
         selectedColor = gameState.GetComponent<GameState>().SelectedColor;
         color_id = gameState.GetComponent<GameState>().SelectedColorID;
+        SpriteChanger();
 
     }
 
@@ -110,5 +132,34 @@ public class TileBehaviour : MonoBehaviour
     public bool ColorChanged()
     {
         return (colorChanged);
+    }
+
+    public void SpriteChanger()
+    {
+        spriteSelection = (int)Random.Range(1, 7);
+        switch (spriteSelection)
+        {
+            case 0:
+                this.GetComponent<SpriteRenderer>().sprite = null;
+                break;
+            case 1:
+                this.GetComponent<SpriteRenderer>().sprite = stroke1;
+                break;
+            case 2:
+                this.GetComponent<SpriteRenderer>().sprite = stroke2;
+                break;
+            case 3:
+                this.GetComponent<SpriteRenderer>().sprite = stroke3;
+                break;
+            case 4:
+                this.GetComponent<SpriteRenderer>().sprite = stroke4;
+                break;
+            case 5:
+                this.GetComponent<SpriteRenderer>().sprite = stroke5;
+                break;
+            case 6:
+                this.GetComponent<SpriteRenderer>().sprite = stroke6;
+                break;
+        }
     }
 }

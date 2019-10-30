@@ -30,7 +30,7 @@ public class ProjectButton : MonoBehaviour
         Events.CheckProjectStatus += statusMarker;
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
         Events.CheckProjectStatus -= statusMarker;
 

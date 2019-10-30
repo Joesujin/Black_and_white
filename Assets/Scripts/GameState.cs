@@ -20,6 +20,7 @@ public class GameState : MonoBehaviour
     public GameObject GreenButton;
     public GameObject YellowButton;
 
+    public Color Gray;
     public Color White;
     public Color Black;
     public Color Red;
@@ -58,10 +59,13 @@ public class GameState : MonoBehaviour
     public int SelectedColorID;
     public GameObject pickedColor;
 
+    public GameObject NoticePanel;
+    public GameObject Noticedetails;
+
 
     void Start()
     {
-        DefaultColors.Add(0, Color.gray);
+        DefaultColors.Add(0, Gray);
         DefaultColors.Add(1, White);
         DefaultColors.Add(2, Black);
         DefaultColors.Add(3, Red);
@@ -82,6 +86,7 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+        difficulty = 0;
         gameObject.GetComponent<Life>().UpdateLifeStats();
         Events.ReportScreen();
         dayCount++;
@@ -322,22 +327,21 @@ public class GameState : MonoBehaviour
             {
                 EndDay();
             }
-
-            if(CoundownSeconds == (daySeconds / 2))
+            /*
+            if(CoundownSeconds == (daySeconds / 2) && difficulty >= 3 && projects.Count > 10)
             {
-                if(difficulty >=3 && projects.Count > 10)
-                {
+
                     StartCoroutine(NoticeDay());
-                }
+
             }
 
-            if(CoundownSeconds == (daySeconds - (daySeconds / 3)))
+            if((CoundownSeconds == daySeconds / 3) && difficulty >= 5 && projects.Count > 19)
             {
-                if (difficulty >= 5 && projects.Count > 19)
-                {
+
                     StartCoroutine(NoticeDay());
-                }
+
             }
+            */
         }
     }
 
@@ -354,7 +358,7 @@ public class GameState : MonoBehaviour
             if(color1 == color2)
             {
                 int tempNum = Random.Range(2, 3);
-                color2 = Mathf.Clamp(color2 + tempNum, 1, 7);
+                color2 = Mathf.Clamp(color2 + tempNum, 1, 6);
             }
 
             Notices notices1 = new Notices(color1, color2);
@@ -366,19 +370,20 @@ public class GameState : MonoBehaviour
             notices.Add(notices1);
             notices1.ChangecolorMeaning();
             noticeDay += 1;
+        notices1.NoticeID = notices.Count;
 
-            string tempString = notices1.NoticeMessage ;
+            GameObject Button;
+            Button = Instantiate(Noticedetails, new Vector2(2, 2), Quaternion.identity, NoticePanel.transform);
+            Button.GetComponent<NoticeDetails>().NoticeInfoChange(notices1.C1,notices1.C2,notices1.NoticeID);
+            string tempString = notices1.NoticeMessage;
 
-            updateNoticeText(notices1.NoticeMessage);
-            Events.ChangeNotice(tempString);
+            //updateNoticeText(notices1.NoticeMessage);
+            Events.ChangeNotice(notices1.C1, notices1.C2,tempString);
             Events.noticeScreen();
 
             //Debug.Log("next notice day is on " + noticeDay.ToString());
             //StartCoroutine(Daytimer());
             yield return new WaitForSeconds(daySeconds + 1f);
-
-        
-        
     }
 
     

@@ -15,7 +15,7 @@ public class NoticeHistory : MonoBehaviour
         Events.NoticeHistory += visiblity;
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
         Events.NoticeHistory -= visiblity;
     }

@@ -13,6 +13,40 @@ public class WhiteButton : MonoBehaviour
     public string colorName;
     public int ColorbuttonId=0;
     public Color color= Color.gray;
+    /*
+public GameObject gameState = GameObject.Find("GameManager");
+private void OnEnable()
+{
+    switch (this.DefaultButtonId)
+    {
+        case 1:
+            this.color = gameState.GetComponent<GameState>().DefaultColors[this.DefaultButtonId];
+            this.gameObject.GetComponent<SpriteRenderer>().color = this.color;
+            break;
+        case 2:
+            this.color = gameState.GetComponent<GameState>().DefaultColors[this.DefaultButtonId];
+            this.gameObject.GetComponent<SpriteRenderer>().color = this.color;
+            break;
+        case 3:
+            this.color = gameState.GetComponent<GameState>().DefaultColors[this.DefaultButtonId];
+            this.gameObject.GetComponent<SpriteRenderer>().color = this.color;
+            break;
+        case 4:
+            this.color = gameState.GetComponent<GameState>().DefaultColors[this.DefaultButtonId];
+            this.gameObject.GetComponent<SpriteRenderer>().color = this.color;
+            break;
+        case 5:
+            this.color = gameState.GetComponent<GameState>().DefaultColors[this.DefaultButtonId];
+            this.gameObject.GetComponent<SpriteRenderer>().color = this.color;
+            break;
+        case 6:
+            this.color = gameState.GetComponent<GameState>().DefaultColors[this.DefaultButtonId];
+            this.gameObject.GetComponent<SpriteRenderer>().color = this.color;
+            break;
+
+    }
+}
+*/
 
     public void onClick()
     {
