@@ -12,6 +12,5 @@ public class ColorPairs
     {
         Color1 = _c1;
         Color2 = _c2;
-
     }
 }

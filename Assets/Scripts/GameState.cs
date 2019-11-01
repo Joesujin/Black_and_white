@@ -300,8 +300,6 @@ public class GameState : MonoBehaviour
         if (projects.Count < 20)
         {
 
-
-
             realdifficulty = Mathf.Clamp(realdifficulty, 3, 7);
 
             if (projects.Count > Projectcap)
