@@ -23,10 +23,6 @@ public class Life : MonoBehaviour
         TomoExpense = 100;
     }
 
-    private void Update()
-    {
-
-    }
 
     public void UpdateLifeStats()
     {

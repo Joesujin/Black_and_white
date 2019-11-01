@@ -9,13 +9,15 @@ public class ReportScreen : MonoBehaviour
     public bool visible;
     public GameObject StartDayButton;
     public GameObject RestartButton;
-
+    public GameObject MorningScreen;
+    bool isActive =true;
 
     private void Start()
     {
         RestartButton.SetActive(false);
         visible = true;
         gameObject.SetActive(visible);
+        MorningScreen.SetActive(isActive);
         Events.ReportScreen += visiblity;
         Events.EndGame += DisableStartDayButton;
     }
@@ -40,5 +42,12 @@ public class ReportScreen : MonoBehaviour
     {
         StartDayButton.SetActive(false);
         RestartButton.SetActive(true);
+    }
+
+    public void NewSScreen()
+    {
+
+        isActive = !isActive;
+        MorningScreen.SetActive(isActive);
     }
 }

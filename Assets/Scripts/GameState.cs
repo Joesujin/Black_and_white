@@ -66,9 +66,15 @@ public class GameState : MonoBehaviour
     public GameObject NoticePanel;
     public GameObject Noticedetails;
 
+    public IEnumerator count;
+    public int tempTime;
 
     void Start()
     {
+
+        count = CountdownClock();
+
+
         DefaultColors.Add(0, Gray);
         DefaultColors.Add(1, White);
         DefaultColors.Add(2, Black);
@@ -135,7 +141,7 @@ public class GameState : MonoBehaviour
         gameObject.GetComponent<Life>().UpdateLifeStats();
         Events.ReportScreen();
         dayCount++;
-        StartCoroutine(CountdownClock());
+        StartCoroutine(count);
         CoundownSeconds = daySeconds;
         if (GameDay >= noticeDay)
         {
@@ -257,22 +263,25 @@ public class GameState : MonoBehaviour
                 DayOfWeek = "Day 1";
                 break;
             case 1:
-                StoryText.text = "Well Done of your first day." +
+                StoryText.text = "<size=200%>Massive meteore strikes again" +
+                    "\n\n<size= 250%>EVERYTHING CHANGES";
+                DayOfWeek = "Day 2" + "Well Done of your first day." +
                     "\n you've done " + projects.Count.ToString() + " out of which " + Score.ToString() + "are Valid" +
                     "\n\n you can checkout those projects whenever you like and correct them" +
                     "\nKeep up the good work" +
                     "\n oh and look out for the notices";
-                DayOfWeek = "Day 2";
                 break;
             case 2:
-                StoryText.text = "Notices are office memos that are passed down by the people above" +
+                StoryText.text = "The meaning of everything changed now it has happened again. the swapping phenomenon" +
+                    "\n<size=200%>EXPECT WORKPLACE CHANGES";
+                DayOfWeek = "Day 3" + "Notices are office memos that are passed down by the people above" +
                     "\n they have no idea whats going on, But they always want to change the meaning of on thing to another" +
                     "\n so we need to keep our projects up to date." +
                     "\n\n you'll lose money for all the invalid projects you have.";
-                DayOfWeek = "Day 3";
                 break;
             case 3:
-                StoryText.text = "Story line 4";
+                StoryText.text = "People have started to lose their jobs again." +
+                    "\nEvery working individual is advised to prioritize work to sustain in this society";
                 DayOfWeek = "Day 4";
                 break;
             case 4:
@@ -404,6 +413,25 @@ public class GameState : MonoBehaviour
             }
             */
         }
+    }
+
+    public void PauseTimer()
+    {
+
+
+        tempTime = CoundownSeconds;
+        StopCoroutine(count);
+        Debug.Log("stop timer");
+        //StopAllCoroutines();
+    }
+
+    public void ResumeTimer()
+    {
+        Debug.Log("restart timer");
+        count = CountdownClock();
+        CoundownSeconds = tempTime;
+        StartCoroutine(count);
+
     }
 
     public void NoticeControl()

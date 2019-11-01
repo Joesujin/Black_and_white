@@ -44,7 +44,6 @@ public class Project
 
         if (difficulty > 3)
         {
-
             for (int i = 1; i <= difficulty-1; i++)
             {
                 for (int j = 1; j <= difficulty-1; j++)
