@@ -24,7 +24,7 @@ public class ProjectScreen : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
         Events.drawScreen -= visiblity;
         Events.projectScreen -= visiblity;

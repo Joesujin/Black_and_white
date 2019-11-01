@@ -9,6 +9,12 @@ public class NoticeScreen : MonoBehaviour
 
     public Text noticeText;
 
+    public Color C1;
+    public Color C2;
+
+    public GameObject img1;
+    public GameObject img2;
+
     private void Start()
     {
         visible = false;
@@ -19,7 +25,7 @@ public class NoticeScreen : MonoBehaviour
     }
 
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
         Events.ChangeNotice -= changeNoticeText;
 
@@ -33,8 +39,11 @@ public class NoticeScreen : MonoBehaviour
         gameObject.SetActive(visible);
     }
 
-    public void changeNoticeText(string tempText)
+    public void changeNoticeText(Color _c1, Color _c2, string tempText)
     {
+        img1.GetComponent<Image>().color = _c1;
+        img2.GetComponent<Image>().color = _c2;
+
         noticeText.text = tempText;
     } 
 
