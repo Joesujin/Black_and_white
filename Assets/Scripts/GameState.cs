@@ -76,8 +76,10 @@ public class GameState : MonoBehaviour
     public int CalloftheDay;
     public int callerID;
     public string Callertext;
-    public string MoneyCost;
+    public string AcceptMessage;
+    public int MoneyCost;
 
+    public TextMeshProUGUI LiveUpdate;
 
     void Start()
     {
@@ -85,7 +87,7 @@ public class GameState : MonoBehaviour
         CalloftheDay = 0;
         callerID = 1;
         Callertext = TheStory.SamDialogues;
-        MoneyCost = "Accept";
+        AcceptMessage = "Accept";
         count = CountdownClock();
 
 
@@ -151,6 +153,7 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+        ringPhone = false;
         CalloftheDay = 0;
         CoundownSeconds = daySeconds;
         difficulty = 0;
@@ -227,9 +230,33 @@ public class GameState : MonoBehaviour
 
         foreach (var project in projects)
         {
-            project.cheatSheet();
+            //project.cheatSheet();
         }
 
+        int ProjectCount = projects.Count;
+        int ValidProjects = 0;
+        int income = 0;
+        int penalty = 0;
+        foreach (Project project in projects)
+        {
+            bool _isPass = project.CrossCheck();
+            if (_isPass)
+            {
+                ValidProjects++;
+                income += project.ProjectWorth;
+            }
+            else
+            {
+                penalty += project.penalty;
+            }
+        }
+        int money = (int) gameObject.GetComponent<Life>().Money;
+
+        LiveUpdate.text = "No.of  Projects - " + ProjectCount.ToString() + " " +
+            "\nValid Projects -" + ValidProjects.ToString() + " " +
+            "\nPenalty - " + penalty.ToString() + "" +
+            "\n<b>   Income -" + income.ToString() + " " +
+            "\n   Bank balance -" + money.ToString() + " </b>";
 
     }
 
@@ -240,20 +267,22 @@ public class GameState : MonoBehaviour
             case 1:
                 callerID = 1;
                 Callertext = TheStory.SamDialogues;
-                MoneyCost = "Accept";
+                AcceptMessage = TheStory.SamAccept.ToString();
                 break;
             case 2:
                 callerID = 2;
                 Callertext = TheStory.WifeDialogues;
-                MoneyCost = "Give -" + TheStory.WifeNeeds.ToString();
+                AcceptMessage = TheStory.WifeAccept.ToString();
+                MoneyCost = TheStory.WifeNeeds;
                 break;
             case 3:
                 callerID = 3;
                 Callertext = TheStory.RonDialogues;
-                MoneyCost = "Give -" + TheStory.RonNeeds.ToString();
+                AcceptMessage =  TheStory.RonAccept.ToString();
+                MoneyCost = TheStory.RonNeeds;
                 break;
         }
-        Events.PhoneCall(callerID, Callertext, MoneyCost);
+        Events.PhoneCall(callerID, Callertext, AcceptMessage);
     }
 
     public void CheckProjectCorrectness()

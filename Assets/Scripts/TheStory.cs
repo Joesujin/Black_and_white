@@ -9,9 +9,12 @@ public static class TheStory
     public static string DayEndReport;
 
     public static string WifeDialogues;
+    public static string WifeAccept;
     public static int WifeNeeds;
     public static string SamDialogues;
+    public static string SamAccept;
     public static string RonDialogues;
+    public static string RonAccept;
     public static int RonNeeds;
 
     public static void StoryText(int Day)
@@ -78,59 +81,83 @@ public static class TheStory
         {
             case 0:
                 SamDialogues = "Sam dialogue day 1";
+                SamAccept = "Accept";
                 WifeDialogues = " Wife dialogue day1";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
                 RonDialogues = "Ron dialogue day1";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
             case 1:
                 SamDialogues = "sam dialogue day 2";
-                WifeDialogues = "Wife dialogue day2";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day2";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
                 RonDialogues = "Ron dialogue day2";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
             case 2:
                 SamDialogues = "sam dialogue day 3";
-                WifeDialogues = "Wife dialogue day3";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day3";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
                 RonDialogues = "Ron dialogue day3";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
 
                 break;
             case 3:
                 SamDialogues = "sam dialogue day 4";
-                WifeDialogues = "Wife dialogue day 4";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day4";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
-                RonDialogues = "Ron dialogue day 4";
+                RonDialogues = "Ron dialogue day4";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
             case 4:
                 SamDialogues = "sam dialogue day 5";
-                WifeDialogues = "Wife dialogue day 5";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day5";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
-                RonDialogues = "Ron dialogue day 5";
+                RonDialogues = "Ron dialogue day5";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
             case 5:
                 SamDialogues = "sam dialogue day 6";
-                WifeDialogues = "Wife dialogue day 6";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day6";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
-                RonDialogues = "Ron dialogue day 6";
+                RonDialogues = "Ron dialogue day6";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
             case 6:
                 SamDialogues = "sam dialogue day 7";
-                WifeDialogues = "Wife dialogue day 7";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day7";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
-                RonDialogues = "Ron dialogue day 7";
+                RonDialogues = "Ron dialogue day7";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
             case 7:
                 SamDialogues = "sam dialogue day 8";
-                WifeDialogues = "Wife dialogue day 8";
+                SamAccept = "Accept";
+                WifeDialogues = " Wife dialogue day8";
+                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
-                RonDialogues = "Ron dialogue day 8";
+                RonDialogues = "Ron dialogue day8";
+                RonAccept = "Give - 1000";
                 RonNeeds = 1000;
                 break;
         }

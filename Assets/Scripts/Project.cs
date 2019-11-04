@@ -34,8 +34,8 @@ public class Project
         CreateQuestion(QuestionDifficulty);
 
 
-        this.ProjectWorth = (_projectId * 10) + (QuestionDifficulty * 10);
-        this.penalty = ProjectWorth + 20;
+        this.ProjectWorth = (_projectId * 10) + (QuestionDifficulty * 5);
+        this.penalty = ProjectWorth + 5;
 
         this.ProjectDetails = "Worth = " + this.ProjectWorth.ToString() + "\nPenalty =" + this.penalty.ToString();
     }

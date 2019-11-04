@@ -28,7 +28,8 @@ public class PhoneScript : MonoBehaviour
 
     void Start()
     {
-        
+        visible = false;
+        gameObject.SetActive(visible);
         Events.PhoneCall += PhoneCall;
     }
 
