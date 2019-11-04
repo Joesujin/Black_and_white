@@ -46,7 +46,7 @@ public class GameState : MonoBehaviour
     public int difficulty = 0;
     public int Projectcap = 4;
     public int realdifficulty;
-    public string DayOfWeek;
+    public string DayEndReport;
 
     public Text ScoreBoard;
     public Text NoticeText;
@@ -69,9 +69,23 @@ public class GameState : MonoBehaviour
     public IEnumerator count;
     public int tempTime;
 
+
+    public bool ringPhone;
+    public GameObject Phone;
+    public GameObject PhoneScreen;
+    public int CalloftheDay;
+    public int callerID;
+    public string Callertext;
+    public string MoneyCost;
+
+
     void Start()
     {
-
+        GameDay = 0;
+        CalloftheDay = 0;
+        callerID = 1;
+        Callertext = TheStory.SamDialogues;
+        MoneyCost = "Accept";
         count = CountdownClock();
 
 
@@ -129,7 +143,7 @@ public class GameState : MonoBehaviour
 
 
         UpdateStory(GameDay);
-
+        
         projects.Clear();
         UsedPairs.Clear();
 
@@ -137,12 +151,14 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+        CalloftheDay = 0;
+        CoundownSeconds = daySeconds;
         difficulty = 0;
         gameObject.GetComponent<Life>().UpdateLifeStats();
-        Events.ReportScreen();
+        //Events.ReportScreen();
         dayCount++;
         StartCoroutine(count);
-        CoundownSeconds = daySeconds;
+
         if (GameDay >= noticeDay)
         {
             StartCoroutine(NoticeDay());
@@ -151,7 +167,7 @@ public class GameState : MonoBehaviour
 
     public void EndDay()
     {
-        if(UsedPairs.Count == 3)
+        if (UsedPairs.Count == 3)
         {
             UsedPairs.Clear();
         }
@@ -204,10 +220,40 @@ public class GameState : MonoBehaviour
 
 
         string score = Score.ToString();
-        ScoreBoard.text = DayOfWeek;
+        ScoreBoard.text = DayEndReport;
 
         pickedColor.GetComponent<Image>().color = SelectedColor;
 
+
+        foreach (var project in projects)
+        {
+            project.cheatSheet();
+        }
+
+
+    }
+
+    public void PhoneCall()
+    {
+        switch (CalloftheDay)
+        {
+            case 1:
+                callerID = 1;
+                Callertext = TheStory.SamDialogues;
+                MoneyCost = "Accept";
+                break;
+            case 2:
+                callerID = 2;
+                Callertext = TheStory.WifeDialogues;
+                MoneyCost = "Give -" + TheStory.WifeNeeds.ToString();
+                break;
+            case 3:
+                callerID = 3;
+                Callertext = TheStory.RonDialogues;
+                MoneyCost = "Give -" + TheStory.RonNeeds.ToString();
+                break;
+        }
+        Events.PhoneCall(callerID, Callertext, MoneyCost);
     }
 
     public void CheckProjectCorrectness()
@@ -249,60 +295,25 @@ public class GameState : MonoBehaviour
 
     public void UpdateStory(int Day)
     {
-        switch (Day)
-        {
-            case 0:
-                StoryText.text = "<size=200%>Dear applicant" +
-                    "\n<line-indent=15%><size=100%>This is your Probation period for the job application we recieved from you.</line-indent>" +
-                    "\n\n<u><b>Instructions are as follows.</u></b>" +
-                    "\n<line-indent=8%> -Find the <b><size=120%>Big Red Button<size=100%></b>" +
-                    "\n -Use the Colors Match the grid with the Job Sheet" +
-                    "\n -<i>Submit.</i>" +
-                    "\n -<color=#009500>Green tick</color> is good,<color=#950000> Red cross</color> is bad</line-indent>" +
-                    "\n\n<size=150%><i><b>All the best</i></b>";
-                DayOfWeek = "Day 1";
-                break;
-            case 1:
-                StoryText.text = "<size=200%>Massive meteore strikes again" +
-                    "\n\n<size= 250%>EVERYTHING CHANGES";
-                DayOfWeek = "Day 2" + "Well Done of your first day." +
-                    "\n you've done " + projects.Count.ToString() + " out of which " + Score.ToString() + "are Valid" +
-                    "\n\n you can checkout those projects whenever you like and correct them" +
-                    "\nKeep up the good work" +
-                    "\n oh and look out for the notices";
-                break;
-            case 2:
-                StoryText.text = "The meaning of everything changed now it has happened again. the swapping phenomenon" +
-                    "\n<size=200%>EXPECT WORKPLACE CHANGES";
-                DayOfWeek = "Day 3" + "Notices are office memos that are passed down by the people above" +
-                    "\n they have no idea whats going on, But they always want to change the meaning of on thing to another" +
-                    "\n so we need to keep our projects up to date." +
-                    "\n\n you'll lose money for all the invalid projects you have.";
-                break;
-            case 3:
-                StoryText.text = "People have started to lose their jobs again." +
-                    "\nEvery working individual is advised to prioritize work to sustain in this society";
-                DayOfWeek = "Day 4";
-                break;
-            case 4:
-                StoryText.text = "Story line 5";
-                DayOfWeek = "Day 5";
-                break;
-            case 5:
-
-                StoryText.text = "Story line 6";
-                DayOfWeek = "Day 6";
-                break;
-            case 6:
-                StoryText.text = "Story line 7";
-                DayOfWeek = "Day 7";
-                break;
-            case 7:
-                StoryText.text = "Story line 8";
-                DayOfWeek = "Judgement Day!!!";
-                break;
-        }
+        TheStory.StoryText(Day);
+        TheStory.PhoneCalls(Day);
+        StoryText.text = TheStory.NewsPaperText;
+        DayEndReport = TheStory.DayEndReport;
     }
+
+    public void PhoneIsRinging()
+    {
+        Phone.GetComponent<Image>().color = Color.red;
+        CalloftheDay++;
+        PhoneCall();
+    }
+
+    public void PhoneIdle()
+    {
+        Phone.GetComponent<Image>().color = Color.white;
+        ringPhone = false;
+    }
+
 
     public void NewProject()
     {
@@ -345,6 +356,15 @@ public class GameState : MonoBehaviour
         }
     }
 
+    public void pickUpPhone()
+    {
+        if (ringPhone)
+        {
+            PhoneScreen.GetComponent<PhoneScript>().visiblity();
+            PauseTimer();
+        }
+
+    }
     public void ProjectScreenCall()
     {
         //Events.CheckProjectStatus();
@@ -379,6 +399,7 @@ public class GameState : MonoBehaviour
     public void saveProject(int[] projectData)
     {
         projects[currentProject].UpdateTiledata(projectData);
+
     }
 
     public int[] returnTileData(int Id)
@@ -390,6 +411,7 @@ public class GameState : MonoBehaviour
     {
         while (true)
         {
+
             CoundownSeconds--;
             yield return new WaitForSeconds(1);
 
@@ -397,6 +419,16 @@ public class GameState : MonoBehaviour
             {
                 EndDay();
             }
+
+            if (CoundownSeconds == (daySeconds / 4) || CoundownSeconds == ((daySeconds / 4) * 3) || CoundownSeconds == daySeconds / 2)
+            {
+                ringPhone = true;
+                if (ringPhone)
+                {
+                    PhoneIsRinging();
+                }
+            }
+
             /*
             if(CoundownSeconds == (daySeconds / 2) && difficulty >= 3 && projects.Count > 10)
             {
@@ -434,33 +466,17 @@ public class GameState : MonoBehaviour
 
     }
 
-    public void NoticeControl()
-    {
-        
 
-
-    }
 
 
     IEnumerator NoticeDay()
     {
 
-        //int color1 = (int)Random.Range(1, 7);
-        //int color2 = (int)Random.Range(1, 7);
-
-
-        /*
-         if(color1 == color2)
-         {
-             int tempNum = Random.Range(2, 3);
-             color2 = Mathf.Clamp(color2 + tempNum, 1, 6);
-         }
-         */
 
 
         bool vaildPair = false;
         ColorPairs selectedPair = new ColorPairs(0, 0);
-        while (vaildPair == false) 
+        while (vaildPair == false)
         {
             int address = (int)Random.Range(0, NoticeColors.Length);
             selectedPair = NoticeColors[address];
@@ -513,7 +529,7 @@ public class GameState : MonoBehaviour
 
         //Debug.Log("next notice day is on " + noticeDay.ToString());
         //StartCoroutine(Daytimer());
-              
+
 
         yield return new WaitForSeconds(daySeconds + 1f);
     }

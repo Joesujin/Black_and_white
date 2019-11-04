@@ -33,6 +33,7 @@ public class Project
         this.projectId = _projectId;
         CreateQuestion(QuestionDifficulty);
 
+
         this.ProjectWorth = (_projectId * 10) + (QuestionDifficulty * 10);
         this.penalty = ProjectWorth + 20;
 
@@ -180,6 +181,15 @@ public class Project
         return isPass;
     }
 
+
+    //this is cheat code
+    public void cheatSheet()
+    {
+        for (int k = 0; k < QuestionData.Length; k++)
+        {
+            tileData[k] = decodedQuestionData[k];
+        }
+    }
     public void UpdateTiledata(int[] colorData)
     {
         for (int i = 0; i < colorData.Length; i++)

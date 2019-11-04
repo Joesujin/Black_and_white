@@ -49,4 +49,6 @@ public class Events
     public static Action ReportScreen;
 
     public static Action EndGame;
+
+    public static Action<int, string, string> PhoneCall;
 }

@@ -15,7 +15,7 @@ public class ReportScreen : MonoBehaviour
     private void Start()
     {
         RestartButton.SetActive(false);
-        visible = true;
+        visible = false;
         gameObject.SetActive(visible);
         MorningScreen.SetActive(isActive);
         Events.ReportScreen += visiblity;
@@ -46,7 +46,6 @@ public class ReportScreen : MonoBehaviour
 
     public void NewSScreen()
     {
-
         isActive = !isActive;
         MorningScreen.SetActive(isActive);
     }
