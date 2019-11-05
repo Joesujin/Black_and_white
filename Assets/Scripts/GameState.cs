@@ -237,7 +237,7 @@ public class GameState : MonoBehaviour
         //Cheat Code=================================================
         foreach (var project in projects)
         {
-            project.cheatSheet();
+            //project.cheatSheet();
         }
         //Cheat Code=================================================
 

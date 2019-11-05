@@ -89,7 +89,7 @@ public static class TheStory
         switch (Day)
         {
             case 0:
-                WifeNeeds = 500;
+                WifeNeeds = 400;
                 SamDialogues = "<size=200%>Hey Rookie... \n<size=100%>Sam Here..." +
                     "\nFound the Red Button yet? " +
                     "\nRemember,More Projects More Money," +
