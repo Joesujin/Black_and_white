@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class Life : MonoBehaviour
 {
@@ -11,7 +13,8 @@ public class Life : MonoBehaviour
     public float income;
     public float totalPenalty;
 
-    public Text LifeText;
+
+    public TextMeshProUGUI LifeText;
     public string temptext;
     
     public int noofCorrectproject;
@@ -47,7 +50,7 @@ public class Life : MonoBehaviour
         }
 
         
-        Money = Money - TomoExpense;
+        //Money = Money - TomoExpense;
 
         //TomoExpense = (int)Random.Range(100, Money);
         temptext = "Wallet = " + WalletMoney.ToString() + 
@@ -57,6 +60,6 @@ public class Life : MonoBehaviour
             "\nExpence = " + TomoExpense.ToString()+
             "\n" +
             "\nBalance =" + Money.ToString();
-        LifeText.text = temptext;
+        //LifeText.text = temptext;
     }
 }

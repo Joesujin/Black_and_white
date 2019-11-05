@@ -7,6 +7,7 @@ public static class TheStory
 
     public static string NewsPaperText;
     public static string DayEndReport;
+    public static int NumberoftotalCalls;
 
     public static string WifeDialogues;
     public static string WifeAccept;
@@ -31,6 +32,7 @@ public static class TheStory
                     "\n -<color=#009500>Green tick</color> is good,<color=#950000> Red cross</color> is bad</line-indent>" +
                     "\n\n<size=150%><i><b>All the best</i></b>";
                 DayEndReport = "End of Day 1";
+                NumberoftotalCalls = 2;
                 break;
             case 1:
                 NewsPaperText = "<size=200%>Massive meteore strikes again" +
@@ -40,6 +42,7 @@ public static class TheStory
                     "\n\n you can checkout those projects whenever you like and correct them" +
                     "\nKeep up the good work" +
                     "\n oh and look out for the notices";
+                NumberoftotalCalls = 2;
                 break;
             case 2:
                 NewsPaperText = "The meaning of everything changed now it has happened again. the swapping phenomenon" +
@@ -48,28 +51,34 @@ public static class TheStory
                     "\n they have no idea whats going on, But they always want to change the meaning of on thing to another" +
                     "\n so we need to keep our projects up to date." +
                     "\n\n you'll lose money for all the invalid projects you have.";
+                NumberoftotalCalls = 3;
                 break;
             case 3:
                 NewsPaperText = "People have started to lose their jobs again." +
                     "\nEvery working individual is advised to prioritize work to sustain in this society";
                 DayEndReport = "End of Day 3";
+                NumberoftotalCalls = 3;
                 break;
             case 4:
                 NewsPaperText = "Story line 5";
                 DayEndReport = "End of Day 4";
+                NumberoftotalCalls = 3;
                 break;
             case 5:
 
                 NewsPaperText = "Story line 6";
                 DayEndReport = "End of Day 5";
+                NumberoftotalCalls = 3;
                 break;
             case 6:
                 NewsPaperText = "Story line 7";
                 DayEndReport = "End of Day 6";
+                NumberoftotalCalls = 3;
                 break;
             case 7:
                 NewsPaperText = "Story line 8";
                 DayEndReport = "Judgement Day!!!";
+                NumberoftotalCalls = 3;
                 break;
         }
 
@@ -80,11 +89,26 @@ public static class TheStory
         switch (Day)
         {
             case 0:
-                SamDialogues = "Sam dialogue day 1";
-                SamAccept = "Accept";
-                WifeDialogues = " Wife dialogue day1";
-                WifeAccept = "Give - 500";
                 WifeNeeds = 500;
+                SamDialogues = "<size=200%>Hey Rookie... \n<size=100%>Sam Here..." +
+                    "\nFound the Red Button yet? " +
+                    "\nRemember,More Projects More Money," +
+                    "\nInvalid Projects will cost its penality" +
+                    "\n\nAnd also" +
+                    "\nThis phone only <b>recieves</b> calls" +
+                    "\nThe <b>Timer Stops</b> while on call" +
+                    "\n\nNOW GET BACK TO WORK...";
+                SamAccept = "Accept";
+                WifeDialogues = "<size=200%>Hey Honey... \n<size=100%>\n" +
+                    "I found your number on the phonebook" +
+                    "\nLike you said I looked up John " +
+                    "\nSad that he got fired...Which is good for us." +
+                    "\n\nSo How's Work?? \nDo you wanna go out for dinner??" +
+                    "\nWe can take betty to the carnival too" +
+                    "\nShe's been in her room ever since we arrived." +
+                    "\nLet's go celebrate your new job..." +
+                    "\n\nWhat do you say..??\n\n<i>( will Cost - " + WifeNeeds.ToString() + ")</i>";
+                WifeAccept = "Give - 500";
                 RonDialogues = "Ron dialogue day1";
                 RonAccept = "Give - 1000";
                 RonNeeds = 1000;

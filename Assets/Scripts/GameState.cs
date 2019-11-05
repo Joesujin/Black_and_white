@@ -12,6 +12,7 @@ public class GameState : MonoBehaviour
     public List<Project> projects = new List<Project>();
     public ColorPairs[] NoticeColors = new ColorPairs[15];
     public List<ColorPairs> UsedPairs = new List<ColorPairs>();
+    public List<QuestionSet> UsedTriplets = new List<QuestionSet>();
 
     public Dictionary<int, Color> DefaultColors = new Dictionary<int, Color>();
     public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
@@ -48,7 +49,7 @@ public class GameState : MonoBehaviour
     public int realdifficulty;
     public string DayEndReport;
 
-    public Text ScoreBoard;
+    public TextMeshProUGUI ScoreBoard;
     public Text NoticeText;
     string HistoryOfnotices;
 
@@ -78,11 +79,17 @@ public class GameState : MonoBehaviour
     public string Callertext;
     public string AcceptMessage;
     public int MoneyCost;
+    public int totalNumberofCalls;
 
     public TextMeshProUGUI LiveUpdate;
+    public Sprite[] Newspapers = new Sprite[8];
+    public GameObject NewsPaperImg;
+
+
 
     void Start()
     {
+        totalNumberofCalls = 2;
         GameDay = 0;
         CalloftheDay = 0;
         callerID = 1;
@@ -145,7 +152,7 @@ public class GameState : MonoBehaviour
 
 
         UpdateStory(GameDay);
-        
+
         projects.Clear();
         UsedPairs.Clear();
 
@@ -157,7 +164,7 @@ public class GameState : MonoBehaviour
         CalloftheDay = 0;
         CoundownSeconds = daySeconds;
         difficulty = 0;
-        gameObject.GetComponent<Life>().UpdateLifeStats();
+        //gameObject.GetComponent<Life>().UpdateLifeStats();
         //Events.ReportScreen();
         dayCount++;
         StartCoroutine(count);
@@ -223,15 +230,16 @@ public class GameState : MonoBehaviour
 
 
         string score = Score.ToString();
-        ScoreBoard.text = DayEndReport;
+        ScoreBoard.text = DayEndReport + LiveUpdate.text;
 
         pickedColor.GetComponent<Image>().color = SelectedColor;
 
-
+        //Cheat Code=================================================
         foreach (var project in projects)
         {
-            //project.cheatSheet();
+            project.cheatSheet();
         }
+        //Cheat Code=================================================
 
         int ProjectCount = projects.Count;
         int ValidProjects = 0;
@@ -250,14 +258,14 @@ public class GameState : MonoBehaviour
                 penalty += project.penalty;
             }
         }
-        int money = (int) gameObject.GetComponent<Life>().Money;
+        int money = (int)gameObject.GetComponent<Life>().Money;
 
         LiveUpdate.text = "No.of  Projects - " + ProjectCount.ToString() + " " +
             "\nValid Projects -" + ValidProjects.ToString() + " " +
             "\nPenalty - " + penalty.ToString() + "" +
             "\n<b>   Income -" + income.ToString() + " " +
             "\n   Bank balance -" + money.ToString() + " </b>";
-
+        StoryText.text = "<size=200%><b>END OF DAY " + dayCount.ToString() + "</b> \n\n\n<size=150%>" + LiveUpdate.text;
     }
 
     public void PhoneCall()
@@ -278,7 +286,7 @@ public class GameState : MonoBehaviour
             case 3:
                 callerID = 3;
                 Callertext = TheStory.RonDialogues;
-                AcceptMessage =  TheStory.RonAccept.ToString();
+                AcceptMessage = TheStory.RonAccept.ToString();
                 MoneyCost = TheStory.RonNeeds;
                 break;
         }
@@ -297,6 +305,7 @@ public class GameState : MonoBehaviour
         Events.ButtonCall += RecallProject;
         Events.ChangeColor += SelectedClrChange;
         Events.ColorId += SelectedClrIDChange;
+        Events.AddTriplet += AddUsedTriplets;
     }
 
     private void OnDisable()
@@ -305,6 +314,12 @@ public class GameState : MonoBehaviour
         Events.ButtonCall -= RecallProject;
         Events.ChangeColor -= SelectedClrChange;
         Events.ColorId -= SelectedClrIDChange;
+        Events.AddTriplet -= AddUsedTriplets;
+    }
+
+    public void AddUsedTriplets(QuestionSet questionSet)
+    {
+        UsedTriplets.Add(questionSet);
     }
 
     public void SelectedClrChange(Color clr)
@@ -326,8 +341,18 @@ public class GameState : MonoBehaviour
     {
         TheStory.StoryText(Day);
         TheStory.PhoneCalls(Day);
-        StoryText.text = TheStory.NewsPaperText;
+
+        if (Day > 7)
+        {
+            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[7];
+        }
+        else
+        {
+            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[Day];
+        }
+        //StoryText.text = TheStory.NewsPaperText;
         DayEndReport = TheStory.DayEndReport;
+        totalNumberofCalls = TheStory.NumberoftotalCalls;
     }
 
     public void PhoneIsRinging()
@@ -449,14 +474,29 @@ public class GameState : MonoBehaviour
                 EndDay();
             }
 
-            if (CoundownSeconds == (daySeconds / 4) || CoundownSeconds == ((daySeconds / 4) * 3) || CoundownSeconds == daySeconds / 2)
+            if (totalNumberofCalls == 2)
             {
-                ringPhone = true;
-                if (ringPhone)
+                if(CoundownSeconds == (daySeconds / 3) || CoundownSeconds == ((daySeconds / 3) * 2))
                 {
-                    PhoneIsRinging();
+                    ringPhone = true;
+                    if (ringPhone)
+                    {
+                        PhoneIsRinging();
+                    }
                 }
             }
+            if (totalNumberofCalls == 3)
+            {
+                if (CoundownSeconds == (daySeconds / 4) || CoundownSeconds == ((daySeconds / 4) * 3) || CoundownSeconds == daySeconds / 2)
+                {
+                    ringPhone = true;
+                    if (ringPhone)
+                    {
+                        PhoneIsRinging();
+                    }
+                }
+            }
+
 
             /*
             if(CoundownSeconds == (daySeconds / 2) && difficulty >= 3 && projects.Count > 10)

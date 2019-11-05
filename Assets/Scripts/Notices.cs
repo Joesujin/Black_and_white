@@ -103,7 +103,7 @@ public class Notices
                 break;
         }
 
-
+        this.NoticeMessage = "Colors Interchanged";
 
 
     }

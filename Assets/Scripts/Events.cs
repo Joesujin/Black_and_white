@@ -51,4 +51,6 @@ public class Events
     public static Action EndGame;
 
     public static Action<int, string, string> PhoneCall;
+
+    public static Action<QuestionSet> AddTriplet;
 }
