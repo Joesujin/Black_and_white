@@ -11,6 +11,8 @@ public class GameState : MonoBehaviour
 
     public Dictionary<int, Color> DefaultColors = new Dictionary<int, Color>();
     public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
+    public Dictionary<int, Color> tempColors = new Dictionary<int, Color>();
+
 
     public GameObject WhiteButton;
     public GameObject BlackButton;
@@ -62,6 +64,8 @@ public class GameState : MonoBehaviour
         foreach(int key in DefaultColors.Keys)
         {
             inGameColors.Add(key, DefaultColors[key]);
+            tempColors.Add(key, DefaultColors[key]);
+
         }
 
 
@@ -74,7 +78,7 @@ public class GameState : MonoBehaviour
     private void Update()
     {
 
-        Clockhand.transform.eulerAngles = new Vector3(0, 0, -Time.realtimeSinceStartup*12);
+        Clockhand.transform.eulerAngles = new Vector3(0, 0,-Time.realtimeSinceStartup);
        
         if (drawscreen.activeInHierarchy)
         {
@@ -103,6 +107,12 @@ public class GameState : MonoBehaviour
         
         if(GameDay >= noticeDay)
         {
+            tempColors.Clear();
+            foreach (int key in inGameColors.Keys)
+            {
+                tempColors.Add(key, inGameColors[key]);
+            }
+
             StartCoroutine(NoticeDay());
         }
         //noticeDay = 0;
@@ -225,6 +235,8 @@ public class GameState : MonoBehaviour
         {
             //StopCoroutine(Daytimer());
 
+            
+
             int color1 = Random.Range(1,Mathf.Clamp(difficulty,1,7));
             int color2 = Random.Range(1, Mathf.Clamp(difficulty, 1, 7));
 
@@ -241,9 +253,9 @@ public class GameState : MonoBehaviour
                 project.swapData(color1, color2);
             }
             notices.Add(notices1);
-            notices1.ChangecolorLooks();
+            //notices1.ChangecolorLooks();
             notices1.ChangecolorMeaning();
-            noticeDay += Random.Range(5, 10);
+            noticeDay += Random.Range(5, 6);
             int temp = noticeDay + GameDay;
 
             string tempString = notices1.NoticeMessage + "\n \n Next notice can be expected on \nDay -" + noticeDay.ToString();

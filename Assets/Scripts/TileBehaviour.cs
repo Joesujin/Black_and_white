@@ -74,25 +74,25 @@ public class TileBehaviour : MonoBehaviour
         switch (Colorid)
         {
             case 0:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
             case 1:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
             case 2:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
             case 3:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
             case 4:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
             case 5:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
             case 6:
-                this.changeColor(gameState.GetComponent<GameState>().inGameColors[Colorid]);
+                this.changeColor(gameState.GetComponent<GameState>().tempColors[Colorid]);
                 break;
         }
         GetComponent<SpriteRenderer>().color = selectedColor;
