@@ -60,7 +60,7 @@ public class TileBehaviour : MonoBehaviour
         this.colorChanged = true;
         this.ownColor = color_id;
         //iTween.ScaleTo(gameObject, new Vector3(1f, 1f, 0), 0.3f);
-        gameState.GetComponent<AudioSource>().Play();
+        //gameState.GetComponent<AudioSource>().Play();
     }
     
     private void OnMouseEnter()

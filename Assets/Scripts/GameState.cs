@@ -57,6 +57,7 @@ public class GameState : MonoBehaviour
     public Text NoticeText;
     string HistoryOfnotices;
     public bool isRebelious = false;
+    public bool isBroke = false;
     public int Rebel;
 
     public int CoundownSeconds;
@@ -101,7 +102,7 @@ public class GameState : MonoBehaviour
     public AudioClip tapWrong;
     public AudioClip PhoneRing;
 
-
+    public bool CheatON = false;
 
     void Start()
     {
@@ -254,7 +255,7 @@ public class GameState : MonoBehaviour
         Events.ReportScreen();
         gameObject.GetComponent<Life>().UpdateLifeStats();
 
-
+        
 
         for (int k = 0; k < totalNumberofCalls; k++)
         {
@@ -287,23 +288,30 @@ public class GameState : MonoBehaviour
         if (CallStatus.Count != 0)
         {
 
-                ExtraText.text = ExtraText.text + "\n\n<size=150%>Final Balance : " + money.ToString();
+            ExtraText.text = ExtraText.text + "\n\n<size=150%>Final Balance : " + money.ToString();
 
         }
 
 
         //GAME END STATE
-        if(Rebel == 20)
+
+        if (money <= 0)
         {
-            UpdateStory(6);
-            Events.EndGame();
+            isBroke = true;
+            if (Rebel == 20)
+            {
+                isRebelious = true;
+                UpdateStory(9);
+                Events.EndGame();
+            }
+            else
+            {
+                UpdateStory(7);
+                Events.EndGame();
+            }
         }
-        else if (money <= 0)
-        {
-            UpdateStory(7);
-            Events.EndGame();
-        }
-        
+
+
     }
 
     public void RestartGame()
@@ -324,9 +332,12 @@ public class GameState : MonoBehaviour
         pickedColor.GetComponent<Image>().color = SelectedColor;
 
         //Cheat Code=================================================
-        foreach (var project in projects)
+        if (CheatON)
         {
-            project.cheatSheet();
+            foreach (var project in projects)
+            {
+                project.cheatSheet();
+            }
         }
         //Cheat Code=================================================
 
@@ -451,13 +462,31 @@ public class GameState : MonoBehaviour
         TheStory.StoryText(Day);
         TheStory.PhoneCalls(Day);
 
-        if (Day > 7)
+        if (Day > 6)
         {
-            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[7];
+            if (isBroke)
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[7];
+            }
+            else
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[6];
+            }
         }
-        else
+        else if (Day <= 5)
         {
-            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[Day];
+            if (isRebelious)
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[8];
+            }
+            else
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[Day];
+            }
+        }
+        if (isRebelious)
+        {
+            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[8];
         }
         //StoryText.text = TheStory.NewsPaperText;
         DayEndReport = TheStory.DayEndReport;
@@ -476,7 +505,7 @@ public class GameState : MonoBehaviour
 
     IEnumerator PhoneRingTime()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(15);
         if (!PhonePicked)
         {
             DenyCall();

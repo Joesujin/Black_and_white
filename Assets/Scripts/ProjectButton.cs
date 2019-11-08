@@ -63,13 +63,14 @@ public class ProjectButton : MonoBehaviour
         {
             projectStatus = 1;
         }
-        if(isRebel)
-        {
-            projectStatus = 3;
-        }
-        else
+        else if(!ISPAss)
         {
             projectStatus = 2;
+        }
+
+        if (isRebel)
+        {
+            projectStatus = 3;
         }
 
 

@@ -214,7 +214,7 @@ public class Project
     {
         for (int k = 0; k < QuestionData.Length; k++)
         {
-            tileData[k] = RebelionData[k];
+            tileData[k] = decodedQuestionData[k];
         }
     }
     public void UpdateTiledata(int[] colorData)
