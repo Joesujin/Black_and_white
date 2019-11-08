@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Events 
 {
-    /*A CLASS FOR ALL THE E*/
+    /*A CLASS FOR ALL THE EVENTS*/
 
 
     public static Action<Color> ChangeColor;

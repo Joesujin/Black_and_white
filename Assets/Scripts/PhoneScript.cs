@@ -25,6 +25,7 @@ public class PhoneScript : MonoBehaviour
 
     public TextMeshProUGUI callText;
     public Text MoneytobeSpent;
+    public Text DenyMessage;
 
     void Start()
     {
@@ -48,7 +49,7 @@ public class PhoneScript : MonoBehaviour
 
     public void PhoneCall(int _callerId, string _calltext, string _moneyCost)
     {
-
+        DenyMessage.text = "Deny";
         CallerID = _callerId;
         callDialogue = _calltext;
         Money = _moneyCost;
@@ -67,5 +68,10 @@ public class PhoneScript : MonoBehaviour
 
         callText.text = callDialogue;
         MoneytobeSpent.text = Money;
+        if(CallerID == 1)
+        {
+            DenyMessage.text = Money;
+            MoneytobeSpent.text = "Right Sir";
+        }
     }
 }

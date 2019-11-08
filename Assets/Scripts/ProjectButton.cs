@@ -19,6 +19,7 @@ public class ProjectButton : MonoBehaviour
     public Sprite CorrectSprite;
     public Sprite IncorrectSptite;
     public Sprite NormalSprite;
+    public Sprite rebelSprite;
 
     private void Start()
     {
@@ -57,10 +58,14 @@ public class ProjectButton : MonoBehaviour
     {
 
         bool ISPAss =Gamemanager.GetComponent<GameState>().projects[projectId].CrossCheck();
-
+        bool isRebel = Gamemanager.GetComponent<GameState>().projects[projectId].RebelCheck();
         if (ISPAss)
         {
             projectStatus = 1;
+        }
+        if(isRebel)
+        {
+            projectStatus = 3;
         }
         else
         {
@@ -79,6 +84,10 @@ public class ProjectButton : MonoBehaviour
                 break;
             case 2:
                 gameObject.GetComponent<Image>().sprite = IncorrectSptite;
+                //gameObject.GetComponent<Image>().color = inCorrect;
+                break;
+            case 3:
+                gameObject.GetComponent<Image>().sprite = rebelSprite;
                 //gameObject.GetComponent<Image>().color = inCorrect;
                 break;
         }

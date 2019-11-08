@@ -24,9 +24,11 @@ public class Project
     bool buttonCreated = true;
 
     public bool isPass = false;
+    public bool isRebel = false;
 
     public int[] QuestionData = new int[25];
     public int[] decodedQuestionData = new int[25];
+    public int[] RebelionData;
 
 
 
@@ -40,6 +42,7 @@ public class Project
         this.penalty = ProjectWorth + 5;
 
         this.ProjectDetails = "Worth = " + this.ProjectWorth.ToString() + "\nPenalty =" + this.penalty.ToString();
+        this.RebelionData =  new int[] { 2,2,3,3,2,2,3,3,3,3,3,3,3,3,2,2,3,3,3,3,2,2,3,3,2};
     }
 
     public void CreateQuestion(int difficulty)
@@ -187,13 +190,31 @@ public class Project
         return isPass;
     }
 
+    public bool RebelCheck()
+    {
+        for (int k = 0; k < RebelionData.Length; k++)
+        {
+            if (RebelionData[k] == tileData[k])
+            {
+                isRebel = true;
+            }
+            else
+            {
+                isRebel = false;
+                break;
+            }
+
+        }
+        return isRebel;
+    }
+
 
     //this is cheat code
     public void cheatSheet()
     {
         for (int k = 0; k < QuestionData.Length; k++)
         {
-            tileData[k] = decodedQuestionData[k];
+            tileData[k] = RebelionData[k];
         }
     }
     public void UpdateTiledata(int[] colorData)
