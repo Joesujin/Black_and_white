@@ -3293,6 +3293,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1700896600}
+        m_MethodName: ResumeTimer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &877541283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7208,6 +7219,7 @@ MonoBehaviour:
   ScoreBoard: {fileID: 400834585}
   NoticeText: {fileID: 1680141647}
   isRebelious: 0
+  isBroke: 0
   Rebel: 0
   CoundownSeconds: 0
   CountdownTextPs: {fileID: 614005700}
@@ -7249,6 +7261,7 @@ MonoBehaviour:
   tapRight: {fileID: 8300000, guid: d224840818649714584d85540a626f99, type: 3}
   tapWrong: {fileID: 8300000, guid: 869942e48be6d6c4c9a257a941e9ef84, type: 3}
   PhoneRing: {fileID: 0}
+  CheatON: 0
 --- !u!114 &1700896601
 MonoBehaviour:
   m_ObjectHideFlags: 0

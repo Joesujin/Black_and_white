@@ -79,6 +79,7 @@ public class GameState : MonoBehaviour
 
 
     public bool ringPhone;
+
     public GameObject Phone;
     public GameObject PhoneIndicator;
     public GameObject PhoneScreen;
@@ -178,6 +179,10 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+
+        PhoneIndicator.GetComponent<Image>().color = Color.white;
+
+
         DayendMoney = (int)gameObject.GetComponent<Life>().Money;
 
         if (GameDay >= 2)
@@ -255,7 +260,7 @@ public class GameState : MonoBehaviour
         Events.ReportScreen();
         gameObject.GetComponent<Life>().UpdateLifeStats();
 
-        
+
 
         for (int k = 0; k < totalNumberofCalls; k++)
         {
@@ -501,11 +506,12 @@ public class GameState : MonoBehaviour
         PhoneCall();
         StartCoroutine(PhoneRingTime());
         PhonePicked = false;
+
     }
 
     IEnumerator PhoneRingTime()
     {
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(10);
         if (!PhonePicked)
         {
             DenyCall();
@@ -525,6 +531,7 @@ public class GameState : MonoBehaviour
     {
         CallStatus.Add(true);
         PhonePicked = true;
+
     }
 
     public void DenyCall()
@@ -709,7 +716,7 @@ public class GameState : MonoBehaviour
     {
 
 
-
+        PauseTimer();
         bool vaildPair = false;
         ColorPairs selectedPair = new ColorPairs(0, 0);
         while (vaildPair == false)
