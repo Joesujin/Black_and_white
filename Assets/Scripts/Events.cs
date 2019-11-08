@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Events 
 {
-    /*A CLASS FOR ALL THE E*/
+    /*A CLASS FOR ALL THE EVENTS*/
 
 
     public static Action<Color> ChangeColor;
@@ -49,4 +49,8 @@ public class Events
     public static Action ReportScreen;
 
     public static Action EndGame;
+
+    public static Action<int, string, string> PhoneCall;
+
+    public static Action<QuestionSet> AddTriplet;
 }

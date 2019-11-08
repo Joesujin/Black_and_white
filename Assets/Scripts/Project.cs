@@ -14,17 +14,21 @@ public class Project
     int QCol3;
 
     public List<QuestionSet> PossibleQuestionPool = new List<QuestionSet>();
+    public List<QuestionSet> usedTriplets = new List<QuestionSet>();
     public int ProjectWorth;
     public int penalty;
     public string ProjectDetails;
+    public GameObject Gamemanager;
 
 
     bool buttonCreated = true;
 
     public bool isPass = false;
+    public bool isRebel = false;
 
     public int[] QuestionData = new int[25];
     public int[] decodedQuestionData = new int[25];
+    public int[] RebelionData;
 
 
 
@@ -32,11 +36,13 @@ public class Project
     {
         this.projectId = _projectId;
         CreateQuestion(QuestionDifficulty);
-
-        this.ProjectWorth = (_projectId * 10) + (QuestionDifficulty * 10);
-        this.penalty = ProjectWorth + 20;
+        Gamemanager = GameObject.Find("GameManager");
+        this.usedTriplets = Gamemanager.GetComponent<GameState>().UsedTriplets;
+        this.ProjectWorth = (_projectId * 10) + (QuestionDifficulty * 5);
+        this.penalty = ProjectWorth + 5;
 
         this.ProjectDetails = "Worth = " + this.ProjectWorth.ToString() + "\nPenalty =" + this.penalty.ToString();
+        this.RebelionData =  new int[] { 2,2,3,3,2,2,3,3,3,3,3,3,3,3,2,2,3,3,3,3,2,2,3,3,2};
     }
 
     public void CreateQuestion(int difficulty)
@@ -44,12 +50,11 @@ public class Project
 
         if (difficulty > 3)
         {
-
-            for (int i = 1; i <= difficulty-1; i++)
+            for (int i = 1; i <= difficulty - 1; i++)
             {
-                for (int j = 1; j <= difficulty-1; j++)
+                for (int j = 1; j <= difficulty - 1; j++)
                 {
-                    for (int k = 1; k <= difficulty-1; k++)
+                    for (int k = 1; k <= difficulty - 1; k++)
                     {
                         if (i != j && j != k && i != k)
                         {
@@ -67,9 +72,9 @@ public class Project
                                                 pairExists = true;
                                             }
                                         }
-                                        else if(set.Color2 == k)
+                                        else if (set.Color2 == k)
                                         {
-                                            if(set.Color3 == j)
+                                            if (set.Color3 == j)
                                             {
                                                 pairExists = true;
                                             }
@@ -85,9 +90,9 @@ public class Project
                                                 pairExists = true;
                                             }
                                         }
-                                        if(set.Color2 == i)
+                                        if (set.Color2 == i)
                                         {
-                                            if(set.Color3 == k)
+                                            if (set.Color3 == k)
                                             {
                                                 pairExists = true;
                                             }
@@ -113,7 +118,7 @@ public class Project
                                 }
                             }
 
-                            if(pairExists == false)
+                            if (pairExists == false)
                             {
                                 PossibleQuestionPool.Add(new QuestionSet(i, j, k));
                             }
@@ -122,11 +127,15 @@ public class Project
                 }
             }
 
+
             int setSelector = Random.Range(0, PossibleQuestionPool.Count);
             QCol1 = PossibleQuestionPool[setSelector].Color1;
             QCol2 = PossibleQuestionPool[setSelector].Color2;
             QCol3 = PossibleQuestionPool[setSelector].Color3;
+            QuestionSet temp = new QuestionSet(QCol1, QCol2, QCol3);
 
+
+            Events.AddTriplet(temp);
 
             for (int k = 0; k < QuestionData.Length; k++)
             {
@@ -181,6 +190,33 @@ public class Project
         return isPass;
     }
 
+    public bool RebelCheck()
+    {
+        for (int k = 0; k < RebelionData.Length; k++)
+        {
+            if (RebelionData[k] == tileData[k])
+            {
+                isRebel = true;
+            }
+            else
+            {
+                isRebel = false;
+                break;
+            }
+
+        }
+        return isRebel;
+    }
+
+
+    //this is cheat code
+    public void cheatSheet()
+    {
+        for (int k = 0; k < QuestionData.Length; k++)
+        {
+            tileData[k] = decodedQuestionData[k];
+        }
+    }
     public void UpdateTiledata(int[] colorData)
     {
         for (int i = 0; i < colorData.Length; i++)
@@ -237,18 +273,5 @@ public class Project
         }
     }
 
-    [System.Serializable]
-    public class QuestionSet
-    {
-        public int Color1;
-        public int Color2;
-        public int Color3;
 
-        public QuestionSet(int _c1, int _c2, int _c3)
-        {
-            Color1 = _c1;
-            Color2 = _c2;
-            Color3 = _c3;
-        }
-    }
 }

@@ -44,7 +44,7 @@ public class NoticeScreen : MonoBehaviour
         img1.GetComponent<Image>().color = _c1;
         img2.GetComponent<Image>().color = _c2;
 
-        noticeText.text = tempText;
+        //noticeText.text = tempText;
     } 
 
     public void closeNoticeScreen()

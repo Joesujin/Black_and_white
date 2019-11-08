@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class TileBehaviour : MonoBehaviour
@@ -21,7 +22,7 @@ public class TileBehaviour : MonoBehaviour
     public int spriteSelection;
 
     bool colorChanged;
-
+    public AudioSource taptap;
 
 
     private void OnEnable()
@@ -59,6 +60,7 @@ public class TileBehaviour : MonoBehaviour
         this.colorChanged = true;
         this.ownColor = color_id;
         //iTween.ScaleTo(gameObject, new Vector3(1f, 1f, 0), 0.3f);
+        //gameState.GetComponent<AudioSource>().Play();
     }
     
     private void OnMouseEnter()
@@ -73,6 +75,7 @@ public class TileBehaviour : MonoBehaviour
             this.colorChanged = true;
             this.ownColor = color_id;
             //iTween.ScaleTo(gameObject, new Vector3(1f, 1f, 0), 0.3f);
+
 
         }
     }
