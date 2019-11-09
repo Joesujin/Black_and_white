@@ -67,6 +67,7 @@ public class GameState : MonoBehaviour
     //public Text StoryText;
     public TextMeshProUGUI StoryText;
     public Text Projectdetails;
+    public GameObject EndlessText;
 
     public Color SelectedColor;
     public int SelectedColorID;
@@ -235,6 +236,11 @@ public class GameState : MonoBehaviour
     public void StartDay()
     {
 
+        if (dayCount > 7)
+        {
+            EndlessText.SetActive(true);
+            Events.Endless();
+        }
         PhoneIndicator.GetComponent<Image>().color = Color.white;
 
 
@@ -537,7 +543,7 @@ public class GameState : MonoBehaviour
     IEnumerator PhoneRingTime()
     {
         Debug.Log("before ringTimeUP - Ienumerator");
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(25);
         Debug.Log("After ringTimeUP - Ienumerator");
 
         if (!PhonePicked)

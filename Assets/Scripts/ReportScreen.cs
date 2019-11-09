@@ -20,6 +20,7 @@ public class ReportScreen : MonoBehaviour
         MorningScreen.SetActive(isActive);
         Events.ReportScreen += visiblity;
         Events.EndGame += DisableStartDayButton;
+        Events.Endless += ActivateReset;
     }
 
   
@@ -28,6 +29,8 @@ public class ReportScreen : MonoBehaviour
     {
         Events.ReportScreen -= visiblity;
         Events.EndGame -= DisableStartDayButton;
+        Events.Endless -= ActivateReset;
+
     }
 
 
@@ -44,6 +47,10 @@ public class ReportScreen : MonoBehaviour
         RestartButton.SetActive(true);
     }
 
+    public void ActivateReset()
+    {
+        RestartButton.SetActive(true);
+    }
     public void NewSScreen()
     {
         isActive = !isActive;

@@ -53,4 +53,6 @@ public class Events
     public static Action<int, string, string> PhoneCall;
 
     public static Action<QuestionSet> AddTriplet;
+
+    public static Action Endless;
 }

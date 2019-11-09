@@ -42,7 +42,7 @@ public class Project
         this.penalty = ProjectWorth + 5;
 
         this.ProjectDetails = "Worth = " + this.ProjectWorth.ToString() + "\nPenalty =" + this.penalty.ToString();
-        this.RebelionData =  new int[] { 2,2,3,3,2,2,3,3,3,3,3,3,3,3,2,2,3,3,3,3,2,2,3,3,2};
+        this.RebelionData =  new int[] { 2,2,3,3,3,2,3,3,3,3,3,3,3,3,2,2,3,3,3,3,2,2,3,3,3};
     }
 
     public void CreateQuestion(int difficulty)
