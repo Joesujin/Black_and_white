@@ -7,7 +7,7 @@ public class ReportScreen : MonoBehaviour
     /*THIS ENABLES AND DISABLES DRAWING CANVAS*/
 
     public bool visible;
-    public GameObject StartDayButton;
+    public GameObject StartButton;
     public GameObject RestartButton;
     public GameObject MorningScreen;
     bool isActive =true;
@@ -40,7 +40,7 @@ public class ReportScreen : MonoBehaviour
 
     public void DisableStartDayButton()
     {
-        StartDayButton.SetActive(false);
+        StartButton.SetActive(false);
         RestartButton.SetActive(true);
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Audio;
+
 
 [System.Serializable]
 public class GameState : MonoBehaviour
@@ -16,6 +18,8 @@ public class GameState : MonoBehaviour
 
     public Dictionary<int, Color> DefaultColors = new Dictionary<int, Color>();
     public Dictionary<int, Color> inGameColors = new Dictionary<int, Color>();
+
+    public GameObject CameraMain;
 
     public GameObject WhiteButton;
     public GameObject BlackButton;
@@ -52,6 +56,9 @@ public class GameState : MonoBehaviour
     public TextMeshProUGUI ScoreBoard;
     public Text NoticeText;
     string HistoryOfnotices;
+    public bool isRebelious = false;
+    public bool isBroke = false;
+    public int Rebel;
 
     public int CoundownSeconds;
     public Text CountdownTextPs;
@@ -72,7 +79,9 @@ public class GameState : MonoBehaviour
 
 
     public bool ringPhone;
+
     public GameObject Phone;
+    public GameObject PhoneIndicator;
     public GameObject PhoneScreen;
     public int CalloftheDay;
     public int callerID;
@@ -80,15 +89,25 @@ public class GameState : MonoBehaviour
     public string AcceptMessage;
     public int MoneyCost;
     public int totalNumberofCalls;
+    public List<bool> CallStatus = new List<bool>();
+    public bool PhonePicked;
 
     public TextMeshProUGUI LiveUpdate;
+    public TextMeshProUGUI ExtraText;
     public Sprite[] Newspapers = new Sprite[8];
     public GameObject NewsPaperImg;
+    public int DayendMoney;
 
 
+    public AudioClip tapRight;
+    public AudioClip tapWrong;
+    public AudioClip PhoneRing;
+
+    public bool CheatON = false;
 
     void Start()
     {
+        PhonePicked = false;
         totalNumberofCalls = 2;
         GameDay = 0;
         CalloftheDay = 0;
@@ -160,6 +179,17 @@ public class GameState : MonoBehaviour
 
     public void StartDay()
     {
+
+        PhoneIndicator.GetComponent<Image>().color = Color.white;
+
+
+        DayendMoney = (int)gameObject.GetComponent<Life>().Money;
+
+        if (GameDay >= 2)
+        {
+            totalNumberofCalls = 3;
+        }
+        CallStatus.Clear();
         ringPhone = false;
         CalloftheDay = 0;
         CoundownSeconds = daySeconds;
@@ -173,14 +203,28 @@ public class GameState : MonoBehaviour
         {
             StartCoroutine(NoticeDay());
         }
+        ExtraText.text = null;
     }
 
     public void EndDay()
     {
+        foreach (var project in projects)
+        {
+            if (project.isPass)
+            {
+                DayendMoney = DayendMoney + project.ProjectWorth;
+            }
+            else if (!project.isPass)
+            {
+                DayendMoney = DayendMoney - project.penalty;
+            }
+        }
+
         if (UsedPairs.Count == 3)
         {
             UsedPairs.Clear();
         }
+
         GameDay++;
         if (CoundownSeconds > 1)
         {
@@ -195,7 +239,7 @@ public class GameState : MonoBehaviour
         }
 
         StopAllCoroutines();
-
+        Rebel = 0;
         Score = 0;
         foreach (Project project in projects)
         {
@@ -204,22 +248,80 @@ public class GameState : MonoBehaviour
             {
                 Score++;
             }
+            if (project.isRebel)
+            {
+                Rebel++;
+            }
+
         }
 
 
         UpdateStory(GameDay);
         Events.ReportScreen();
         gameObject.GetComponent<Life>().UpdateLifeStats();
-        //GAME END STATE
-        if (gameObject.GetComponent<Life>().Money <= 0)
+
+
+
+        for (int k = 0; k < totalNumberofCalls; k++)
         {
-            UpdateStory(7);
-            Events.EndGame();
+            if (CallStatus.Count != 0)
+            {
+                if (CallStatus[k] == true)
+                {
+                    if (k == 1)
+                    {
+                        if (dayCount != 2)
+                        {
+                            ExtraText.text = ExtraText.text + "<size=150%>\n\nWife : " + TheStory.WifeNeeds;
+                            gameObject.GetComponent<Life>().DeductMoney(TheStory.WifeNeeds);
+                        }
+                        else if (dayCount == 2)
+                        {
+                            ExtraText.text = ExtraText.text + "<size=150%>\nRon : " + TheStory.RonNeeds;
+                            gameObject.GetComponent<Life>().DeductMoney(TheStory.RonNeeds);
+                        }
+                    }
+                    if (k == 2)
+                    {
+                        ExtraText.text = ExtraText.text + "<size=150%>\nRon : " + TheStory.RonNeeds;
+                        gameObject.GetComponent<Life>().DeductMoney(TheStory.RonNeeds);
+                    }
+                }
+            }
         }
+        int money = (int)gameObject.GetComponent<Life>().Money;
+        if (CallStatus.Count != 0)
+        {
+
+            ExtraText.text = ExtraText.text + "\n\n<size=150%>Final Balance : " + money.ToString();
+
+        }
+
+
+        //GAME END STATE
+
+        if (money <= 0)
+        {
+            isBroke = true;
+            if (Rebel == 20)
+            {
+                isRebelious = true;
+                UpdateStory(9);
+                Events.EndGame();
+            }
+            else
+            {
+                UpdateStory(7);
+                Events.EndGame();
+            }
+        }
+
+
     }
 
     public void RestartGame()
     {
+        StopAllCoroutines();
         SceneManager.LoadScene("7DaysScene", LoadSceneMode.Single);
     }
 
@@ -235,12 +337,29 @@ public class GameState : MonoBehaviour
         pickedColor.GetComponent<Image>().color = SelectedColor;
 
         //Cheat Code=================================================
-        foreach (var project in projects)
+        if (CheatON)
         {
-            //project.cheatSheet();
+            foreach (var project in projects)
+            {
+                project.cheatSheet();
+            }
         }
         //Cheat Code=================================================
 
+        LiveUpdate.text = LiveUpdatestring();
+        StoryText.text = "<size=200%><b>DAY " + dayCount.ToString() + " Summary</b> \n\n\n<size=150%>" + LiveUpdate.text;
+        if (SelectedColorID == 0)
+        {
+            gameObject.GetComponent<AudioSource>().clip = tapWrong;
+        }
+        else
+        {
+            gameObject.GetComponent<AudioSource>().clip = tapRight;
+        }
+    }
+
+    public string LiveUpdatestring()
+    {
         int ProjectCount = projects.Count;
         int ValidProjects = 0;
         int income = 0;
@@ -258,18 +377,23 @@ public class GameState : MonoBehaviour
                 penalty += project.penalty;
             }
         }
-        int money = (int)gameObject.GetComponent<Life>().Money;
+        //int money = (int)gameObject.GetComponent<Life>().Money;
 
-        LiveUpdate.text = "No.of  Projects - " + ProjectCount.ToString() + " " +
-            "\nValid Projects -" + ValidProjects.ToString() + " " +
-            "\nPenalty - " + penalty.ToString() + "" +
-            "\n<b>   Income -" + income.ToString() + " " +
-            "\n   Bank balance -" + money.ToString() + " </b>";
-        StoryText.text = "<size=200%><b>END OF DAY " + dayCount.ToString() + "</b> \n\n\n<size=150%>" + LiveUpdate.text;
+        string text = "No.of  Projects : " + ProjectCount.ToString() + " " +
+            "\nValid Projects :" + ValidProjects.ToString() + " " +
+            "\nPenalty : " + penalty.ToString() + "" +
+            "\n<b>Income :" + income.ToString() + " " +
+            "\nBank balance :" + DayendMoney.ToString() + " </b>";
+        return (text);
     }
 
     public void PhoneCall()
     {
+        if (dayCount == 2 && CalloftheDay == 2)
+        {
+            CalloftheDay = 3;
+        }
+
         switch (CalloftheDay)
         {
             case 1:
@@ -297,6 +421,7 @@ public class GameState : MonoBehaviour
     {
         Events.CheckProjectStatus();
     }
+
 
 
     private void OnEnable()
@@ -342,30 +467,77 @@ public class GameState : MonoBehaviour
         TheStory.StoryText(Day);
         TheStory.PhoneCalls(Day);
 
-        if (Day > 7)
+        if (Day > 6)
         {
-            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[7];
+            if (isBroke)
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[7];
+            }
+            else
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[6];
+            }
         }
-        else
+        else if (Day <= 5)
         {
-            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[Day];
+            if (isRebelious)
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[8];
+            }
+            else
+            {
+                NewsPaperImg.GetComponent<Image>().sprite = Newspapers[Day];
+            }
+        }
+        if (isRebelious)
+        {
+            NewsPaperImg.GetComponent<Image>().sprite = Newspapers[8];
         }
         //StoryText.text = TheStory.NewsPaperText;
         DayEndReport = TheStory.DayEndReport;
-        totalNumberofCalls = TheStory.NumberoftotalCalls;
+        //totalNumberofCalls = TheStory.NumberoftotalCalls;
     }
 
     public void PhoneIsRinging()
     {
-        Phone.GetComponent<Image>().color = Color.red;
+        PhoneIndicator.GetComponent<Image>().color = Color.red;
+        CameraMain.GetComponent<AudioSource>().Play();
         CalloftheDay++;
         PhoneCall();
+        StartCoroutine(PhoneRingTime());
+        PhonePicked = false;
+
     }
 
+    IEnumerator PhoneRingTime()
+    {
+        yield return new WaitForSeconds(10);
+        if (!PhonePicked)
+        {
+            DenyCall();
+        }
+        PhoneIdle();
+    }
     public void PhoneIdle()
     {
-        Phone.GetComponent<Image>().color = Color.white;
+        PhoneIndicator.GetComponent<Image>().color = Color.white;
+        CameraMain.GetComponent<AudioSource>().Stop();
+
         ringPhone = false;
+    }
+
+
+    public void acceptCall()
+    {
+        CallStatus.Add(true);
+        PhonePicked = true;
+
+    }
+
+    public void DenyCall()
+    {
+        CallStatus.Add(false);
+
     }
 
 
@@ -474,29 +646,31 @@ public class GameState : MonoBehaviour
                 EndDay();
             }
 
-            if (totalNumberofCalls == 2)
+            if (dayCount < 6)
             {
-                if(CoundownSeconds == (daySeconds / 3) || CoundownSeconds == ((daySeconds / 3) * 2))
+                if (totalNumberofCalls == 2)
                 {
-                    ringPhone = true;
-                    if (ringPhone)
+                    if (CoundownSeconds == (daySeconds / 3) || CoundownSeconds == ((daySeconds / 3) * 2))
                     {
-                        PhoneIsRinging();
+                        ringPhone = true;
+                        if (ringPhone)
+                        {
+                            PhoneIsRinging();
+                        }
+                    }
+                }
+                if (totalNumberofCalls == 3)
+                {
+                    if (CoundownSeconds == (daySeconds / 4) || CoundownSeconds == ((daySeconds / 4) * 3) || CoundownSeconds == daySeconds / 2)
+                    {
+                        ringPhone = true;
+                        if (ringPhone)
+                        {
+                            PhoneIsRinging();
+                        }
                     }
                 }
             }
-            if (totalNumberofCalls == 3)
-            {
-                if (CoundownSeconds == (daySeconds / 4) || CoundownSeconds == ((daySeconds / 4) * 3) || CoundownSeconds == daySeconds / 2)
-                {
-                    ringPhone = true;
-                    if (ringPhone)
-                    {
-                        PhoneIsRinging();
-                    }
-                }
-            }
-
 
             /*
             if(CoundownSeconds == (daySeconds / 2) && difficulty >= 3 && projects.Count > 10)
@@ -542,7 +716,7 @@ public class GameState : MonoBehaviour
     {
 
 
-
+        PauseTimer();
         bool vaildPair = false;
         ColorPairs selectedPair = new ColorPairs(0, 0);
         while (vaildPair == false)

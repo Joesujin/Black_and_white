@@ -137,9 +137,10 @@ MonoBehaviour:
   projectStatus: 0
   Correct: {r: 0, g: 0, b: 0, a: 0}
   inCorrect: {r: 0, g: 0, b: 0, a: 0}
-  CorrectSprite: {fileID: 0}
-  IncorrectSptite: {fileID: 0}
-  NormalSprite: {fileID: 0}
+  CorrectSprite: {fileID: 21300000, guid: 3b6bd066c05ed664ba21f0e3491ddd67, type: 3}
+  IncorrectSptite: {fileID: 21300000, guid: 5a69ec6e3115c414c95a664a5b7d8675, type: 3}
+  NormalSprite: {fileID: 21300000, guid: 93146d6f2cea5c64893cf7eb3d5e60f2, type: 3}
+  rebelSprite: {fileID: 21300000, guid: 2b35d792a73bc1a47b96ff8fbb2ab50d, type: 3}
 --- !u!1 &1635637509310939820
 GameObject:
   m_ObjectHideFlags: 0

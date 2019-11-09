@@ -62,4 +62,9 @@ public class Life : MonoBehaviour
             "\nBalance =" + Money.ToString();
         //LifeText.text = temptext;
     }
+
+    public void DeductMoney(int _amount)
+    {
+        Money = Money - _amount;
+    }
 }
